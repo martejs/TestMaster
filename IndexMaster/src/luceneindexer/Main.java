@@ -15,6 +15,7 @@ import luceneindexer.files.LuceneWriter;
 public class Main {
 
 	public static void main(String[] args) {
+		//hEllo Marte
 		System.out.println("Hello world");
 		//Open the file of OWL for reading
 //		FileOpener fOpener = new FileOpener("shortSample.ttl");
