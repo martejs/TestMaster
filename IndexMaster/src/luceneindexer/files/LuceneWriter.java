@@ -9,9 +9,11 @@ import luceneindexer.data.LongAbstract;
 import luceneindexer.data.ShortAbstract;
 
 import org.apache.lucene.analysis.TokenStream;
+import org.apache.lucene.analysis.Tokenizer;
 import org.apache.lucene.analysis.core.StopAnalyzer;
 import org.apache.lucene.analysis.core.StopFilter;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.analysis.standard.StandardFilter;
 import org.apache.lucene.analysis.standard.StandardTokenizer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.document.Document;
@@ -28,7 +30,7 @@ public class LuceneWriter {
     
     String pathToIndex = "";
     IndexWriter indexWriter = null;
-    StandardAnalyzer analyzer = new StandardAnalyzer(Version.LUCENE_44);
+    StandardAnalyzer analyzer = new StandardAnalyzer(Version.LUCENE_45);
 
     public LuceneWriter() {
     }
@@ -51,7 +53,7 @@ public class LuceneWriter {
             
             
             //Create an index writer configuration. Same thing here with the index version
-            IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_44, analyzer);
+            IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_45, analyzer);
             
             //we are always going to overwrite the index that is currently in the directory
             iwc.setOpenMode(OpenMode.CREATE);
@@ -125,22 +127,32 @@ public class LuceneWriter {
     
     
     public void removeStopWords(String sentence){
-    	TokenStream ts = new StandardTokenizer(Version.LUCENE_44, new StringReader(sentence));
+
+    	Tokenizer tokenizer = new StandardTokenizer(Version.LUCENE_45, new StringReader(sentence));
+    	final StandardFilter standardFilter = new StandardFilter(Version.LUCENE_45, tokenizer);
+    	final StopFilter stopFilter = new StopFilter(Version.LUCENE_45, standardFilter, StopAnalyzer.ENGLISH_STOP_WORDS_SET);
+    	final CharTermAttribute charTermAttribute = tokenizer.addAttribute(CharTermAttribute.class);
+    	
     	StringBuilder sb = new StringBuilder();
-    	ts = new StopFilter(Version.LUCENE_44, ts, analyzer.STOP_WORDS_SET);
-    	CharTermAttribute token = ts.getAttribute(CharTermAttribute.class);
+    	
     	try {
-			while(ts.incrementToken()){
-				if(sb.length()>0){
-					sb.append(" ");
-				}
-				sb.append(token.toString());
-				
+			stopFilter.reset();
+			
+			while(stopFilter.incrementToken()){				
+				if (sb.length() > 0) {
+                    sb.append(" ");
+                }
+				final String token = charTermAttribute.toString().toString();
+				sb.append(token);
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			System.out.println("We had a problem" + e.getClass()+ "::" + e.getLocalizedMessage());
+			e.printStackTrace();
 		}
+    	
+    	
+    	
+    	
     	
     }
     

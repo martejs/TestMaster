@@ -72,7 +72,6 @@ public class Main {
 				String line;
 
 				while((line = breader.readLine()) != null){
-
 					ShortAbstract shortAbstract = new ShortAbstract();
 						if(line.contains("comment")){
 							shortAbstract.setResource(line.substring(1, (line.indexOf(">"))));

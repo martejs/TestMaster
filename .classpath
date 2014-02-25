@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="IndexMaster/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/Users/mathilof/Documents/Master/lucene-4.5.1-jar/analysis/common/lucene-analyzers-common-4.5.1.jar"/>
+	<classpathentry kind="lib" path="/Users/mathilof/Documents/Master/lucene-4.5.1-jar/core/lucene-core-4.5.1.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://lucene.apache.org/core/4_5_1/core"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/mathilof/Documents/Master/lucene-4.5.1-jar/demo/lucene-demo-4.5.1.jar"/>
+	<classpathentry kind="lib" path="/Users/mathilof/Documents/Master/lucene-4.5.1-jar/queryparser/lucene-queryparser-4.5.1.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
