@@ -15,53 +15,52 @@ import luceneindexer.files.LuceneWriter;
 public class Main {
 
 	public static void main(String[] args) {
-		//hEllo Marte
 		System.out.println("Hello world");
 		//Open the file of OWL for reading
-//		FileOpener fOpener = new FileOpener("shortSample.ttl");
+		FileOpener fOpener = new FileOpener("shortSample.ttl");
 		FileOpener shortOpener = new FileOpener("shortSample.ttl");
-//		FileOpener longOpener = new FileOpener("long_abstracts_en.ttl");
+		FileOpener longOpener = new FileOpener("long_abstracts_en.ttl");
 
 		//Create the object for writing
-//		LuceneWriter luceneWriter = new LuceneWriter("indexDir");
+		LuceneWriter luceneWriter = new LuceneWriter("indexDir");
 		LuceneWriter shortWriter = new LuceneWriter("indexShort");
-//		LuceneWriter longWriter = new LuceneWriter("indexLong");
+		LuceneWriter longWriter = new LuceneWriter("indexLong");
 
-//		try {
-//
-//			//first see if we can open a directory for writing
-//			if (luceneWriter.openIndex()){
-//				//get a buffered reader handle to the file
-//				BufferedReader breader = new BufferedReader(fOpener.getFileForReading());
-//				//loop through the file line by line and parse
-//				String line;
-//
-//				while((line = breader.readLine()) != null){
-//
-//					DBpedia dBpedia = new DBpedia();
-//						if(line.contains("label")){
-//							dBpedia.setResource(line.substring(1, (line.indexOf(">"))));
-//							dBpedia.setLabel(line.substring(line.indexOf("label")+ 8));
-//							luceneWriter.addDBpedia(dBpedia);
-//						}
-//				}
-//
-//			} else {
-//				System.out.println("We had a problem opening the directory for writing");
-//			}
-//
-//
-//		} 
-//		catch (Exception e) {
-//			System.out.println("Threw exception " + e.getClass() + " :: " + e.getMessage());
-//
-//		} 
-//		finally {
-//			//close out the index and release the lock on the file
-//			luceneWriter.finish();
-//		}
+		try {
+
+			//first see if we can open a directory for writing
+			if (luceneWriter.openIndex()){
+				//get a buffered reader handle to the file
+				BufferedReader breader = new BufferedReader(fOpener.getFileForReading());
+				//loop through the file line by line and parse
+				String line;
+
+				while((line = breader.readLine()) != null){
+
+					DBpedia dBpedia = new DBpedia();
+						if(line.contains("label")){
+							dBpedia.setResource(line.substring(1, (line.indexOf(">"))));
+							dBpedia.setLabel(line.substring(line.indexOf("label")+ 8));
+							luceneWriter.addDBpedia(dBpedia);
+						}
+				}
+
+			} else {
+				System.out.println("We had a problem opening the directory for writing");
+			}
+
+
+		} 
+		catch (Exception e) {
+			System.out.println("Threw exception " + e.getClass() + " :: " + e.getMessage());
+
+		} 
+		finally {
+			//close out the index and release the lock on the file
+			luceneWriter.finish();
+		}
 		
-//		
+
 		try {
 
 			//first see if we can open a directory for writing
@@ -96,39 +95,39 @@ public class Main {
 		}
 		
 		
-//		try {
-//
-//			//first see if we can open a directory for writing
-//			if (longWriter.openIndex()){
-//				//get a buffered reader handle to the file
-//				BufferedReader breader = new BufferedReader(longOpener.getFileForReading());
-//				//loop through the file line by line and parse
-//				String line;
-//
-//				while((line = breader.readLine()) != null){
-//
-//					LongAbstract longAbstract = new LongAbstract();
-//						if(line.contains("abstract")){
-//							longAbstract.setResource(line.substring(1, (line.indexOf(">"))));
-//							longAbstract.setLongAbstract(line.substring(line.indexOf("abstract")+ 11));
-//							longWriter.addLongAbstract(longAbstract);
-//						}
-//				}
-//
-//			} else {
-//				System.out.println("We had a problem opening the directory for writing");
-//			}
-//
-//
-//		} 
-//		catch (Exception e) {
-//			System.out.println("Threw exception " + e.getClass() + " :: " + e.getMessage());
-//
-//		} 
-//		finally {
-//			//close out the index and release the lock on the file
-//			longWriter.finish();
-//		}
+		try {
+
+			//first see if we can open a directory for writing
+			if (longWriter.openIndex()){
+				//get a buffered reader handle to the file
+				BufferedReader breader = new BufferedReader(longOpener.getFileForReading());
+				//loop through the file line by line and parse
+				String line;
+
+				while((line = breader.readLine()) != null){
+
+					LongAbstract longAbstract = new LongAbstract();
+						if(line.contains("abstract")){
+							longAbstract.setResource(line.substring(1, (line.indexOf(">"))));
+							longAbstract.setLongAbstract(line.substring(line.indexOf("abstract")+ 11));
+							longWriter.addLongAbstract(longAbstract);
+						}
+				}
+
+			} else {
+				System.out.println("We had a problem opening the directory for writing");
+			}
+
+
+		} 
+		catch (Exception e) {
+			System.out.println("Threw exception " + e.getClass() + " :: " + e.getMessage());
+
+		} 
+		finally {
+			//close out the index and release the lock on the file
+			longWriter.finish();
+		}
 
 	}
 

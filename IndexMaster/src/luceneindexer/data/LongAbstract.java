@@ -1,12 +1,13 @@
 package luceneindexer.data;
 
-import removeStopwords.StopWords;
+import luceneindexer.files.LuceneWriter;
+
 
 public class LongAbstract {
 	
 	private String long_abstract = "";
 	private String resource = "";
-	StopWords stop = new StopWords();
+	LuceneWriter sw = new LuceneWriter();
 	
 	
 	
@@ -15,8 +16,9 @@ public class LongAbstract {
 	}
 	
 	public void setLongAbstract(String longAbstract) {
-		
-		this.long_abstract = longAbstract;
+		String longAb = new String();
+		longAb = sw.removeStopWords(longAbstract);
+		this.long_abstract = longAb;
 	}
 	
 	public String getResource() {

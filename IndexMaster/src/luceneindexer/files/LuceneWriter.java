@@ -8,7 +8,6 @@ import luceneindexer.data.DBpedia;
 import luceneindexer.data.LongAbstract;
 import luceneindexer.data.ShortAbstract;
 
-import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.Tokenizer;
 import org.apache.lucene.analysis.core.StopAnalyzer;
 import org.apache.lucene.analysis.core.StopFilter;
@@ -69,26 +68,10 @@ public class LuceneWriter {
                 
     }
     
-//    public void addDBpedia(DBpedia dBpedia){
-//        Document doc = new Document();
-//        doc.add(new TextField("label", dBpedia.getLabel(), Field.Store.YES));
-//        doc.add(new TextField("resource", dBpedia.getResource(), Field.Store.YES));
-////        System.out.println("resource: " + dBpedia.getResource());
-////        System.out.println("Label: " + dBpedia.getLabel());
-//        try {
-//            indexWriter.addDocument(doc);
-//        } catch (IOException ex) {
-//            System.out.println("Threw an exception trying to add the doc: " + ex.getClass() + " :: " + ex.getMessage());
-//        }
-//        
-//    }
-    
-    public void addShortAbstract(ShortAbstract shortAbstract){
+    public void addDBpedia(DBpedia dBpedia){
         Document doc = new Document();
-        doc.add(new TextField("shortAbstract", shortAbstract.getShort(), Field.Store.YES));
-        doc.add(new TextField("resource", shortAbstract.getResource(), Field.Store.YES));
-//        System.out.println("resource: " + shortAbstract.getResource());
-//        System.out.println("shortAbstract: " + shortAbstract.getShort());
+        doc.add(new TextField("label", dBpedia.getLabel(), Field.Store.YES));
+        doc.add(new TextField("resource", dBpedia.getResource(), Field.Store.YES));
         try {
             indexWriter.addDocument(doc);
         } catch (IOException ex) {
@@ -96,20 +79,30 @@ public class LuceneWriter {
         }
         
     }
-////    
-//    public void addLongAbstract(LongAbstract longAbstract){
-//        Document doc = new Document();
-//        doc.add(new TextField("longAbstract", longAbstract.getLongAbstract(), Field.Store.YES));
-//        doc.add(new TextField("resource", longAbstract.getResource(), Field.Store.YES));
-////        System.out.println("resource: " + longAbstract.getResource());
-////        System.out.println("longAbstract: " + longAbstract.getLongAbstract());
-//        try {
-//            indexWriter.addDocument(doc);
-//        } catch (IOException ex) {
-//            System.out.println("Threw an exception trying to add the doc: " + ex.getClass() + " :: " + ex.getMessage());
-//        }
-//        
-//    }
+    
+    public void addShortAbstract(ShortAbstract shortAbstract){
+        Document doc = new Document();
+        doc.add(new TextField("shortAbstract", shortAbstract.getShort(), Field.Store.YES));
+        doc.add(new TextField("resource", shortAbstract.getResource(), Field.Store.YES));
+        try {
+            indexWriter.addDocument(doc);
+        } catch (IOException ex) {
+            System.out.println("Threw an exception trying to add the doc: " + ex.getClass() + " :: " + ex.getMessage());
+        }
+        
+    }
+   
+    public void addLongAbstract(LongAbstract longAbstract){
+        Document doc = new Document();
+        doc.add(new TextField("longAbstract", longAbstract.getLongAbstract(), Field.Store.YES));
+        doc.add(new TextField("resource", longAbstract.getResource(), Field.Store.YES));
+        try {
+            indexWriter.addDocument(doc);
+        } catch (IOException ex) {
+            System.out.println("Threw an exception trying to add the doc: " + ex.getClass() + " :: " + ex.getMessage());
+        }
+        
+    }
     
     
     public void finish(){
