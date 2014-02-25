@@ -126,7 +126,7 @@ public class LuceneWriter {
     }
     
     
-    public void removeStopWords(String sentence){
+    public String removeStopWords(String sentence){
 
     	Tokenizer tokenizer = new StandardTokenizer(Version.LUCENE_45, new StringReader(sentence));
     	final StandardFilter standardFilter = new StandardFilter(Version.LUCENE_45, tokenizer);
@@ -149,6 +149,8 @@ public class LuceneWriter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+    	
+    	return sb.toString();
     	
     	
     	

@@ -24,11 +24,10 @@ public class ShortAbstract {
 	}
 
 	public void setShort(String short_abstract) {
-		if(short_abstract.length() > 4){
-			sw.removeStopWords(short_abstract);	
-		}
+		String shortAb = new String();
+		shortAb = sw.removeStopWords(short_abstract);			
 				
-		this.short_abstract = short_abstract;
+		this.short_abstract = shortAb;
 	}
 	
 	public String getResource() {
