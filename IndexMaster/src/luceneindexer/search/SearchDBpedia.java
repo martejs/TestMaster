@@ -18,8 +18,8 @@ import org.apache.lucene.util.Version;
 
 public class SearchDBpedia {
 	
-	public static boolean searchFiles(String indexPath, String queryStr, int maxHits){
-		String field = "shortAbstract";
+	public static boolean searchFiles(String field, String indexPath, String queryStr, int maxHits){
+		
 		IndexReader reader;
 		
 		try {
@@ -51,14 +51,25 @@ public class SearchDBpedia {
 	}
 	
 	public static void main(String[] args){
+		//Field
+		String label = "label";
+		String field = "shortAbstract";
+		String longField = "longAbstract";
 		//Index folder
+		String indexLabel = "indexDir";
 		String indexPath = "indexShort";
+		String indexLong = "indexLong";
 		//query to search
 //		System.out.print("Skriv inn s¿keord");
-		String queryStr = "Greek";
+		String queryStr = "Autism";
 		
 		int maxHits = 100;
-		searchFiles(indexPath, queryStr, maxHits);
+		System.out.println("Label:");
+		searchFiles(label, indexLabel, queryStr, maxHits);
+		System.out.println("Short:");
+		searchFiles(field, indexPath, queryStr, maxHits);
+		System.out.println("Long:");
+		searchFiles(longField, indexLong, queryStr, maxHits);
 	}
 
 }
