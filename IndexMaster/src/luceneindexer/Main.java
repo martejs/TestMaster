@@ -20,6 +20,9 @@ public class Main {
 		FileOpener fOpener = new FileOpener("labels_en.ttl");
 		FileOpener shortOpener = new FileOpener("short_abstracts_en.ttl");
 		FileOpener longOpener = new FileOpener("long_abstracts_en.ttl");
+		FileOpener fOpener = new FileOpener("sample.ttl");
+		FileOpener shortOpener = new FileOpener("shortsample.ttl");
+		FileOpener longOpener = new FileOpener("longsample.ttl");
 
 		//Create the object for writing
 		LuceneWriter luceneWriter = new LuceneWriter("indexDir");
