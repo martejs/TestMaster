@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.queryparser.classic.ParseException;
@@ -32,8 +33,12 @@ public class SearchDBpedia {
 			ScoreDoc[] hits = topDocs.scoreDocs;
 			
 			for(int i = 0; i < hits.length; i++){
+				int docId = hits[i].doc;
+				Document d = searcher.doc(docId);
+				String resource = d.get("resource");
+				
 				//Vet ikke hva vi skal gj¿re her
-				System.out.println("Funnet: " + hits[i]);
+				System.out.println("Funnet: " + hits[i] + " med resource: " + resource);
 			}
 			System.out.println("Fant " + hits.length);
 			return true;
@@ -61,7 +66,7 @@ public class SearchDBpedia {
 		String indexLong = "indexLong";
 		//query to search
 //		System.out.print("Skriv inn s¿keord");
-		String queryStr = "Autism";
+		String queryStr = "Greek";
 		
 		int maxHits = 100;
 		System.out.println("Label:");
