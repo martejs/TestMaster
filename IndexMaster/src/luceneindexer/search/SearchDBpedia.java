@@ -37,7 +37,7 @@ public class SearchDBpedia {
 				Document d = searcher.doc(docId);
 				String resource = d.get("resource");
 				
-				//Vet ikke hva vi skal gj¿re her
+				//Vet ikke hva vi skal gjï¿½re her
 				System.out.println("Funnet: " + hits[i] + " med resource: " + resource);
 			}
 			System.out.println("Fant " + hits.length);
@@ -65,8 +65,8 @@ public class SearchDBpedia {
 		String indexPath = "indexShort";
 		String indexLong = "indexLong";
 		//query to search
-//		System.out.print("Skriv inn s¿keord");
-		String queryStr = "Greek";
+//		System.out.print("Skriv inn sï¿½keord");
+		String queryStr = "greek";
 		
 		int maxHits = 100;
 		System.out.println("Label:");
