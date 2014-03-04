@@ -38,12 +38,15 @@ public class SearchDBpedia {
 				Document d = searcher.doc(docId);
 				String resource = d.get("resource");
 				
+
 				Explanation explanation = searcher.explain(query, docId);
 				System.out.println("------------");
 
 //				System.out.println("Funnet: " + hits[i] + " med resource: " + resource);
 				System.out.println("Funnet: " + resource);
 				System.out.println(explanation.toString());
+
+
 			}
 			System.out.println("Fant " + hits.length);
 			return true;
@@ -71,7 +74,7 @@ public class SearchDBpedia {
 		String indexLong = "indexLong";
 		//query to search
 //		System.out.print("Skriv inn s¿keord");
-		String queryStr = "Rabbit";
+		String queryStr = "greek";
 		
 		int maxHits = 5;
 		System.out.println("Label:");

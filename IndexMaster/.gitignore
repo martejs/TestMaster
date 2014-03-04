@@ -4,3 +4,7 @@
 .settings
 *.ttl
 segments_*
+indexDir
+indexShort
+indexLong
+
