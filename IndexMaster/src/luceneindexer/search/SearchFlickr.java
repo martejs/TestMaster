@@ -1,4 +1,3 @@
-@@ -1,93 +0,0 @@
 package luceneindexer.search;
 
 import java.io.File;
@@ -19,9 +18,9 @@ import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 
-public class SearchDBpedia {
+public class SearchFlickr {
 	
-	public static boolean searchFiles(String field, String indexPath, String queryStr, int maxHits){
+public static boolean searchFiles(String field, String indexPath, String queryStr, int maxHits){
 		
 		IndexReader reader;
 		
@@ -35,15 +34,16 @@ public class SearchDBpedia {
 			ScoreDoc[] hits = topDocs.scoreDocs;
 			
 			for(int i = 0; i < hits.length; i++){
-				int docId = hits[i].doc;
-				Document d = searcher.doc(docId);
-				String resource = d.get("resource");
+				System.out.println("Inne i for");
+//				int docId = hits[i].doc;
+//				Document d = searcher.doc(docId);
+//				String resource = d.get("resource");
 				
 
 //				Explanation explanation = searcher.explain(query, docId);
 //				System.out.println("------------");
 
-				System.out.println("Funnet: " + hits[i] + " med resource: " + resource);
+				System.out.println("Funnet: " + hits[i]);
 //				System.out.println("Funnet: " + resource);
 //				System.out.println(explanation.toString());
 
@@ -54,10 +54,12 @@ public class SearchDBpedia {
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			System.out.println("IOException her");
 			e.printStackTrace();
 			return false;
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
+			System.out.println("ParseException her");
 			e.printStackTrace();
 			return false;
 		}
@@ -66,29 +68,15 @@ public class SearchDBpedia {
 	
 	public static void main(String[] args){
 		//Field
-		String label = "label";
-		String field = "shortAbstract";
-		String longField = "longAbstract";
-		String sfField = "attr_tag";
+		String tag = "attr_tag";
 		//Index folder
-		String indexLabel = "indexDir";
-		String indexPath = "indexShort";
-		String indexLong = "indexLong";
-		String indexSF = "SanFranciscoIndex";
+		String index = "SanFranciscoIndex";
 		//query to search
-//		System.out.print("Skriv inn s�keord");
-		String queryStr = "california";
+		String queryStr = "francisco";
 		
 		int maxHits = 5;
-		System.out.println("bilde");
-		searchFiles(sfField, indexSF, queryStr, maxHits);
-		System.out.println("Label:");
-		searchFiles(label, indexLabel, queryStr, maxHits);
-		System.out.println("Short:");
-		searchFiles(field, indexPath, queryStr, maxHits);
-		System.out.println("Long:");
-		searchFiles(longField, indexLong, queryStr, maxHits);
-		
+		System.out.println("Flickr:");
+		searchFiles(tag, index, queryStr, maxHits);
 	}
 
 }
