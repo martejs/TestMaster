@@ -10,6 +10,7 @@ import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
+import org.apache.lucene.search.Explanation;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
@@ -37,8 +38,12 @@ public class SearchDBpedia {
 				Document d = searcher.doc(docId);
 				String resource = d.get("resource");
 				
-				//Vet ikke hva vi skal gj¿re her
-				System.out.println("Funnet: " + hits[i] + " med resource: " + resource);
+				Explanation explanation = searcher.explain(query, docId);
+				System.out.println("------------");
+
+//				System.out.println("Funnet: " + hits[i] + " med resource: " + resource);
+				System.out.println("Funnet: " + resource);
+				System.out.println(explanation.toString());
 			}
 			System.out.println("Fant " + hits.length);
 			return true;
@@ -66,9 +71,9 @@ public class SearchDBpedia {
 		String indexLong = "indexLong";
 		//query to search
 //		System.out.print("Skriv inn s¿keord");
-		String queryStr = "Greek";
+		String queryStr = "Rabbit";
 		
-		int maxHits = 100;
+		int maxHits = 5;
 		System.out.println("Label:");
 		searchFiles(label, indexLabel, queryStr, maxHits);
 		System.out.println("Short:");

@@ -17,9 +17,9 @@ public class Main {
 	public static void main(String[] args) {
 		System.out.println("Hello world");
 		//Open the file of OWL for reading
-		FileOpener fOpener = new FileOpener("sample.ttl");
-		FileOpener shortOpener = new FileOpener("shortSample.ttl");
-		FileOpener longOpener = new FileOpener("longSample.ttl");
+		FileOpener fOpener = new FileOpener("labels_en.ttl");
+		FileOpener shortOpener = new FileOpener("short_abstracts_en.ttl");
+		FileOpener longOpener = new FileOpener("long_abstracts_en.ttl");
 
 		//Create the object for writing
 		LuceneWriter luceneWriter = new LuceneWriter("indexDir");
