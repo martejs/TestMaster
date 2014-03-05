@@ -68,11 +68,14 @@ public class SearchDBpedia {
 		String label = "label";
 		String field = "shortAbstract";
 		String longField = "longAbstract";
+		String sfField = "attr_tag";
 		//Index folder
 		String indexLabel = "indexDir";
 		String indexPath = "indexShort";
 		String indexLong = "indexLong";
+		String indexSF = "SanFranciscoIndex";
 		//query to search
+
 //		System.out.print("Skriv inn s¿keord");
 		String queryStr = "deer";
 		
@@ -81,8 +84,10 @@ public class SearchDBpedia {
 //		searchFiles(label, indexLabel, queryStr, maxHits);
 //		System.out.println("Short:");
 //		searchFiles(field, indexPath, queryStr, maxHits);
+		
 		System.out.println("Long:");
 		searchFiles(longField, indexLong, queryStr, maxHits);
+		
 	}
 
 }
