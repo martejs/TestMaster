@@ -70,7 +70,7 @@ public static boolean searchFiles(String field, String indexPath, String querySt
 		//Field
 		String tag = "attr_tag";
 		//Index folder
-		String index = "SanFranciscoIndex";
+		String index = "index";
 		//query to search
 		String queryStr = "francisco";
 		
