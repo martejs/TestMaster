@@ -43,7 +43,7 @@ public class SearchDBpedia {
 //				Explanation explanation = searcher.explain(query, docId);
 //				System.out.println("------------");
 
-				System.out.println("Funnet: " + hits[i] + " med resource: " + resource);
+				System.out.println("Funnet: " + hits[i].score + " med resource: " + resource);
 //				System.out.println("Funnet: " + resource);
 //				System.out.println(explanation.toString());
 
@@ -76,16 +76,16 @@ public class SearchDBpedia {
 		String indexLong = "indexLong";
 		String indexSF = "SanFranciscoIndex";
 		//query to search
+
 //		System.out.print("Skriv inn s�keord");
-		String queryStr = "california";
+		String queryStr = "deer";
 		
 		int maxHits = 5;
-		System.out.println("bilde");
-		searchFiles(sfField, indexSF, queryStr, maxHits);
-		System.out.println("Label:");
-		searchFiles(label, indexLabel, queryStr, maxHits);
-		System.out.println("Short:");
-		searchFiles(field, indexPath, queryStr, maxHits);
+//		System.out.println("Label:");
+//		searchFiles(label, indexLabel, queryStr, maxHits);
+//		System.out.println("Short:");
+//		searchFiles(field, indexPath, queryStr, maxHits);
+		
 		System.out.println("Long:");
 		searchFiles(longField, indexLong, queryStr, maxHits);
 		
