@@ -1,4 +1,4 @@
-@@ -1,93 +0,0 @@
+
 package luceneindexer.search;
 
 import java.io.File;

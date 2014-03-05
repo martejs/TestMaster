@@ -35,6 +35,7 @@ public static boolean searchFiles(String field, String indexPath, String querySt
 			
 			for(int i = 0; i < hits.length; i++){
 				System.out.println("Inne i for");
+				
 //				int docId = hits[i].doc;
 //				Document d = searcher.doc(docId);
 //				String resource = d.get("resource");
@@ -70,9 +71,9 @@ public static boolean searchFiles(String field, String indexPath, String querySt
 		//Field
 		String tag = "attr_tag";
 		//Index folder
-		String index = "SanFranciscoIndex";
+		String index = "index";
 		//query to search
-		String queryStr = "francisco";
+		String queryStr = "california";
 		
 		int maxHits = 5;
 		System.out.println("Flickr:");
