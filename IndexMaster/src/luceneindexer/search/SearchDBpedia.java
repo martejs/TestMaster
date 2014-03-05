@@ -77,11 +77,11 @@ public class SearchDBpedia {
 		//query to search
 
 //		System.out.print("Skriv inn s¿keord");
-		String queryStr = "deer";
+		String queryStr = "rabbit";
 		
 		int maxHits = 5;
-//		System.out.println("Label:");
-//		searchFiles(label, indexLabel, queryStr, maxHits);
+		System.out.println("Label:");
+		searchFiles(label, indexLabel, queryStr, maxHits);
 //		System.out.println("Short:");
 //		searchFiles(field, indexPath, queryStr, maxHits);
 		
