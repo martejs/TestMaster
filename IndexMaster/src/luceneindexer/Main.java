@@ -18,7 +18,7 @@ public class Main {
 		System.out.println("Hello world");
 		//Open the file of OWL for reading
 //		FileOpener fOpener = new FileOpener("labels_en.ttl");
-		FileOpener shortOpener = new FileOpener("short_abstracts_en.ttl");
+		FileOpener shortOpener = new FileOpener("shortSample.ttl");
 //		FileOpener longOpener = new FileOpener("long_abstracts_en.ttl");
 
 		//Create the object for writing
