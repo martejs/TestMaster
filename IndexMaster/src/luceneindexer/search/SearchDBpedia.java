@@ -3,18 +3,23 @@ package luceneindexer.search;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.DocsEnum;
 import org.apache.lucene.index.Fields;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.MultiFields;
+import org.apache.lucene.index.Term;
 import org.apache.lucene.index.Terms;
 import org.apache.lucene.index.TermsEnum;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
+import org.apache.lucene.search.DocIdSetIterator;
 import org.apache.lucene.search.Explanation;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
@@ -45,25 +50,43 @@ public class SearchDBpedia {
 				int docId = hits[i].doc;
 				Document d = searcher.doc(docId);
 				String resource = d.get("resource");
-				Fields fields= MultiFields.getFields(reader);
-				Terms terms = fields.terms("shortAbstract");
-//				System.out.println(terms);
-				TermsEnum iterator= terms.iterator(null);
-				BytesRef byteref = null;
+
 				
-				while((byteref = iterator.next())!= null){
-					String term = new String(byteref.bytes, byteref.offset, byteref.length);
-					
-					System.out.println(term);
+				
+				Terms terms = reader.getTermVector(docId, field); //get terms vectors for one document and one field
+				if (terms != null && terms.size() > 0) {
+				    TermsEnum termsEnum = terms.iterator(null); // access the terms for this field
+				    BytesRef term = null;
+				    while ((term = termsEnum.next()) != null) {// explore the terms for this field
+				        DocsEnum docsEnum = termsEnum.docs(null, null); // enumerate through documents, in this case only one
+				        int docIdEnum;
+				        while ((docIdEnum = docsEnum.nextDoc()) != DocIdSetIterator.NO_MORE_DOCS) {
+				          System.out.println(term.utf8ToString()+" "+docIdEnum+" "+docsEnum.freq()); //get the term frequency in the document
+
+				        }
+				    }
 				}
 				
+//				Fields fields= reader.getTermVectors(docId);
+//				Terms terms = fields.terms("shortAbstract");
+////				System.out.println(terms);
+//				TermsEnum iterator= terms.iterator(null);
+//				System.out.println(iterator.next().utf8ToString());
+//				
+//				BytesRef byteref = null;
+//				
+//				while((byteref = iterator.next())!= null){
+//					String term = new String(byteref.bytes, byteref.offset, byteref.length);
+//					
+//					
+//					System.out.println(term);
+//				}
+				
 				
 				
 
-//				Terms termVector = reader.getTermVector(docId, field);
-//				System.out.println("Termvektor: " + termVector.getSumDocFreq());
-
-				//				Explanation explanation = searcher.explain(query, docId);
+				
+//				Explanation explanation = searcher.explain(query, docId);
 //				System.out.println("------------");
 
 				System.out.println("Funnet: " + hits[i].score + " med resource: " + resource);
@@ -106,7 +129,7 @@ public class SearchDBpedia {
 		//query to search
 
 //		System.out.print("Skriv inn s�keord");
-		String queryStr = "autism";
+		String queryStr = "greek";
 		
 		int maxHits = 5;
 //		System.out.println("Label:");
