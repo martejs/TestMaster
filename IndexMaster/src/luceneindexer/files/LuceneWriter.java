@@ -97,7 +97,7 @@ public class LuceneWriter {
         fieldType.setIndexOptions(IndexOptions.DOCS_AND_FREQS);
         fieldType.setStored(true);
         
-        //Har du fått denne?
+
     	
         Document doc = new Document();
         doc.add(new Field("shortAbstract", shortAbstract.getShort(), fieldType));
@@ -171,6 +171,8 @@ public class LuceneWriter {
     
     
     
+    
+ 
     
     
     

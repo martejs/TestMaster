@@ -50,8 +50,12 @@ public class SearchDBpedia {
 				int docId = hits[i].doc;
 				Document d = searcher.doc(docId);
 				String resource = d.get("resource");
-
 				
+//				Fields fields= reader.getTermVectors(docId);
+//				Terms terms = fields.terms("shortAbstract");
+//				System.out.println(terms);
+//				TermsEnum iterator= terms.iterator(null);
+//				BytesRef byteref = null;
 				
 				Terms terms = reader.getTermVector(docId, field); //get terms vectors for one document and one field
 				if (terms != null && terms.size() > 0) {
@@ -87,6 +91,11 @@ public class SearchDBpedia {
 
 				
 //				Explanation explanation = searcher.explain(query, docId);
+//				Terms
+//				termVector = reader.getTermVector(docId, field);
+//				System.out.println("Termvektor: " + termVector.getSumDocFreq());
+
+				//				Explanation explanation = searcher.explain(query, docId);
 //				System.out.println("------------");
 
 				System.out.println("Funnet: " + hits[i].score + " med resource: " + resource);
