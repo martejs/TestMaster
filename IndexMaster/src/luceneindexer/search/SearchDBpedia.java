@@ -45,7 +45,8 @@ public class SearchDBpedia {
 				int docId = hits[i].doc;
 				Document d = searcher.doc(docId);
 				String resource = d.get("resource");
-				Fields fields= MultiFields.getFields(reader);
+				
+				Fields fields= reader.getTermVectors(docId);
 				Terms terms = fields.terms("shortAbstract");
 //				System.out.println(terms);
 				TermsEnum iterator= terms.iterator(null);
@@ -59,7 +60,8 @@ public class SearchDBpedia {
 				
 				
 
-//				Terms termVector = reader.getTermVector(docId, field);
+//				Terms
+//				termVector = reader.getTermVector(docId, field);
 //				System.out.println("Termvektor: " + termVector.getSumDocFreq());
 
 				//				Explanation explanation = searcher.explain(query, docId);
@@ -104,7 +106,7 @@ public class SearchDBpedia {
 		//query to search
 
 //		System.out.print("Skriv inn s�keord");
-		String queryStr = "autism";
+		String queryStr = "crab";
 		
 		int maxHits = 5;
 //		System.out.println("Label:");
