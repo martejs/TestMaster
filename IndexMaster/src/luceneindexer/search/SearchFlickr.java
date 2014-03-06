@@ -71,7 +71,7 @@ public static boolean searchFiles(String field, String indexPath, String querySt
 		//Field
 		String tag = "attr_tag";
 		//Index folder
-		String index = "index";
+		String index = "/Users/mathilof/Documents/Master/WorldGEOUpcoming/data/index";
 		//query to search
 		String queryStr = "california";
 		

@@ -50,6 +50,7 @@ public class SearchDBpedia {
 //				System.out.println(terms);
 				TermsEnum iterator= terms.iterator(null);
 				BytesRef byteref = null;
+				
 				while((byteref = iterator.next())!= null){
 					String term = new String(byteref.bytes, byteref.offset, byteref.length);
 					
@@ -101,6 +102,7 @@ public class SearchDBpedia {
 		String indexLong = "indexLong";
 		String indexSF = "SanFranciscoIndex";
 		String indexSampleShort = "sampleShortIndex";
+		
 		//query to search
 
 //		System.out.print("Skriv inn s�keord");
