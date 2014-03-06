@@ -8,8 +8,11 @@ import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.Fields;
 import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.index.MultiFields;
 import org.apache.lucene.index.Terms;
+import org.apache.lucene.index.TermsEnum;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.Explanation;
@@ -18,6 +21,7 @@ import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.FSDirectory;
+import org.apache.lucene.util.BytesRef;
 import org.apache.lucene.util.Version;
 
 public class SearchDBpedia {
@@ -36,13 +40,27 @@ public class SearchDBpedia {
 			ScoreDoc[] hits = topDocs.scoreDocs;
 			
 			
+			
 			for(int i = 0; i < hits.length; i++){
 				int docId = hits[i].doc;
 				Document d = searcher.doc(docId);
 				String resource = d.get("resource");
+				Fields fields= MultiFields.getFields(reader);
+				Terms terms = fields.terms("shortAbstract");
+//				System.out.println(terms);
+				TermsEnum iterator= terms.iterator(null);
+				BytesRef byteref = null;
+				while((byteref = iterator.next())!= null){
+					String term = new String(byteref.bytes, byteref.offset, byteref.length);
+					
+					System.out.println(term);
+				}
+				
+				
+				
 
-				Terms termVector = reader.getTermVector(docId, field);
-				System.out.println("Termvektor: " + termVector.getSumDocFreq());
+//				Terms termVector = reader.getTermVector(docId, field);
+//				System.out.println("Termvektor: " + termVector.getSumDocFreq());
 
 				//				Explanation explanation = searcher.explain(query, docId);
 //				System.out.println("------------");
@@ -85,8 +103,8 @@ public class SearchDBpedia {
 		String indexSampleShort = "sampleShortIndex";
 		//query to search
 
-//		System.out.print("Skriv inn s¿keord");
-		String queryStr = "Greek";
+//		System.out.print("Skriv inn sï¿½keord");
+		String queryStr = "autism";
 		
 		int maxHits = 5;
 //		System.out.println("Label:");
