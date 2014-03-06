@@ -9,6 +9,7 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.index.Terms;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.Explanation;
@@ -34,21 +35,27 @@ public class SearchDBpedia {
 			TopDocs topDocs = searcher.search(query, maxHits);
 			ScoreDoc[] hits = topDocs.scoreDocs;
 			
+			
 			for(int i = 0; i < hits.length; i++){
 				int docId = hits[i].doc;
 				Document d = searcher.doc(docId);
 				String resource = d.get("resource");
-				
 
-//				Explanation explanation = searcher.explain(query, docId);
+				Terms termVector = reader.getTermVector(docId, field);
+				System.out.println("Termvektor: " + termVector.getSumDocFreq());
+
+				//				Explanation explanation = searcher.explain(query, docId);
 //				System.out.println("------------");
 
 				System.out.println("Funnet: " + hits[i].score + " med resource: " + resource);
 //				System.out.println("Funnet: " + resource);
 //				System.out.println(explanation.toString());
-
+				
+				
 
 			}
+			
+			
 			System.out.println("Fant " + hits.length);
 			return true;
 			
@@ -75,19 +82,20 @@ public class SearchDBpedia {
 		String indexPath = "indexShort";
 		String indexLong = "indexLong";
 		String indexSF = "SanFranciscoIndex";
+		String indexSampleShort = "sampleShortIndex";
 		//query to search
 
 //		System.out.print("Skriv inn s¿keord");
-		String queryStr = "rabbit";
+		String queryStr = "Greek";
 		
 		int maxHits = 5;
-		System.out.println("Label:");
-		searchFiles(label, indexLabel, queryStr, maxHits);
-//		System.out.println("Short:");
-//		searchFiles(field, indexPath, queryStr, maxHits);
+//		System.out.println("Label:");
+//		searchFiles(label, indexLabel, queryStr, maxHits);
+		System.out.println("Short:");
+		searchFiles(field, indexSampleShort, queryStr, maxHits);
 		
-		System.out.println("Long:");
-		searchFiles(longField, indexLong, queryStr, maxHits);
+//		System.out.println("Long:");
+//		searchFiles(longField, indexLong, queryStr, maxHits);
 		
 	}
 
