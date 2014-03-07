@@ -30,11 +30,11 @@ import org.apache.lucene.util.BytesRef;
 import org.apache.lucene.util.Version;
 
 public class SearchDBpedia {
-	
+
 	public static boolean searchFiles(String field, String indexPath, String queryStr, int maxHits){
-		
+
 		IndexReader reader;
-		
+
 		try {
 			reader = DirectoryReader.open(FSDirectory.open(new File(indexPath)));
 			IndexSearcher searcher = new IndexSearcher(reader);
@@ -43,73 +43,46 @@ public class SearchDBpedia {
 			Query query = parser.parse(queryStr);
 			TopDocs topDocs = searcher.search(query, maxHits);
 			ScoreDoc[] hits = topDocs.scoreDocs;
-			
-			
-			
+
+
+
 			for(int i = 0; i < hits.length; i++){
 				int docId = hits[i].doc;
 				Document d = searcher.doc(docId);
 				String resource = d.get("resource");
-				
-//				Fields fields= reader.getTermVectors(docId);
-//				Terms terms = fields.terms("shortAbstract");
-//				System.out.println(terms);
-//				TermsEnum iterator= terms.iterator(null);
-//				BytesRef byteref = null;
-				
-				Terms terms = reader.getTermVector(docId, field); //get terms vectors for one document and one field
-				if (terms != null && terms.size() > 0) {
-				    TermsEnum termsEnum = terms.iterator(null); // access the terms for this field
-				    BytesRef term = null;
-				    while ((term = termsEnum.next()) != null) {// explore the terms for this field
-				        DocsEnum docsEnum = termsEnum.docs(null, null); // enumerate through documents, in this case only one
-				        int docIdEnum;
-				        while ((docIdEnum = docsEnum.nextDoc()) != DocIdSetIterator.NO_MORE_DOCS) {
-				          System.out.println(term.utf8ToString()+" "+docIdEnum+" "+docsEnum.freq()); //get the term frequency in the document
 
-				        }
-				    }
+				Terms termVector = reader.getTermVector(docId, "shortAbstract");
+				TermsEnum itr = termVector.iterator(null);
+				BytesRef term = null;
+
+				while ((term = itr.next()) != null) {  
+
+					String termText = term.utf8ToString();
+					Term termInstance = new Term("shortAbstract", term);
+					//Tror denne skriver ut frekvensen pŒ termen i hele datasettet, og ikke bare i hits
+					long termFreq = reader.totalTermFreq(termInstance);
+					long docCount = reader.docFreq(termInstance);
+
+					System.out.println("term: "+termText+", termFreq = "+termFreq+", docCount = "+docCount);
 				}
-				
-//				Fields fields= reader.getTermVectors(docId);
-//				Terms terms = fields.terms("shortAbstract");
-////				System.out.println(terms);
-//				TermsEnum iterator= terms.iterator(null);
-//				System.out.println(iterator.next().utf8ToString());
-//				
-//				BytesRef byteref = null;
-//				
-//				while((byteref = iterator.next())!= null){
-//					String term = new String(byteref.bytes, byteref.offset, byteref.length);
-//					
-//					
-//					System.out.println(term);
-//				}
-				
-				
-				
 
 				
-//				Explanation explanation = searcher.explain(query, docId);
-//				Terms
-//				termVector = reader.getTermVector(docId, field);
-//				System.out.println("Termvektor: " + termVector.getSumDocFreq());
 
 				//				Explanation explanation = searcher.explain(query, docId);
-//				System.out.println("------------");
+				//				System.out.println("------------");
 
 				System.out.println("Funnet: " + hits[i].score + " med resource: " + resource);
-//				System.out.println("Funnet: " + resource);
-//				System.out.println(explanation.toString());
-				
-				
+				//				System.out.println("Funnet: " + resource);
+				//				System.out.println(explanation.toString());
+
+
 
 			}
-			
-			
+
+
 			System.out.println("Fant " + hits.length);
 			return true;
-			
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -119,9 +92,9 @@ public class SearchDBpedia {
 			e.printStackTrace();
 			return false;
 		}
-		
+
 	}
-	
+
 	public static void main(String[] args){
 		//Field
 		String label = "label";
@@ -134,21 +107,21 @@ public class SearchDBpedia {
 		String indexLong = "indexLong";
 		String indexSF = "SanFranciscoIndex";
 		String indexSampleShort = "sampleShortIndex";
-		
+
 		//query to search
 
-//		System.out.print("Skriv inn sï¿½keord");
+		//		System.out.print("Skriv inn sï¿½keord");
 		String queryStr = "greek";
-		
+
 		int maxHits = 5;
-//		System.out.println("Label:");
-//		searchFiles(label, indexLabel, queryStr, maxHits);
+		//		System.out.println("Label:");
+		//		searchFiles(label, indexLabel, queryStr, maxHits);
 		System.out.println("Short:");
 		searchFiles(field, indexSampleShort, queryStr, maxHits);
-		
-//		System.out.println("Long:");
-//		searchFiles(longField, indexLong, queryStr, maxHits);
-		
+
+		//		System.out.println("Long:");
+		//		searchFiles(longField, indexLong, queryStr, maxHits);
+
 	}
 
 }
