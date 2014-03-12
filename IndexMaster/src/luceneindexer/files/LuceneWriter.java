@@ -3,6 +3,8 @@ package luceneindexer.files;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import luceneindexer.data.DBpedia;
 import luceneindexer.data.LongAbstract;
@@ -141,7 +143,15 @@ public class LuceneWriter {
 
     	Tokenizer tokenizer = new StandardTokenizer(Version.LUCENE_45, new StringReader(sentence));
     	final StandardFilter standardFilter = new StandardFilter(Version.LUCENE_45, tokenizer);
-    	final StopFilter stopFilter = new StopFilter(Version.LUCENE_45, standardFilter, StopAnalyzer.ENGLISH_STOP_WORDS_SET);
+    	StopFilter stopFilter = new StopFilter(Version.LUCENE_45, standardFilter, StopAnalyzer.ENGLISH_STOP_WORDS_SET);
+    	final List<String> stopwords = new ArrayList<String>(); 
+    	stopwords.add("en");
+    	stopwords.add("its");
+    	stopwords.add("has");
+    	stopwords.add("most");
+    	
+    	stopFilter = new StopFilter(Version.LUCENE_45, standardFilter, StopFilter.makeStopSet(Version.LUCENE_45, stopwords));
+    	
     	final CharTermAttribute charTermAttribute = tokenizer.addAttribute(CharTermAttribute.class);
     	
     	StringBuilder sb = new StringBuilder();
