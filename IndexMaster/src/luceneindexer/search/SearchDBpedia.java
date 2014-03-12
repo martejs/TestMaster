@@ -59,7 +59,7 @@ public class SearchDBpedia {
 
 					String termText = term.utf8ToString();
 					Term termInstance = new Term("shortAbstract", term);
-					//Tror denne skriver ut frekvensen pŒ termen i hele datasettet, og ikke bare i hits
+					//Tror denne skriver ut frekvensen pï¿½ termen i hele datasettet, og ikke bare i hits
 					long termFreq = reader.totalTermFreq(termInstance);
 					long docCount = reader.docFreq(termInstance);
 
@@ -111,7 +111,7 @@ public class SearchDBpedia {
 		//query to search
 
 		//		System.out.print("Skriv inn sï¿½keord");
-		String queryStr = "greek";
+		String queryStr = "autism";
 
 		int maxHits = 5;
 		//		System.out.println("Label:");
