@@ -47,6 +47,7 @@ public class SearchDBpedia {
 
 
 			for(int i = 0; i < hits.length; i++){
+				Hits treff = new Hits();
 				int docId = hits[i].doc;
 				Document d = searcher.doc(docId);
 				String resource = d.get("resource");
@@ -56,14 +57,14 @@ public class SearchDBpedia {
 				BytesRef term = null;
 
 				while ((term = itr.next()) != null) {  
-
 					String termText = term.utf8ToString();
+					treff.setTerms(termText);
 					Term termInstance = new Term("shortAbstract", term);
 					//Tror denne skriver ut frekvensen pŒ termen i hele datasettet, og ikke bare i hits
 					long termFreq = reader.totalTermFreq(termInstance);
 					long docCount = reader.docFreq(termInstance);
 
-					System.out.println("term: "+termText+", termFreq = "+termFreq+", docCount = "+docCount);
+//					System.out.println("term: "+termText+", termFreq = "+termFreq+", docCount = "+docCount);
 				}
 
 				
@@ -71,6 +72,7 @@ public class SearchDBpedia {
 				//				Explanation explanation = searcher.explain(query, docId);
 				//				System.out.println("------------");
 
+				System.out.println("Hashmap:" + treff.getTerms()); 
 				System.out.println("Funnet: " + hits[i].score + " med resource: " + resource);
 				//				System.out.println("Funnet: " + resource);
 				//				System.out.println(explanation.toString());
@@ -111,9 +113,9 @@ public class SearchDBpedia {
 		//query to search
 
 		//		System.out.print("Skriv inn sï¿½keord");
-		String queryStr = "Algeria";
+		String queryStr = "greek";
 
-		int maxHits = 2;
+		int maxHits = 3;
 		//		System.out.println("Label:");
 		//		searchFiles(label, indexLabel, queryStr, maxHits);
 		System.out.println("Short:");

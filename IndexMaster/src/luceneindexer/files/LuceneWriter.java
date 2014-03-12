@@ -149,6 +149,7 @@ public class LuceneWriter {
     	stopwords.add("its");
     	stopwords.add("has");
     	stopwords.add("most");
+    	stopwords.add("his");
     	
     	stopFilter = new StopFilter(Version.LUCENE_45, standardFilter, StopFilter.makeStopSet(Version.LUCENE_45, stopwords));
     	
