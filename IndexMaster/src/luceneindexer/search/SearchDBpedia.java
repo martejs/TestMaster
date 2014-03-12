@@ -111,9 +111,9 @@ public class SearchDBpedia {
 		//query to search
 
 		//		System.out.print("Skriv inn s�keord");
-		String queryStr = "greek";
+		String queryStr = "Algeria";
 
-		int maxHits = 5;
+		int maxHits = 2;
 		//		System.out.println("Label:");
 		//		searchFiles(label, indexLabel, queryStr, maxHits);
 		System.out.println("Short:");
