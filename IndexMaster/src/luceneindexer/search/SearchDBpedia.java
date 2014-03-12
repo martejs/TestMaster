@@ -1,4 +1,3 @@
-
 package luceneindexer.search;
 
 import java.io.File;
@@ -60,6 +59,7 @@ public class SearchDBpedia {
 					String nextTerm = sc.next();
 					treff.setTerms(nextTerm);
 				}
+
 				
 				
 //				Terms termVector = reader.getTermVector(docId, "shortAbstract");
@@ -124,7 +124,7 @@ public class SearchDBpedia {
 		//query to search
 
 		//		System.out.print("Skriv inn s�keord");
-		String queryStr = "Autism";
+		String queryStr = "greek";
 
 		int maxHits = 3;
 		//		System.out.println("Label:");
