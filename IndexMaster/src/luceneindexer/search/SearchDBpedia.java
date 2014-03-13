@@ -124,7 +124,7 @@ public class SearchDBpedia {
 		//query to search
 
 		//		System.out.print("Skriv inn s�keord");
-		String queryStr = "greek";
+		String queryStr = "autism";
 
 		int maxHits = 3;
 		//		System.out.println("Label:");

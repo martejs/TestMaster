@@ -12,15 +12,10 @@ public class Hits {
 	public void setTerms(String term){
 		if(!this.terms.containsKey(term)){
 			this.occurrences = 1;
-			System.out.println("f¿rste gang: " + term);
-			System.out.println(this.occurrences);
 			terms.put(term, this.occurrences);
 		}
 		else{
-			System.out.println("igjen:" + term);
-			this.occurrences++;
-			System.out.println(this.occurrences);
-			terms.put(term, this.occurrences);
+			terms.put(term, terms.get(term) + 1);
 		}
 	}
 	
