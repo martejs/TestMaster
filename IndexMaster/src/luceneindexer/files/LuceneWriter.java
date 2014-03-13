@@ -17,6 +17,7 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.analysis.standard.StandardFilter;
 import org.apache.lucene.analysis.standard.StandardTokenizer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
+import org.apache.lucene.analysis.util.CharArraySet;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.FieldType;
@@ -34,6 +35,8 @@ public class LuceneWriter {
     String pathToIndex = "";
     IndexWriter indexWriter = null;
     StandardAnalyzer analyzer = new StandardAnalyzer(Version.LUCENE_45);
+    
+   
 
     public LuceneWriter() {
     }
@@ -43,7 +46,6 @@ public class LuceneWriter {
     }
     
     public boolean openIndex(){
-        
         
         try {
             
@@ -92,6 +94,7 @@ public class LuceneWriter {
 //    }
     
     public void addShortAbstract(ShortAbstract shortAbstract){
+    	
     	FieldType fieldType = new FieldType();
         fieldType.setStoreTermVectors(true);
         fieldType.setStoreTermVectorPositions(true);
@@ -142,20 +145,9 @@ public class LuceneWriter {
     public String removeStopWords(String sentence){
 
     	Tokenizer tokenizer = new StandardTokenizer(Version.LUCENE_45, new StringReader(sentence));
-    	final StandardFilter standardFilter = new StandardFilter(Version.LUCENE_45, tokenizer);
-    	
-    	StopFilter stopFilter = new StopFilter(Version.LUCENE_45, standardFilter, StopAnalyzer.ENGLISH_STOP_WORDS_SET);
-    	final List<String> stopwords = new ArrayList<String>(); 
-    	stopwords.add("en");
-    	stopwords.add("its");
-    	stopwords.add("has");
-    	stopwords.add("most");
-    	stopwords.add("his");
-    	stopwords.add("from");
-    	
-    	stopFilter = new StopFilter(Version.LUCENE_45, standardFilter, StopFilter.makeStopSet(Version.LUCENE_45, stopwords));
-    	
-    	final CharTermAttribute charTermAttribute = tokenizer.addAttribute(CharTermAttribute.class);
+    	final StandardFilter standardFilter = new StandardFilter(Version.LUCENE_45, tokenizer);    	
+    	final StopFilter stopFilter = new StopFilter(Version.LUCENE_45, standardFilter, StopAnalyzer.ENGLISH_STOP_WORDS_SET);
+    	final CharTermAttribute charTermAttribute = tokenizer.addAttribute(CharTermAttribute.class);    	
     	
     	StringBuilder sb = new StringBuilder();
     	
@@ -175,11 +167,6 @@ public class LuceneWriter {
 		}
     	
     	return sb.toString();
-    	
-    	
-    	
-    	
-    	
     }
     
     

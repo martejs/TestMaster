@@ -123,7 +123,11 @@ public class SearchDBpedia {
 
 		//query to search
 
+<<<<<<< HEAD
 		//		System.out.print("Skriv inn sÔøΩkeord");
+=======
+		//		System.out.print("Skriv inn s�keord");
+>>>>>>> FETCH_HEAD
 		String queryStr = "autism";
 
 		int maxHits = 3;
