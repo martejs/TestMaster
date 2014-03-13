@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -28,6 +29,7 @@ import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.BytesRef;
 import org.apache.lucene.util.Version;
 
+
 public class SearchDBpedia {
 
 	public static boolean searchFiles(String field, String indexPath, String queryStr, int maxHits){
@@ -50,21 +52,31 @@ public class SearchDBpedia {
 				int docId = hits[i].doc;
 				Document d = searcher.doc(docId);
 				String resource = d.get("resource");
-
-				Terms termVector = reader.getTermVector(docId, "shortAbstract");
-				TermsEnum itr = termVector.iterator(null);
-				BytesRef term = null;
-
-				while ((term = itr.next()) != null) {  
-					String termText = term.utf8ToString();
-					treff.setTerms(termText);
-					Term termInstance = new Term("shortAbstract", term);
-					//Tror denne skriver ut frekvensen på termen i hele datasettet, og ikke bare i hits
-					long termFreq = reader.totalTermFreq(termInstance);
-					long docCount = reader.docFreq(termInstance);
-
-//					System.out.println("term: "+termText+", termFreq = "+termFreq+", docCount = "+docCount);
+				String shortAbstract = d.get("shortAbstract");
+				
+				Scanner sc = new Scanner(shortAbstract);
+				while(sc.hasNext()){
+					String nextTerm = sc.next();
+					treff.setTerms(nextTerm);
 				}
+
+				
+				
+//				Terms termVector = reader.getTermVector(docId, "shortAbstract");
+//				TermsEnum itr = termVector.iterator(null);
+//				BytesRef term = null;
+//
+//				while ((term = itr.next()) != null) {  
+//					String termText = term.utf8ToString();
+//					System.out.println("Termtext: " + termText);
+//					treff.setTerms(termText);
+//					Term termInstance = new Term("shortAbstract", term);
+//					//Tror denne skriver ut frekvensen på termen i hele datasettet, og ikke bare i hits
+//					long termFreq = reader.totalTermFreq(termInstance);
+//					long docCount = reader.docFreq(termInstance);
+//
+////					System.out.println("term: "+termText+", termFreq = "+termFreq+", docCount = "+docCount);
+//				}
 
 				
 
@@ -111,10 +123,8 @@ public class SearchDBpedia {
 
 		//query to search
 
-
-		//		System.out.print("Skriv inn s�keord");
-
-		String queryStr = "greek";
+		//		System.out.print("Skriv inn sÔøΩkeord");
+		String queryStr = "autism";
 
 		int maxHits = 3;
 		//		System.out.println("Label:");

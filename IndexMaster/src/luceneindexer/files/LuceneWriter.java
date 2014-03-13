@@ -143,6 +143,7 @@ public class LuceneWriter {
 
     	Tokenizer tokenizer = new StandardTokenizer(Version.LUCENE_45, new StringReader(sentence));
     	final StandardFilter standardFilter = new StandardFilter(Version.LUCENE_45, tokenizer);
+    	
     	StopFilter stopFilter = new StopFilter(Version.LUCENE_45, standardFilter, StopAnalyzer.ENGLISH_STOP_WORDS_SET);
     	final List<String> stopwords = new ArrayList<String>(); 
     	stopwords.add("en");
@@ -150,6 +151,7 @@ public class LuceneWriter {
     	stopwords.add("has");
     	stopwords.add("most");
     	stopwords.add("his");
+    	stopwords.add("from");
     	
     	stopFilter = new StopFilter(Version.LUCENE_45, standardFilter, StopFilter.makeStopSet(Version.LUCENE_45, stopwords));
     	
