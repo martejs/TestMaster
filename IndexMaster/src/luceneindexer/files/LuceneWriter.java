@@ -93,32 +93,20 @@ public class LuceneWriter {
 //        
 //    }
     
-    public void addShortAbstract(ShortAbstract shortAbstract){
-    	
-    	FieldType fieldType = new FieldType();
-        fieldType.setStoreTermVectors(true);
-        fieldType.setStoreTermVectorPositions(true);
-        fieldType.setIndexed(true);
-        fieldType.setIndexOptions(IndexOptions.DOCS_AND_FREQS);
-        fieldType.setStored(true);
-        
-
-    	
-        Document doc = new Document();
-        doc.add(new Field("shortAbstract", shortAbstract.getShort(), fieldType));
-        doc.add(new Field("resource", shortAbstract.getResource(), fieldType));
-        try {
-            indexWriter.addDocument(doc);
-        } catch (IOException ex) {
-            System.out.println("Threw an exception trying to add the doc: " + ex.getClass() + " :: " + ex.getMessage());
-        }
-        
-    }
-   
-//    public void addLongAbstract(LongAbstract longAbstract){
+//    public void addShortAbstract(ShortAbstract shortAbstract){
+//    	
+//    	FieldType fieldType = new FieldType();
+//        fieldType.setStoreTermVectors(true);
+//        fieldType.setStoreTermVectorPositions(true);
+//        fieldType.setIndexed(true);
+//        fieldType.setIndexOptions(IndexOptions.DOCS_AND_FREQS);
+//        fieldType.setStored(true);
+//        
+//
+//    	
 //        Document doc = new Document();
-//        doc.add(new TextField("longAbstract", longAbstract.getLongAbstract(), Field.Store.YES));
-//        doc.add(new TextField("resource", longAbstract.getResource(), Field.Store.YES));
+//        doc.add(new Field("shortAbstract", shortAbstract.getShort(), fieldType));
+//        doc.add(new Field("resource", shortAbstract.getResource(), fieldType));
 //        try {
 //            indexWriter.addDocument(doc);
 //        } catch (IOException ex) {
@@ -126,6 +114,24 @@ public class LuceneWriter {
 //        }
 //        
 //    }
+   
+    public void addLongAbstract(LongAbstract longAbstract){
+    	FieldType fieldType = new FieldType();
+        fieldType.setStoreTermVectors(true);
+        fieldType.setStoreTermVectorPositions(true);
+        fieldType.setIndexed(true);
+        fieldType.setIndexOptions(IndexOptions.DOCS_AND_FREQS);
+        fieldType.setStored(true);
+        Document doc = new Document();
+        doc.add(new Field("longAbstract", longAbstract.getLongAbstract(), fieldType));
+        doc.add(new Field("resource", longAbstract.getResource(), fieldType));
+        try {
+            indexWriter.addDocument(doc);
+        } catch (IOException ex) {
+            System.out.println("Threw an exception trying to add the doc: " + ex.getClass() + " :: " + ex.getMessage());
+        }
+        
+    }
     
     
     public void finish(){

@@ -52,9 +52,10 @@ public class SearchDBpedia {
 				int docId = hits[i].doc;
 				Document d = searcher.doc(docId);
 				String resource = d.get("resource");
-				String shortAbstract = d.get("shortAbstract");
+//				String shortAbstract = d.get("shortAbstract");
+				String longAbstract = d.get("longAbstract");
 				
-				Scanner sc = new Scanner(shortAbstract);
+				Scanner sc = new Scanner(longAbstract);
 				while(sc.hasNext()){
 					String nextTerm = sc.next();
 					treff.setTerms(nextTerm);
@@ -121,6 +122,7 @@ public class SearchDBpedia {
 		String indexLong = "indexLong";
 		String indexSF = "SanFranciscoIndex";
 		String indexSampleShort = "sampleShortIndex";
+		String indexSampleLong = "sampleShortIndex";
 
 		//query to search
 
@@ -131,8 +133,8 @@ public class SearchDBpedia {
 		int maxHits = 3;
 		//		System.out.println("Label:");
 		//		searchFiles(label, indexLabel, queryStr, maxHits);
-		System.out.println("Short:");
-		searchFiles(field, indexSampleShort, queryStr, maxHits);
+		System.out.println("Long:");
+		searchFiles(longField, indexSampleLong, queryStr, maxHits);
 
 		//		System.out.println("Long:");
 		//		searchFiles(longField, indexLong, queryStr, maxHits);

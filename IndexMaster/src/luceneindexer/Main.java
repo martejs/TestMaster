@@ -18,13 +18,13 @@ public class Main {
 		System.out.println("Hello world");
 		//Open the file of OWL for reading
 //		FileOpener fOpener = new FileOpener("labels_en.ttl");
-		FileOpener shortOpener = new FileOpener("shortSample.ttl");
-//		FileOpener longOpener = new FileOpener("long_abstracts_en.ttl");
+//		FileOpener shortOpener = new FileOpener("shortSample.ttl");
+		FileOpener longOpener = new FileOpener("longSample.ttl");
 
 		//Create the object for writing
 //		LuceneWriter luceneWriter = new LuceneWriter("indexDir");
-		LuceneWriter shortWriter = new LuceneWriter("sampleShortIndex");
-//		LuceneWriter longWriter = new LuceneWriter("indexLong");
+//		LuceneWriter shortWriter = new LuceneWriter("sampleShortIndex");
+		LuceneWriter longWriter = new LuceneWriter("sampleLongIndex");
 
 //		try {
 //
@@ -61,56 +61,21 @@ public class Main {
 //		}
 		
 
-		try {
-
-			//first see if we can open a directory for writing
-			if (shortWriter.openIndex()){
-				//get a buffered reader handle to the file
-				BufferedReader breader = new BufferedReader(shortOpener.getFileForReading());
-				//loop through the file line by line and parse
-				String line;
-
-				while((line = breader.readLine()) != null){
-					ShortAbstract shortAbstract = new ShortAbstract();
-						if(line.contains("comment")){
-							shortAbstract.setResource(line.substring(1, (line.indexOf(">"))));
-							shortAbstract.setShort(line.substring(line.indexOf("comment")+ 10));
-							shortWriter.addShortAbstract(shortAbstract);
-						}
-				}
-
-			} else {
-				System.out.println("We had a problem opening the directory for writing");
-			}
-
-
-		} 
-		catch (Exception e) {
-			System.out.println("Threw exception 2" + e.getClass() + " :: " + e.getMessage());
-
-		} 
-		finally {
-			//close out the index and release the lock on the file
-			shortWriter.finish();
-		}
-		
-		
 //		try {
 //
 //			//first see if we can open a directory for writing
-//			if (longWriter.openIndex()){
+//			if (shortWriter.openIndex()){
 //				//get a buffered reader handle to the file
-//				BufferedReader breader = new BufferedReader(longOpener.getFileForReading());
+//				BufferedReader breader = new BufferedReader(shortOpener.getFileForReading());
 //				//loop through the file line by line and parse
 //				String line;
 //
 //				while((line = breader.readLine()) != null){
-//
-//					LongAbstract longAbstract = new LongAbstract();
-//						if(line.contains("abstract")){
-//							longAbstract.setResource(line.substring(1, (line.indexOf(">"))));
-//							longAbstract.setLongAbstract(line.substring(line.indexOf("abstract")+ 11));
-//							longWriter.addLongAbstract(longAbstract);
+//					ShortAbstract shortAbstract = new ShortAbstract();
+//						if(line.contains("comment")){
+//							shortAbstract.setResource(line.substring(1, (line.indexOf(">"))));
+//							shortAbstract.setShort(line.substring(line.indexOf("comment")+ 10));
+//							shortWriter.addShortAbstract(shortAbstract);
 //						}
 //				}
 //
@@ -121,13 +86,48 @@ public class Main {
 //
 //		} 
 //		catch (Exception e) {
-//			System.out.println("Threw exception " + e.getClass() + " :: " + e.getMessage());
+//			System.out.println("Threw exception 2" + e.getClass() + " :: " + e.getMessage());
 //
 //		} 
 //		finally {
 //			//close out the index and release the lock on the file
-//			longWriter.finish();
+//			shortWriter.finish();
 //		}
+//		
+		
+		try {
+
+			//first see if we can open a directory for writing
+			if (longWriter.openIndex()){
+				//get a buffered reader handle to the file
+				BufferedReader breader = new BufferedReader(longOpener.getFileForReading());
+				//loop through the file line by line and parse
+				String line;
+
+				while((line = breader.readLine()) != null){
+
+					LongAbstract longAbstract = new LongAbstract();
+						if(line.contains("abstract")){
+							longAbstract.setResource(line.substring(1, (line.indexOf(">"))));
+							longAbstract.setLongAbstract(line.substring(line.indexOf("abstract")+ 11));
+							longWriter.addLongAbstract(longAbstract);
+						}
+				}
+
+			} else {
+				System.out.println("We had a problem opening the directory for writing");
+			}
+
+
+		} 
+		catch (Exception e) {
+			System.out.println("Threw exception " + e.getClass() + " :: " + e.getMessage());
+
+		} 
+		finally {
+			//close out the index and release the lock on the file
+			longWriter.finish();
+		}
 
 	}
 
