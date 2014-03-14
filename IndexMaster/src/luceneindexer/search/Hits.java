@@ -1,7 +1,13 @@
 package luceneindexer.search;
 
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 
 public class Hits {
@@ -20,8 +26,23 @@ public class Hits {
 	}
 	
 	public HashMap<String, Integer> getTerms(){
-		
+		Iterator i = valueIterator(terms);
+		while(i.hasNext()){
+			System.out.println(i.next());
+		}
 		return this.terms;
 	}
+	
+	
+	Iterator valueIterator(HashMap<String, Integer> terms2) {
+        Set set = new TreeSet(new Comparator<Map.Entry<String, Integer>>() {
+            @Override
+            public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2) {
+                return  o1.getValue().compareTo(o2.getValue()) > 0 ? 1 : -1;
+            }
+        });
+        set.addAll(terms2.entrySet());
+        return set.iterator();
+    }
 
 }

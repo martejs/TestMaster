@@ -83,7 +83,8 @@ public class SearchDBpedia {
 				//				Explanation explanation = searcher.explain(query, docId);
 				//				System.out.println("------------");
 
-				System.out.println("Hashmap:" + treff.getTerms()); 
+//				System.out.println("Hashmap:" + treff.getTerms()); 
+				treff.getTerms();
 				System.out.println("Funnet: " + hits[i].score + " med resource: " + resource);
 				//				System.out.println("Funnet: " + resource);
 				//				System.out.println(explanation.toString());
@@ -123,11 +124,8 @@ public class SearchDBpedia {
 
 		//query to search
 
-<<<<<<< HEAD
-		//		System.out.print("Skriv inn sÔøΩkeord");
-=======
 		//		System.out.print("Skriv inn s�keord");
->>>>>>> FETCH_HEAD
+
 		String queryStr = "autism";
 
 		int maxHits = 3;
