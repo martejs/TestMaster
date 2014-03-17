@@ -29,6 +29,7 @@ public class Hits {
 	
 	public HashMap<String, Integer> getTerms(){
 		Iterator i = valueIterator(terms);
+		
 		while(i.hasNext()){
 			System.out.println(i.next());
 		}
@@ -45,7 +46,10 @@ public class Hits {
                 return  o2.getValue().compareTo(o1.getValue()) > 0 ? 1 : -1;
             }
         });
+        
         set.addAll(terms2.entrySet());
+        
+        
         
         return set.iterator();
     }
