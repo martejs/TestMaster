@@ -15,6 +15,9 @@ public class Hits {
 	private HashMap<String, Integer> terms = new HashMap<String, Integer>();
 	
 	private int occurrences = 0;
+	private float tf = 0;
+	private float idf = 0;
+	private float tfidf = 0; 
 	
 	public void setTerms(String term){
 		if(!this.terms.containsKey(term)){
@@ -31,16 +34,18 @@ public class Hits {
 		
 		for(terms.entrySet().iterator(); i.hasNext();){
 			Map.Entry entry = (Map.Entry) i.next();
-			Object key = entry.getKey();
-			Object value = entry.getValue();
+			String key = (String) entry.getKey();
+			Integer value = (Integer) entry.getValue();
 			
-			System.out.println("Ord: " + key + ":" + value);
+			int size = this.terms.size();
+			
+			this.tf = (float) value / size;
+			this.idf = (float) (Math.log(size/value)); 
+			this.tfidf = (tf*idf);
+			
+			System.out.println(key + ":" + value + " Tf/idf: " + this.tfidf);
+			
 		}
-		
-//		while(i.hasNext()){
-//			
-//			System.out.println(i.next());
-//		}
 		return this.terms;
 	}
 	
