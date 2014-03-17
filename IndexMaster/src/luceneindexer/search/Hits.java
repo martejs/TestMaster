@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.TreeSet;
 
 
@@ -30,26 +29,33 @@ public class Hits {
 	public HashMap<String, Integer> getTerms(){
 		Iterator i = valueIterator(terms);
 		
-		while(i.hasNext()){
-			System.out.println(i.next());
+		for(terms.entrySet().iterator(); i.hasNext();){
+			Map.Entry entry = (Map.Entry) i.next();
+			Object key = entry.getKey();
+			Object value = entry.getValue();
+			
+			System.out.println("Ord: " + key + ":" + value);
 		}
+		
+//		while(i.hasNext()){
+//			
+//			System.out.println(i.next());
+//		}
 		return this.terms;
 	}
 	
 	
 	Iterator valueIterator(HashMap<String, Integer> terms2) {
         Set set = new TreeSet(new Comparator<Map.Entry<String, Integer>>() {
-        	
+        
         	
             @Override
             public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2) {
                 return  o2.getValue().compareTo(o1.getValue()) > 0 ? 1 : -1;
             }
+           
         });
-        
         set.addAll(terms2.entrySet());
-        
-        
         
         return set.iterator();
     }
