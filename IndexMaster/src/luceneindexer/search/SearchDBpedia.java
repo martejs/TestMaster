@@ -122,7 +122,7 @@ public class SearchDBpedia {
 		String indexLong = "indexLong";
 		String indexSF = "SanFranciscoIndex";
 		String indexSampleShort = "sampleShortIndex";
-		String indexSampleLong = "sampleShortIndex";
+		String indexSampleLong = "sampleLongIndex";
 
 		//query to search
 
