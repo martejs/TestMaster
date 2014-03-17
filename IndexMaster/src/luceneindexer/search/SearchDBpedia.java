@@ -85,6 +85,7 @@ public class SearchDBpedia {
 				//				System.out.println("------------");
 
 //				System.out.println("Hashmap:" + treff.getTerms()); 
+				
 				treff.getTerms();
 				System.out.println("Funnet: " + hits[i].score + " med resource: " + resource);
 				//				System.out.println("Funnet: " + resource);
@@ -128,7 +129,7 @@ public class SearchDBpedia {
 
 		//		System.out.print("Skriv inn s�keord");
 
-		String queryStr = "autism";
+		String queryStr = "greek";
 
 		int maxHits = 3;
 		//		System.out.println("Label:");
