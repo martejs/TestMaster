@@ -38,10 +38,7 @@ public class Hits {
 			Integer value = (Integer) entry.getValue();
 			
 			int size = this.terms.size();
-			
-			this.tf = (float) value / size;
-			this.idf = (float) (Math.log(size/value)); 
-			this.tfidf = (tf*idf);
+			tfidf = getTfidf(value, size);
 			
 			System.out.println(key + ":" + value + " Tf/idf: " + this.tfidf);
 			
@@ -49,6 +46,15 @@ public class Hits {
 		return this.terms;
 	}
 	
+	
+	public float getTfidf(int value, int size){
+		
+		tf = (float) value / size;
+		idf = (float) (Math.log(size/value)); 
+		tfidf = (tf*idf);
+		
+		return tfidf;
+	}
 	
 	Iterator valueIterator(HashMap<String, Integer> terms2) {
         Set set = new TreeSet(new Comparator<Map.Entry<String, Integer>>() {
@@ -64,5 +70,6 @@ public class Hits {
         
         return set.iterator();
     }
+	
 
 }
