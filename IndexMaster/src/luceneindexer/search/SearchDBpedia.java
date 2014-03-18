@@ -131,7 +131,7 @@ public class SearchDBpedia {
 
 		String queryStr = "greek";
 
-		int maxHits = 3;
+		int maxHits = 1;
 		//		System.out.println("Label:");
 		//		searchFiles(label, indexLabel, queryStr, maxHits);
 		System.out.println("Long:");

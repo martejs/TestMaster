@@ -10,7 +10,6 @@ across
 act
 actually
 added
-adj
 affected
 affecting
 affects
@@ -388,7 +387,6 @@ poorly
 possible
 possibly
 potentially
-pp
 predominantly
 present
 previously
@@ -500,7 +498,6 @@ taken
 taking
 tell
 tends
-th
 than
 thank
 thanks
@@ -509,6 +506,7 @@ that
 that'll
 thats
 that've
+The
 the
 their
 theirs
