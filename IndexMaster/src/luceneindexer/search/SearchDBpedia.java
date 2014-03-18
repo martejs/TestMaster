@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
@@ -80,16 +82,9 @@ public class SearchDBpedia {
 //				}
 
 				
-
-				//				Explanation explanation = searcher.explain(query, docId);
-				//				System.out.println("------------");
-
-//				System.out.println("Hashmap:" + treff.getTerms()); 
 				
-				treff.getTerms();
 				System.out.println("Funnet: " + hits[i].score + " med resource: " + resource);
-				//				System.out.println("Funnet: " + resource);
-				//				System.out.println(explanation.toString());
+				treff.getTerms();
 
 
 
@@ -127,11 +122,10 @@ public class SearchDBpedia {
 
 		//query to search
 
-		//		System.out.print("Skriv inn s�keord");
+		String queryStr = JOptionPane.showInputDialog("Enter query:");
 
-		String queryStr = "greek";
 
-		int maxHits = 1;
+		int maxHits = 5;
 		//		System.out.println("Label:");
 		//		searchFiles(label, indexLabel, queryStr, maxHits);
 		System.out.println("Long:");
