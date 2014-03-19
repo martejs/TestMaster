@@ -39,13 +39,14 @@ public class TermHits {
 	}
 	
 	public void setDocumentFrequency(String term, String resource){
-		if(!this.documentFrequency.containsKey(term)){
-			
-			System.out.println("ny term: " + term + " Ressurs" + resource);
+//		if(!this.documentFrequency.containsKey(term)){
+//			
+//			System.out.println("ny term: " + term + " Ressurs" + resource);
 			
 			this.resourceList.add(resource);
 			documentFrequency.put(term, resourceList);
-		}
+//		}
+		
 	}
 	
 	public HashMap<String, ArrayList<String>> getDocumentFrequency(){
