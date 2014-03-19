@@ -48,9 +48,9 @@ public class SearchDBpedia {
 			ScoreDoc[] hits = topDocs.scoreDocs;
 
 
+			Hits treff = new Hits();
 
 			for(int i = 0; i < hits.length; i++){
-				Hits treff = new Hits();
 				int docId = hits[i].doc;
 				Document d = searcher.doc(docId);
 				String resource = d.get("resource");
@@ -60,7 +60,7 @@ public class SearchDBpedia {
 				Scanner sc = new Scanner(longAbstract);
 				while(sc.hasNext()){
 					String nextTerm = sc.next();
-					treff.setTerms(nextTerm);
+					treff.setTerms(nextTerm, resource);
 				}
 
 				
@@ -84,11 +84,12 @@ public class SearchDBpedia {
 				
 				
 				System.out.println("Funnet: " + hits[i].score + " med resource: " + resource);
-				treff.getTerms();
+				
 
 
 
 			}
+			treff.getTerms();
 
 
 			System.out.println("Fant " + hits.length);

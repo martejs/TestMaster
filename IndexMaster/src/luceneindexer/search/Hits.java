@@ -18,15 +18,21 @@ public class Hits {
 	private float tf = 0;
 	private float idf = 0;
 	private float tfidf = 0; 
+	private TermHits t = new TermHits();
 	
-	public void setTerms(String term){
+	public void setTerms(String term, String resource){
 		if(!this.terms.containsKey(term)){
+			
+//			System.out.println("ny term: " + term + " Ressurs " + resource);
+			
+			
 			this.occurrences = 1;
 			terms.put(term, this.occurrences);
 		}
 		else{
 			terms.put(term, terms.get(term) + 1);
 		}
+		t.setDocumentFrequency(term, resource);
 	}
 	
 	public HashMap<String, Integer> getTerms(){
@@ -40,7 +46,8 @@ public class Hits {
 			int size = this.terms.size();
 			tfidf = getTfidf(value, size);
 			
-			System.out.println(key + ":" + value + " Tf/idf: " + this.tfidf);
+			System.out.println(key + ":" + value /*+ " Tf/idf: " + this.tfidf*/ + " "  + t.getResourceListLength(key));
+			
 			
 		}
 		return this.terms;
