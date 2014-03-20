@@ -46,6 +46,7 @@ public class SearchDBpedia {
 			Query query = parser.parse(queryStr);
 			TopDocs topDocs = searcher.search(query, maxHits);
 			ScoreDoc[] hits = topDocs.scoreDocs;
+			
 
 
 			Hits treff = new Hits();
@@ -90,7 +91,8 @@ public class SearchDBpedia {
 
 			}
 			treff.getTerms();
-
+			
+			treff.getChiSquare(queryStr, all);
 
 			System.out.println("Fant " + hits.length);
 			return true;

@@ -21,6 +21,8 @@ public class Hits {
 	private float tf = 0;
 	private float idf = 0;
 	private float tfidf = 0; 
+	private float chiSquare = 0;
+	private String first = "";
 	
 	public void setTerms(String term, String resource){
 		if(!this.terms.containsKey(term)){
@@ -40,20 +42,31 @@ public class Hits {
 	
 	public HashMap<String, Integer> getTerms(){
 		Iterator i = valueIterator(terms);
+		List<String> ord = new ArrayList<String>();
 		
 		for(terms.entrySet().iterator(); i.hasNext();){
 			Map.Entry entry = (Map.Entry) i.next();
 			String key = (String) entry.getKey();
 			Integer value = (Integer) entry.getValue();
+			ord.add(key);
 			
 			int size = this.terms.size();
 			tfidf = getTfidf(value, size);
 //			frequence = getHitsFrequence(key);
-			System.out.println(key + " : " + value /*+ " Tf/idf: " + this.tfidf*/ + " ressurs: " + documentFrequency.get(value) + " antall dok: " + getHitsFrequence(key));
+			System.out.println(key + " : " + value + " Tf/idf: " + this.tfidf  + " antall dok: " + getHitsFrequence(key));
 			
 			
 		}
+		first = ord.get(0); 
 		return this.terms;
+		
+	}
+	
+	public int getFrequency(String term){
+		
+		int freq = getHitsFrequence(term);
+		
+		return freq;
 	}
 	
 	
@@ -91,11 +104,6 @@ public class Hits {
 	}
 
 	public void setDocumentFrequency(String term, String resource) {
-		/*
-		 * t1 - ny
-		 * t2 - ny
-		 * t1 - 
-		 * */
 		if(!documentFrequency.containsKey(term)){
 			resourceList = new ArrayList<String>();
 			resourceList.add(resource);
@@ -109,10 +117,17 @@ public class Hits {
 				// resourceList.add(resource);
 				rl.add(resource);
 				documentFrequency.put(term, rl);
-				System.out.println("2. Satt: " + term + " og ressurs: " + rl);
+//				System.out.println("2. Satt: " + term + " og ressurs: " + rl);
 			}
 		}
 	}
 	
+	public float getChiSquare(int q, int all){
+		float nNa = q/all;
+		float square = getFrequency(first)*(1-nNa);
+		chiSquare = square/q;
+		return chiSquare;
+		
+	}
 
 }
