@@ -97,7 +97,7 @@ public class LuceneWriter {
 //        }
 //        
 //    }
-    
+//    
 //    public void addShortAbstract(ShortAbstract shortAbstract){
 //    	
 //    	FieldType fieldType = new FieldType();
@@ -156,7 +156,7 @@ public class LuceneWriter {
     public String removeStopWords(String sentence){
     	
     
-    	
+    	System.out.println("fjerne stoppord?");
 //    	final CharArraySet stopSet = new CharArraySet(Version.LUCENE_45, stopWords, false);
     	sentence= sentence.toLowerCase();
     	TokenStream ts = new StandardTokenizer(Version.LUCENE_45, new StringReader(sentence));
@@ -171,7 +171,7 @@ public class LuceneWriter {
     			"below","beside","besides","between","beyond","biol","both","brief","briefly","but","by","ca","came","can","cannot",
     			"can't","cause","causes","certain","certainly","co","com","come","comes","contain","containing","contains","could",
     			"couldnt","date","did","didn't","different","do","does","doesn't","doing","done","don't","down","downwards","due",
-    			"during","each","ed","edu","effect","eg","eight","eighty","either","else","elsewhere","end","ending","enough",
+    			"during","each","ed","edu","effect","eg","eight","eighty","either","else","elsewhere", "en","end","ending","enough",
     			"especially","et","et-al","etc","even","ever","every","everybody","everyone","everything","everywhere","ex","except",
     			"far","few","ff","fifth","first","five","fix","followed","following","follows","for","former","formerly","forth","found",
     			"four","from","further","furthermore","gave","get","gets","getting","give","given","gives","giving","go","goes","gone",

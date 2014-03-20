@@ -116,7 +116,7 @@ public class SearchDBpedia {
 		//Index folder
 		String indexLabel = "indexDir";
 		String indexPath = "indexShort";
-		String indexLong = "indexLong";
+		String indexLong = "LongIndex";
 		String indexSF = "SanFranciscoIndex";
 		String indexSampleShort = "sampleShortIndex";
 		String indexSampleLong = "sampleLongIndex";
@@ -126,14 +126,14 @@ public class SearchDBpedia {
 		String queryStr = JOptionPane.showInputDialog("Enter query:");
 
 
-		int maxHits = 5;
+		int maxHits = 100;
 		//		System.out.println("Label:");
 		//		searchFiles(label, indexLabel, queryStr, maxHits);
 		System.out.println("Long:");
-		searchFiles(longField, indexSampleLong, queryStr, maxHits);
+//		searchFiles(longField, indexSampleLong, queryStr, maxHits);
 
 		//		System.out.println("Long:");
-		//		searchFiles(longField, indexLong, queryStr, maxHits);
+				searchFiles(longField, indexLong, queryStr, maxHits);
 
 	}
 
