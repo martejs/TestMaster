@@ -1,9 +1,11 @@
 package luceneindexer.search;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -13,12 +15,13 @@ import java.util.TreeSet;
 public class Hits {
 	
 	private HashMap<String, Integer> terms = new HashMap<String, Integer>();
-	
+	private HashMap<String, ArrayList<String>> documentFrequency = new HashMap<String, ArrayList<String>>();
+	private ArrayList<String> resourceList;
+	private int frequence = 0;
 	private int occurrences = 0;
 	private float tf = 0;
 	private float idf = 0;
 	private float tfidf = 0; 
-	private TermHits t = new TermHits();
 	
 	public void setTerms(String term, String resource){
 		if(!this.terms.containsKey(term)){
@@ -32,7 +35,8 @@ public class Hits {
 		else{
 			terms.put(term, terms.get(term) + 1);
 		}
-		t.setDocumentFrequency(term, resource);
+//		t.setDocumentFrequency(term, resource);
+		
 	}
 	
 	public HashMap<String, Integer> getTerms(){
@@ -45,8 +49,8 @@ public class Hits {
 			
 			int size = this.terms.size();
 			tfidf = getTfidf(value, size);
-			
-			System.out.println(key + ":" + value /*+ " Tf/idf: " + this.tfidf*/ + " "  + t.getResourceListLength(key));
+			frequence = getHitsFrequence(key);
+			System.out.println(key + " : " + value /*+ " Tf/idf: " + this.tfidf*/ + "ressurs: " + documentFrequency.get(value) + " antall dok: " + frequence);
 			
 			
 		}
@@ -77,6 +81,32 @@ public class Hits {
         
         return set.iterator();
     }
+	
+	public int getHitsFrequence(String term){
+		frequence = documentFrequency.get(term).size();
+		return frequence;
+	}
+
+	public HashMap<String, ArrayList<String>> getDocumentFrequency() {
+		return documentFrequency;
+	}
+
+	public void setDocumentFrequency(String term, String resource) {
+		
+		if(!documentFrequency.containsKey(term)){
+			resourceList = new ArrayList<String>();
+			resourceList.add(resource);
+			documentFrequency.put(term, resourceList);
+		}else if(documentFrequency.containsKey(term)){
+			if(resourceList.contains(resource)){
+			}
+			else{
+				resourceList.add(resource);
+				documentFrequency.put(term, resourceList);
+				System.out.println("2. Satt: " + term + " og ressurs: " + documentFrequency.get(term));
+			}
+		}
+	}
 	
 
 }

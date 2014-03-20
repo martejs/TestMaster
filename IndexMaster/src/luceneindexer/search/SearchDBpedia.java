@@ -60,6 +60,7 @@ public class SearchDBpedia {
 				Scanner sc = new Scanner(longAbstract);
 				while(sc.hasNext()){
 					String nextTerm = sc.next();
+					treff.setDocumentFrequency(nextTerm, resource);
 					treff.setTerms(nextTerm, resource);
 				}
 
@@ -84,7 +85,6 @@ public class SearchDBpedia {
 				
 				
 				System.out.println("Funnet: " + hits[i].score + " med resource: " + resource);
-				
 
 
 
