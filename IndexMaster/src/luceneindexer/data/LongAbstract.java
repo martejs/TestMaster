@@ -18,6 +18,7 @@ public class LongAbstract {
 	public void setLongAbstract(String longAbstract) {
 		String longAb = new String();
 		
+		
 		longAb = sw.removeStopWords(longAbstract);
 		
 		this.long_abstract = longAb;
