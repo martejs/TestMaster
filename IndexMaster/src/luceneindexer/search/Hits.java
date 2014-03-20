@@ -17,7 +17,6 @@ public class Hits {
 	private HashMap<String, Integer> terms = new HashMap<String, Integer>();
 	private HashMap<String, ArrayList<String>> documentFrequency = new HashMap<String, ArrayList<String>>();
 	private ArrayList<String> resourceList;
-	private int frequence = 0;
 	private int occurrences = 0;
 	private float tf = 0;
 	private float idf = 0;
@@ -49,8 +48,8 @@ public class Hits {
 			
 			int size = this.terms.size();
 			tfidf = getTfidf(value, size);
-			frequence = getHitsFrequence(key);
-			System.out.println(key + " : " + value /*+ " Tf/idf: " + this.tfidf*/ + "ressurs: " + documentFrequency.get(value) + " antall dok: " + frequence);
+//			frequence = getHitsFrequence(key);
+			System.out.println(key + " : " + value /*+ " Tf/idf: " + this.tfidf*/ + " ressurs: " + documentFrequency.get(value) + " antall dok: " + getHitsFrequence(key));
 			
 			
 		}
@@ -83,8 +82,8 @@ public class Hits {
     }
 	
 	public int getHitsFrequence(String term){
-		frequence = documentFrequency.get(term).size();
-		return frequence;
+		
+		return documentFrequency.get(term).size();
 	}
 
 	public HashMap<String, ArrayList<String>> getDocumentFrequency() {
@@ -92,18 +91,25 @@ public class Hits {
 	}
 
 	public void setDocumentFrequency(String term, String resource) {
-		
+		/*
+		 * t1 - ny
+		 * t2 - ny
+		 * t1 - 
+		 * */
 		if(!documentFrequency.containsKey(term)){
 			resourceList = new ArrayList<String>();
 			resourceList.add(resource);
 			documentFrequency.put(term, resourceList);
 		}else if(documentFrequency.containsKey(term)){
-			if(resourceList.contains(resource)){
+			ArrayList<String> rl = documentFrequency.get(term);
+			if(rl.contains(resource)){
 			}
 			else{
-				resourceList.add(resource);
-				documentFrequency.put(term, resourceList);
-				System.out.println("2. Satt: " + term + " og ressurs: " + documentFrequency.get(term));
+				// documentFrequency.get(term);
+				// resourceList.add(resource);
+				rl.add(resource);
+				documentFrequency.put(term, rl);
+				System.out.println("2. Satt: " + term + " og ressurs: " + rl);
 			}
 		}
 	}
