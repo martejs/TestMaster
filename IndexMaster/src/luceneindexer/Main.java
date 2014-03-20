@@ -18,13 +18,13 @@ public class Main {
 		System.out.println("Hello world");
 		//Open the file of OWL for reading
 //		FileOpener fOpener = new FileOpener("labels_en.ttl");
-//		FileOpener shortOpener = new FileOpener("shortSample.ttl");
-		FileOpener longOpener = new FileOpener("longSample.ttl");
+//		FileOpener shortOpener = new FileOpener("short_abstract.ttl");
+		FileOpener longOpener = new FileOpener("long_abstracts_en.ttl");
 
 		//Create the object for writing
 //		LuceneWriter luceneWriter = new LuceneWriter("indexDir");
-//		LuceneWriter shortWriter = new LuceneWriter("sampleShortIndex");
-		LuceneWriter longWriter = new LuceneWriter("sampleLongIndex");
+//		LuceneWriter shortWriter = new LuceneWriter("ShortIndex");
+		LuceneWriter longWriter = new LuceneWriter("LongIndex");
 
 //		try {
 //
@@ -59,8 +59,8 @@ public class Main {
 //			//close out the index and release the lock on the file
 //			luceneWriter.finish();
 //		}
-		
-
+//		
+//
 //		try {
 //
 //			//first see if we can open a directory for writing
@@ -93,7 +93,7 @@ public class Main {
 //			//close out the index and release the lock on the file
 //			shortWriter.finish();
 //		}
-//		
+		
 		
 		try {
 
