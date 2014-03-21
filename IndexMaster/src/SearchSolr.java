@@ -22,8 +22,8 @@ import org.apache.solr.common.SolrDocumentList;
 
 public class SearchSolr {
 	public static void main(String [] args) throws SolrServerException, HTTPException, IOException {
-		
-//		String url = "http://129.241.111.168:8983/solr/#/";
+
+		//		String url = "http://129.241.111.168:8983/solr/#/";
 		ArrayList<String> list = new ArrayList<String>();
 		list.add("SanFrancisco");
 		list.add("Mediaeval");
@@ -32,38 +32,44 @@ public class SearchSolr {
 		list.add("Upcoming");
 		list.add("WorldGEOUpcoming");
 		//list.add("WorldTiles");
-	
+
 		HttpSolrServer server;
-		 String input= JOptionPane.showInputDialog("søkeord");
+		String input= JOptionPane.showInputDialog("søkeord");
+		String [] splitStrings = input.split(" ");
+		String qyr;
+		String qyr2;
+
+		qyr = "attr_tag:" + splitStrings[0];
+		qyr2 = "attr_tag:" + splitStrings[1];
+
 		for (int i = 0; i < list.size(); i++) {
-			 server= new HttpSolrServer("http://129.241.111.168:8983/solr/"+list.get(i));
-			 
-			
-				SolrQuery query = new SolrQuery("attr_tag:"+input);//Search for everything/anything
-				QueryResponse qr = server.query(query); 
-				SolrDocumentList result = qr.getResults();
-				for (SolrDocument doc : result) {
-					Object id = doc.get("url_s");
-					ArrayList name = (ArrayList) doc.get("attr_tag");
-					System.out.println(id + " " + name);
-				}
-				
-			
+			server= new HttpSolrServer("http://129.241.111.168:8983/solr/"+list.get(i));
+
+			SolrQuery query = new SolrQuery(qyr + " AND "+ qyr2);//Search for everything/anything
+			QueryResponse qr = server.query(query); 
+			SolrDocumentList result = qr.getResults();
+			for (SolrDocument doc : result) {
+				Object id = doc.get("url_s");
+				ArrayList name = (ArrayList) doc.get("attr_tag");
+				System.out.println(id + " " + name);
+			}
+
+
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	}
 
 }

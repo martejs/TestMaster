@@ -130,8 +130,10 @@ public class Hits {
 	
 	public float getChiSquare(int q, int all){
 		System.out.println("Spørreterm: " + SearchDBpedia.queryStr + " Term: " + first);
-		float nNa = q/all;
-		float square = getFrequency(first)*(1-nNa);
+		float nNa = q/(float)all;
+		
+		float square =getFrequency(first)* (float) Math.pow(((1-nNa)),2);
+		System.out.println("q=" + q +" square=" + square);
 		chiSquare = square/q;
 		System.out.println("sp�rreterm: " + q + " term2: " + getFrequency(first) + " blir chi-square: " + chiSquare);
 		return chiSquare;

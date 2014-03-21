@@ -105,7 +105,7 @@ public class SearchDBpedia {
 			}
 			treff.getTerms();
 //			System.out.println(writer.getTotalDocs());
-			treff.getChiSquare(queryStr.length(), 4004477);
+			treff.getChiSquare(maxHits, 4004477);
 			
 		
 			System.out.println("Fant " + hits.length);
