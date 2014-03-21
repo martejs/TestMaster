@@ -19,12 +19,12 @@ public class Main {
 		//Open the file of OWL for reading
 //		FileOpener fOpener = new FileOpener("labels_en.ttl");
 //		FileOpener shortOpener = new FileOpener("short_abstract.ttl");
-		FileOpener longOpener = new FileOpener("long_abstracts_en.ttl");
+		FileOpener longOpener = new FileOpener("longSample.ttl");
 
 		//Create the object for writing
 //		LuceneWriter luceneWriter = new LuceneWriter("indexDir");
 //		LuceneWriter shortWriter = new LuceneWriter("ShortIndex");
-		LuceneWriter longWriter = new LuceneWriter("LongIndex");
+		LuceneWriter longWriter = new LuceneWriter("indexLong");
 
 //		try {
 //
@@ -112,8 +112,10 @@ public class Main {
 							longAbstract.setLongAbstract(line.substring(line.indexOf("abstract")+ 11));
 							longWriter.addLongAbstract(longAbstract);
 						}
+						
 				}
-
+				
+			
 			} else {
 				System.out.println("We had a problem opening the directory for writing");
 			}
@@ -123,12 +125,14 @@ public class Main {
 		catch (Exception e) {
 			System.out.println("Threw exception " + e.getClass() + " :: " + e.getMessage());
 
-		} 
+		}
 		finally {
 			//close out the index and release the lock on the file
 			longWriter.finish();
 		}
-
+		 
+		
+	
 	}
 
 }

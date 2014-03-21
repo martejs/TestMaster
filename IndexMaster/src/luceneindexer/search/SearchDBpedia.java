@@ -8,6 +8,8 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
+import luceneindexer.files.LuceneWriter;
+
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
@@ -50,6 +52,7 @@ public class SearchDBpedia {
 
 
 			Hits treff = new Hits();
+			LuceneWriter writer = new LuceneWriter();
 
 			for(int i = 0; i < hits.length; i++){
 				int docId = hits[i].doc;
@@ -92,8 +95,9 @@ public class SearchDBpedia {
 			}
 			treff.getTerms();
 			
-			treff.getChiSquare(queryStr, all);
-
+			treff.getChiSquare(queryStr.length(), writer.getTotalDocs());
+			
+		
 			System.out.println("Fant " + hits.length);
 			return true;
 
@@ -126,16 +130,15 @@ public class SearchDBpedia {
 		//query to search
 
 		String queryStr = JOptionPane.showInputDialog("Enter query:");
-
-
+		
 		int maxHits = 100;
 		//		System.out.println("Label:");
 		//		searchFiles(label, indexLabel, queryStr, maxHits);
 		System.out.println("Long:");
-//		searchFiles(longField, indexSampleLong, queryStr, maxHits);
+		searchFiles(longField, indexSampleLong, queryStr, maxHits);
 
 		//		System.out.println("Long:");
-				searchFiles(longField, indexLong, queryStr, maxHits);
+//				searchFiles(longField, indexLong, queryStr, maxHits);
 
 	}
 
