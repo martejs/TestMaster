@@ -57,9 +57,15 @@ public class Hits {
 			
 			
 		}
-		first = ord.get(0); 
-		return this.terms;
+//		System.out.println("Sesh" +SearchDBpedia.queryStr);
+		if(ord.get(0).equals(SearchDBpedia.queryStr)){
+			first = ord.get(1);
+		}
+		else{
+			first = ord.get(0); 
 		
+		}
+		return this.terms;
 	}
 	
 	public int getFrequency(String term){
@@ -123,10 +129,11 @@ public class Hits {
 	}
 	
 	public float getChiSquare(int q, int all){
+		System.out.println("SpÃ¸rreterm: " + SearchDBpedia.queryStr + " Term: " + first);
 		float nNa = q/all;
 		float square = getFrequency(first)*(1-nNa);
 		chiSquare = square/q;
-		System.out.println("sp¿rreterm: " + q + " term2: " + getFrequency(first) + " blir chi-square: " + chiSquare);
+		System.out.println("spï¿½rreterm: " + q + " term2: " + getFrequency(first) + " blir chi-square: " + chiSquare);
 		return chiSquare;
 		
 	}

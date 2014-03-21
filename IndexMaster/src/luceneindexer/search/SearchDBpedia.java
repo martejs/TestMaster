@@ -36,6 +36,15 @@ import org.apache.lucene.util.Version;
 
 
 public class SearchDBpedia {
+	
+	
+	static String queryStr;
+
+//	public String getQueryStr() {
+//		return queryStr;
+//	}
+
+	
 
 	public static boolean searchFiles(String field, String indexPath, String queryStr, int maxHits){
 
@@ -96,7 +105,7 @@ public class SearchDBpedia {
 			}
 			treff.getTerms();
 //			System.out.println(writer.getTotalDocs());
-			treff.getChiSquare(queryStr.length(), 23);
+			treff.getChiSquare(queryStr.length(), 4004477);
 			
 		
 			System.out.println("Fant " + hits.length);
@@ -113,7 +122,7 @@ public class SearchDBpedia {
 		}
 
 	}
-
+	
 	public static void main(String[] args){
 		//Field
 		String label = "label";
@@ -129,14 +138,16 @@ public class SearchDBpedia {
 		String indexSampleLong = "sampleLongIndex";
 
 		//query to search
+		
+		queryStr= JOptionPane.showInputDialog("Enter query:");
 
-		String queryStr = JOptionPane.showInputDialog("Enter query:");
+
 		
 		int maxHits = 100;
 		//		System.out.println("Label:");
 		//		searchFiles(label, indexLabel, queryStr, maxHits);
 		System.out.println("Long:");
-		searchFiles(longField, indexSampleLong, queryStr, maxHits);
+		searchFiles(longField, indexLong, queryStr, maxHits);
 
 		//		System.out.println("Long:");
 //				searchFiles(longField, indexLong, queryStr, maxHits);
