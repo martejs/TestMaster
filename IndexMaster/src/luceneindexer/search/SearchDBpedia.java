@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
+import luceneindexer.Main;
 import luceneindexer.files.LuceneWriter;
 
 import org.apache.lucene.analysis.Analyzer;
@@ -52,7 +53,7 @@ public class SearchDBpedia {
 
 
 			Hits treff = new Hits();
-			LuceneWriter writer = new LuceneWriter();
+			LuceneWriter writer = Main.getLongWriter();
 
 			for(int i = 0; i < hits.length; i++){
 				int docId = hits[i].doc;
@@ -94,8 +95,8 @@ public class SearchDBpedia {
 
 			}
 			treff.getTerms();
-			
-			treff.getChiSquare(queryStr.length(), writer.getTotalDocs());
+//			System.out.println(writer.getTotalDocs());
+			treff.getChiSquare(queryStr.length(), 23);
 			
 		
 			System.out.println("Fant " + hits.length);

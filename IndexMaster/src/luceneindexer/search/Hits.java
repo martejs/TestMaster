@@ -126,6 +126,7 @@ public class Hits {
 		float nNa = q/all;
 		float square = getFrequency(first)*(1-nNa);
 		chiSquare = square/q;
+		System.out.println("sp¿rreterm: " + q + " term2: " + getFrequency(first) + " blir chi-square: " + chiSquare);
 		return chiSquare;
 		
 	}

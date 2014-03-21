@@ -14,6 +14,8 @@ import luceneindexer.files.LuceneWriter;
 
 public class Main {
 
+	private static LuceneWriter longWriter = new LuceneWriter("indexLong");
+	
 	public static void main(String[] args) {
 		System.out.println("Hello world");
 		//Open the file of OWL for reading
@@ -24,7 +26,6 @@ public class Main {
 		//Create the object for writing
 //		LuceneWriter luceneWriter = new LuceneWriter("indexDir");
 //		LuceneWriter shortWriter = new LuceneWriter("ShortIndex");
-		LuceneWriter longWriter = new LuceneWriter("indexLong");
 
 //		try {
 //
@@ -98,7 +99,7 @@ public class Main {
 		try {
 
 			//first see if we can open a directory for writing
-			if (longWriter.openIndex()){
+			if (getLongWriter().openIndex()){
 				//get a buffered reader handle to the file
 				BufferedReader breader = new BufferedReader(longOpener.getFileForReading());
 				//loop through the file line by line and parse
@@ -110,7 +111,7 @@ public class Main {
 						if(line.contains("abstract")){
 							longAbstract.setResource(line.substring(1, (line.indexOf(">"))));
 							longAbstract.setLongAbstract(line.substring(line.indexOf("abstract")+ 11));
-							longWriter.addLongAbstract(longAbstract);
+							getLongWriter().addLongAbstract(longAbstract);
 						}
 						
 				}
@@ -128,11 +129,16 @@ public class Main {
 		}
 		finally {
 			//close out the index and release the lock on the file
-			longWriter.finish();
+			getLongWriter().finish();
 		}
 		 
 		
 	
 	}
+
+	public static LuceneWriter getLongWriter() {
+		return longWriter;
+	}
+
 
 }
