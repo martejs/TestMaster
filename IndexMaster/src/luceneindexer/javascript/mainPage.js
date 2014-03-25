@@ -103,21 +103,21 @@ $('#searchBtn').on('click', function(){
 		'jsonp':'json.wrf'
 		});
 	
-	$.ajax({
-		'url': 'http://129.241.111.168:8983/solr/WorldTiles/select',
-		'data': {'wt':'json', 'q':q},
-		'success': function(data) {
-			console.log("7");
-			for(var i=0;i<data.response.docs.length;i++){
-				var URL = data.response.docs[i].url_s;
-				$('#searchResult').append('<img src="' + URL + '">');
-				console.log(data.response.docs[i].url_s);
-			}
-			
-		},
-		'dataType':'jsonp',
-		'jsonp':'json.wrf'
-		});
+//	$.ajax({
+//		'url': 'http://129.241.111.168:8983/solr/WorldTiles/select',
+//		'data': {'wt':'json', 'q':q},
+//		'success': function(data) {
+//			console.log("7");
+//			for(var i=0;i<data.response.docs.length;i++){
+//				var URL = data.response.docs[i].url_s;
+//				$('#searchResult').append('<img src="' + URL + '">');
+//				console.log(data.response.docs[i].url_s);
+//			}
+//			
+//		},
+//		'dataType':'jsonp',
+//		'jsonp':'json.wrf'
+//		});
 	
 	
 });
