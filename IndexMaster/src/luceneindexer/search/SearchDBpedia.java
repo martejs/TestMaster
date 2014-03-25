@@ -105,7 +105,8 @@ public class SearchDBpedia {
 			}
 			treff.getTerms();
 //			System.out.println(writer.getTotalDocs());
-			treff.getChiSquare(maxHits, 4004477);
+//			treff.getChiSquare(maxHits, 4004477);
+			treff.getMI(maxHits, 4004477);
 			
 		
 			System.out.println("Fant " + hits.length);
@@ -143,7 +144,7 @@ public class SearchDBpedia {
 
 
 		
-		int maxHits = 100;
+		int maxHits = 20;
 		//		System.out.println("Label:");
 		//		searchFiles(label, indexLabel, queryStr, maxHits);
 		System.out.println("Long:");

@@ -45,7 +45,8 @@ public class SearchSolr {
 		for (int i = 0; i < list.size(); i++) {
 			server= new HttpSolrServer("http://129.241.111.168:8983/solr/"+list.get(i));
 
-			SolrQuery query = new SolrQuery(qyr + " AND "+ qyr2);//Search for everything/anything
+			//SolrQuery query = new SolrQuery(qyr + " AND "+ qyr2);//Search for everything/anything
+			SolrQuery query = new SolrQuery(qyr);
 			QueryResponse qr = server.query(query); 
 			SolrDocumentList result = qr.getResults();
 			for (SolrDocument doc : result) {
