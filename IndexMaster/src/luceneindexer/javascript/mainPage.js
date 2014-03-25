@@ -10,10 +10,10 @@ $('#searchBtn').on('click', function(){
 		'url': 'http://129.241.111.168:8983/solr/SanFrancisco/select',
 		'data': {'wt':'json', 'q':q},
 		'success': function(data) {
-			$('#searchForm').replaceWith('<div id="searchResult"><h3>You searched for ' + q + '</h3></div>');
+			console.log("1");
 			for(var i=0;i<data.response.docs.length;i++){
 				var URL = data.response.docs[i].url_s;
-				$('#searchResult').append('<iframe src="' + URL + '"></iframe>');
+				$('#searchResult').append('<img src="' + URL + '">');
 				console.log(data.response.docs[i].url_s);
 			}
 			
@@ -21,6 +21,104 @@ $('#searchBtn').on('click', function(){
 		'dataType':'jsonp',
 		'jsonp':'json.wrf'
 		});
+	
+	
+	$.ajax({
+		'url': 'http://129.241.111.168:8983/solr/Mediaeval/select',
+		'data': {'wt':'json', 'q':q},
+		'success': function(data) {
+			console.log("2");
+			for(var i=0;i<data.response.docs.length;i++){
+				var URL = data.response.docs[i].url_s;
+				$('#searchResult').append('<img src="' + URL + '">');
+				console.log(data.response.docs[i].url_s);
+			}
+			
+		},
+		'dataType':'jsonp',
+		'jsonp':'json.wrf'
+		});
+	
+	$.ajax({
+		'url': 'http://129.241.111.168:8983/solr/London/select',
+		'data': {'wt':'json', 'q':q},
+		'success': function(data) {
+			console.log("3");
+			for(var i=0;i<data.response.docs.length;i++){
+				var URL = data.response.docs[i].url_s;
+				$('#searchResult').append('<img src="' + URL + '">');
+				console.log(data.response.docs[i].url_s);
+			}
+			
+		},
+		'dataType':'jsonp',
+		'jsonp':'json.wrf'
+		});
+	
+	$.ajax({
+		'url': 'http://129.241.111.168:8983/solr/POOLFutebal/select',
+		'data': {'wt':'json', 'q':q},
+		'success': function(data) {
+			console.log("4");
+			for(var i=0;i<data.response.docs.length;i++){
+				var URL = data.response.docs[i].url_s;
+				$('#searchResult').append('<img src="' + URL + '">');
+				console.log(data.response.docs[i].url_s);
+			}
+			
+		},
+		'dataType':'jsonp',
+		'jsonp':'json.wrf'
+		});
+	
+	$.ajax({
+		'url': 'http://129.241.111.168:8983/solr/Upcoming/select',
+		'data': {'wt':'json', 'q':q},
+		'success': function(data) {
+			console.log("5");
+			for(var i=0;i<data.response.docs.length;i++){
+				var URL = data.response.docs[i].url_s;
+				$('#searchResult').append('<img src="' + URL + '">');
+				console.log(data.response.docs[i].url_s);
+			}
+			
+		},
+		'dataType':'jsonp',
+		'jsonp':'json.wrf'
+		});
+	
+	$.ajax({
+		'url': 'http://129.241.111.168:8983/solr/WorldGEOUpcoming/select',
+		'data': {'wt':'json', 'q':q},
+		'success': function(data) {
+			console.log("6");
+			for(var i=0;i<data.response.docs.length;i++){
+				var URL = data.response.docs[i].url_s;
+				$('#searchResult').append('<img src="' + URL + '">');
+				console.log(data.response.docs[i].url_s);
+			}
+			
+		},
+		'dataType':'jsonp',
+		'jsonp':'json.wrf'
+		});
+	
+	$.ajax({
+		'url': 'http://129.241.111.168:8983/solr/WorldTiles/select',
+		'data': {'wt':'json', 'q':q},
+		'success': function(data) {
+			console.log("7");
+			for(var i=0;i<data.response.docs.length;i++){
+				var URL = data.response.docs[i].url_s;
+				$('#searchResult').append('<img src="' + URL + '">');
+				console.log(data.response.docs[i].url_s);
+			}
+			
+		},
+		'dataType':'jsonp',
+		'jsonp':'json.wrf'
+		});
+	
 	
 });
 
