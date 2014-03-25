@@ -3,7 +3,7 @@
 $('#searchBtn').on('click', function(){
 	var query = $('#query').val();
 	var arr = query.split(' ');
-	var q = "attr_tag:" + arr[0] + " attr_tag:" + arr[1]; 
+	var q = "attr_tag:" + '"'+ arr[0]+ '"' + "AND" + " attr_tag:" + '"'+ arr[1]+'"'; 
 	console.log(q);
 
 	$.ajax({
