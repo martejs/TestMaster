@@ -14,7 +14,7 @@ $('#searchBtn').on('click', function(){
 			for(var i=0;i<data.response.docs.length;i++){
 				var URL = data.response.docs[i].url_s;
 				$('#searchResult').append('<img src="' + URL + '">');
-				console.log(data.response.docs[i].url_s);
+				console.log(data.response.docs[i]);
 			}
 			
 		},
@@ -31,7 +31,7 @@ $('#searchBtn').on('click', function(){
 			for(var i=0;i<data.response.docs.length;i++){
 				var URL = data.response.docs[i].url_s;
 				$('#searchResult').append('<img src="' + URL + '">');
-				console.log(data.response.docs[i].url_s);
+				console.log(data.response.docs[i]);
 			}
 			
 		},
@@ -47,7 +47,7 @@ $('#searchBtn').on('click', function(){
 			for(var i=0;i<data.response.docs.length;i++){
 				var URL = data.response.docs[i].url_s;
 				$('#searchResult').append('<img src="' + URL + '">');
-				console.log(data.response.docs[i].url_s);
+				console.log(data.response.docs[i]);
 			}
 			
 		},
@@ -63,7 +63,7 @@ $('#searchBtn').on('click', function(){
 			for(var i=0;i<data.response.docs.length;i++){
 				var URL = data.response.docs[i].url_s;
 				$('#searchResult').append('<img src="' + URL + '">');
-				console.log(data.response.docs[i].url_s);
+				console.log(data.response.docs[i]);
 			}
 			
 		},
@@ -79,7 +79,7 @@ $('#searchBtn').on('click', function(){
 			for(var i=0;i<data.response.docs.length;i++){
 				var URL = data.response.docs[i].url_s;
 				$('#searchResult').append('<img src="' + URL + '">');
-				console.log(data.response.docs[i].url_s);
+				console.log(data.response.docs[i]);
 			}
 			
 		},
@@ -95,7 +95,7 @@ $('#searchBtn').on('click', function(){
 			for(var i=0;i<data.response.docs.length;i++){
 				var URL = data.response.docs[i].url_s;
 				$('#searchResult').append('<img src="' + URL + '">');
-				console.log(data.response.docs[i].url_s);
+				console.log(data.response.docs[i]);
 			}
 			
 		},
