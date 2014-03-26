@@ -26,22 +26,27 @@ public class Hits {
 	private float mInfo=0;
 	private List<String> ord = new ArrayList<String>();
 
+	
 	public void setTerms(String term, String resource){
 		if(!this.terms.containsKey(term)){
-
-			//			System.out.println("ny term: " + term + " Ressurs " + resource);
-
-
 			this.occurrences = 1;
 			terms.put(term, this.occurrences);
 		}
 		else{
 			terms.put(term, terms.get(term) + 1);
 		}
-		//		t.setDocumentFrequency(term, resource);
-
 	}
+	
 
+	/**
+	 * 
+	 * Calls the method for calculating Tf/Idf for each term 
+	 * Calls the method for calculating Chi square for each pair (query, term2)
+	 * Calls the method for calculating Mutual Information for each pair (query, term2)
+	 * @return the relevant terms, DBpedia
+	 */
+	
+	
 	public HashMap<String, Integer> getTerms(){
 		Iterator i = valueIterator(terms);
 
@@ -56,40 +61,38 @@ public class Hits {
 					getChiSquare(getFrequency(SearchDBpedia.queryStr), 4004477);
 					//getMI(getFrequency(SearchDBpedia.queryStr), 4004477);
 				}
-
 			}
-
 			
 			int size = this.terms.size();
 			tfidf = getTfidf(value, size);
-			//			frequence = getHitsFrequence(key);
+			
 			if(value.intValue()>1){
-				System.out.println(key + " : " + value + " Tf/idf: " + this.tfidf  + " antall dok: " + getHitsFrequence(key));
+				System.out.println(key + " : " + value + " Tf/idf: " + this.tfidf  + " antall dok: " + getFrequency(key));
 			}
-
 		}
-
-		//			System.out.println("Sesh" +SearchDBpedia.queryStr);
 		for (int j = 0; j < ord.size(); j++) {
 			if(ord.get(j).equals(SearchDBpedia.queryStr)){ 
 				first = ord.get(j+1);
-
-			}
-			
+			}	
 		}
-		
-
 		return this.terms;
 	}
 
+	/**
+	 * @param term
+	 * @return the frequency for the given term
+	 */
 	public int getFrequency(String term){
-
-		int freq = getHitsFrequence(term);
-
+		int freq = documentFrequency.get(term).size();
 		return freq;
 	}
 
-
+	/**
+	 * Calculates tf/idf
+	 * @param value - the term frequency 
+	 * @param size - the number of terms in the index
+	 * @return the Tf/ifd for the given term
+	 */
 	public float getTfidf(int value, int size){
 
 		tf = (float) value / size;
@@ -99,6 +102,9 @@ public class Hits {
 		return tfidf;
 	}
 
+	/**
+	 * Iterator method
+	 */
 	Iterator valueIterator(HashMap<String, Integer> terms2) {
 		Set set = new TreeSet(new Comparator<Map.Entry<String, Integer>>() {
 
@@ -114,15 +120,11 @@ public class Hits {
 		return set.iterator();
 	}
 
-	public int getHitsFrequence(String term){
-
-		return documentFrequency.get(term).size();
-	}
-
-	public HashMap<String, ArrayList<String>> getDocumentFrequency() {
-		return documentFrequency;
-	}
-
+	/**
+	 * 
+	 * @param term
+	 * @param resource
+	 */
 	public void setDocumentFrequency(String term, String resource) {
 		if(!documentFrequency.containsKey(term)){
 			resourceList = new ArrayList<String>();
