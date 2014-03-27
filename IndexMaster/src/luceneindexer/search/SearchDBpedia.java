@@ -144,7 +144,7 @@ public class SearchDBpedia {
 
 
 		
-		int maxHits = 100;
+		int maxHits = 50;
 		//		System.out.println("Label:");
 		//		searchFiles(label, indexLabel, queryStr, maxHits);
 		System.out.println("Long:");
