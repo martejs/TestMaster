@@ -4,7 +4,12 @@ $('#searchBtn').click(function(){
 	$('#searchResult').empty();
 	var query = $('#query').val();
 	var arr = query.split(' ');
-	var q = "attr_tag:" + '"'+ arr[0]+ '" ' + "AND" + " attr_tag:" + '"'+ arr[1]+'"'; 
+	if(isEmpty(arr[1])){
+		var q = "attr_tag:" + '"'+ arr[0]+ '" ';
+	}
+	else{
+		var q = "attr_tag:" + '"'+ arr[0]+ '" ' + "AND" + " attr_tag:" + '"'+ arr[1]+'"'; 
+	}
 	console.log(q);
 
 	$.ajax({
@@ -128,6 +133,10 @@ $("#query").keypress(function(e){
 		$("#searchBtn").click();
 	}
 });
+
+function isEmpty(s){
+	return (!s||0==s.length);
+}
 
 
 
