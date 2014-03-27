@@ -49,6 +49,7 @@ public class SearchSolr {
 
 			//SolrQuery query = new SolrQuery(qyr + " AND "+ qyr2);
 			SolrQuery query = new SolrQuery(qyr);
+			
 			QueryResponse qr = server.query(query); 
 			SolrDocumentList result = qr.getResults();
 			for (SolrDocument doc : result) {

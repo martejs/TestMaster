@@ -127,12 +127,12 @@ $('#searchBtn').click(function(){
 
 }); 
 
-$("#query").keypress(function(e){
+	$("#query").keypress(function(e){
 	if(e.keyCode == 13){
-	event.preventDefault();
-		$("#searchBtn").click();
-	}
-});
+		event.preventDefault();
+			$("#searchBtn").click();
+		}
+	});
 
 function isEmpty(s){
 	return (!s||0==s.length);
