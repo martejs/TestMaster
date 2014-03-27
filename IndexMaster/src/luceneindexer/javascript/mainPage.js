@@ -11,10 +11,16 @@ $('#searchBtn').click(function(){
 		var q = "attr_tag:" + '"'+ arr[0]+ '" ' + "AND" + " attr_tag:" + '"'+ arr[1]+'"'; 
 	}
 	console.log(q);
+	
+	var obj ={
+		'wt':'json',
+		'q':q,
+		'rows':100
+	}
 
 	$.ajax({
 		'url': 'http://129.241.111.168:8983/solr/SanFrancisco/select',
-		'data': {'wt':'json', 'q':q},
+		'data': obj,
 		'success': function(data) {
 			console.log("1");
 			for(var i=0;i<data.response.docs.length;i++){
@@ -31,7 +37,7 @@ $('#searchBtn').click(function(){
 	
 	$.ajax({
 		'url': 'http://129.241.111.168:8983/solr/Mediaeval/select',
-		'data': {'wt':'json', 'q':q},
+		'data': obj,
 		'success': function(data) {
 			console.log("2");
 			for(var i=0;i<data.response.docs.length;i++){
@@ -47,7 +53,7 @@ $('#searchBtn').click(function(){
 	
 	$.ajax({
 		'url': 'http://129.241.111.168:8983/solr/London/select',
-		'data': {'wt':'json', 'q':q},
+		'data': obj,
 		'success': function(data) {
 			console.log("3");
 			for(var i=0;i<data.response.docs.length;i++){
@@ -63,7 +69,7 @@ $('#searchBtn').click(function(){
 	
 	$.ajax({
 		'url': 'http://129.241.111.168:8983/solr/POOLFutebal/select',
-		'data': {'wt':'json', 'q':q},
+		'data': obj,
 		'success': function(data) {
 			console.log("4");
 			for(var i=0;i<data.response.docs.length;i++){
@@ -79,7 +85,7 @@ $('#searchBtn').click(function(){
 	
 	$.ajax({
 		'url': 'http://129.241.111.168:8983/solr/Upcoming/select',
-		'data': {'wt':'json', 'q':q},
+		'data': obj,
 		'success': function(data) {
 			console.log("5");
 			for(var i=0;i<data.response.docs.length;i++){
@@ -95,7 +101,7 @@ $('#searchBtn').click(function(){
 	
 	$.ajax({
 		'url': 'http://129.241.111.168:8983/solr/WorldGEOUpcoming/select',
-		'data': {'wt':'json', 'q':q},
+		'data': obj,
 		'success': function(data) {
 			console.log("6");
 			for(var i=0;i<data.response.docs.length;i++){
@@ -111,7 +117,7 @@ $('#searchBtn').click(function(){
 	
 //	$.ajax({
 //		'url': 'http://129.241.111.168:8983/solr/WorldTiles/select',
-//		'data': {'wt':'json', 'q':q},
+//		'data': obj,
 //		'success': function(data) {
 //			console.log("7");
 //			for(var i=0;i<data.response.docs.length;i++){
