@@ -35,18 +35,20 @@ public class SearchSolr {
 
 		HttpSolrServer server;
 		String input= JOptionPane.showInputDialog("søkeord");
-		String [] splitStrings = input.split(" ");
+		
+		//String [] splitStrings = input.split(" ");
 		String qyr;
 		String qyr2;
 
-		qyr = "attr_tag:" + splitStrings[0];
-		qyr2 = "attr_tag:" + splitStrings[1];
+		qyr = "attr_tag:" + input;
+		//+ splitStrings[0];
+		//qyr2 = "attr_tag:" + splitStrings[1];
 
 		for (int i = 0; i < list.size(); i++) {
 			server= new HttpSolrServer("http://129.241.111.168:8983/solr/"+list.get(i));
 
-			SolrQuery query = new SolrQuery(qyr + " AND "+ qyr2);//Search for everything/anything
-//			SolrQuery query = new SolrQuery(qyr);
+			//SolrQuery query = new SolrQuery(qyr + " AND "+ qyr2);
+			SolrQuery query = new SolrQuery(qyr);
 			QueryResponse qr = server.query(query); 
 			SolrDocumentList result = qr.getResults();
 			for (SolrDocument doc : result) {
