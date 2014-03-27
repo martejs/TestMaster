@@ -36,15 +36,15 @@ import org.apache.lucene.util.Version;
 
 
 public class SearchDBpedia {
-	
-	
+
+
 	static String queryStr;
 
-//	public String getQueryStr() {
-//		return queryStr;
-//	}
+	//	public String getQueryStr() {
+	//		return queryStr;
+	//	}
 
-	
+
 
 	public static boolean searchFiles(String field, String indexPath, String queryStr, int maxHits){
 
@@ -58,7 +58,7 @@ public class SearchDBpedia {
 			Query query = parser.parse(queryStr);
 			TopDocs topDocs = searcher.search(query, maxHits);
 			ScoreDoc[] hits = topDocs.scoreDocs;
-			
+
 
 
 			Hits treff = new Hits();
@@ -68,9 +68,9 @@ public class SearchDBpedia {
 				int docId = hits[i].doc;
 				Document d = searcher.doc(docId);
 				String resource = d.get("resource");
-//				String shortAbstract = d.get("shortAbstract");
+				//				String shortAbstract = d.get("shortAbstract");
 				String longAbstract = d.get("longAbstract");
-				
+
 				Scanner sc = new Scanner(longAbstract);
 				while(sc.hasNext()){
 					String nextTerm = sc.next();
@@ -78,37 +78,37 @@ public class SearchDBpedia {
 					treff.setTerms(nextTerm, resource);
 				}
 
-				
-				
-//				Terms termVector = reader.getTermVector(docId, "shortAbstract");
-//				TermsEnum itr = termVector.iterator(null);
-//				BytesRef term = null;
-//
-//				while ((term = itr.next()) != null) {  
-//					String termText = term.utf8ToString();
-//					System.out.println("Termtext: " + termText);
-//					treff.setTerms(termText);
-//					Term termInstance = new Term("shortAbstract", term);
-//					//Tror denne skriver ut frekvensen på termen i hele datasettet, og ikke bare i hits
-//					long termFreq = reader.totalTermFreq(termInstance);
-//					long docCount = reader.docFreq(termInstance);
-//
-////					System.out.println("term: "+termText+", termFreq = "+termFreq+", docCount = "+docCount);
-//				}
 
-				
-				
+
+				//				Terms termVector = reader.getTermVector(docId, "shortAbstract");
+				//				TermsEnum itr = termVector.iterator(null);
+				//				BytesRef term = null;
+				//
+				//				while ((term = itr.next()) != null) {  
+				//					String termText = term.utf8ToString();
+				//					System.out.println("Termtext: " + termText);
+				//					treff.setTerms(termText);
+				//					Term termInstance = new Term("shortAbstract", term);
+				//					//Tror denne skriver ut frekvensen på termen i hele datasettet, og ikke bare i hits
+				//					long termFreq = reader.totalTermFreq(termInstance);
+				//					long docCount = reader.docFreq(termInstance);
+				//
+				////					System.out.println("term: "+termText+", termFreq = "+termFreq+", docCount = "+docCount);
+				//				}
+
+
+
 				System.out.println("Funnet: " + hits[i].score + " med resource: " + resource);
 
 
 
 			}
 			treff.getTerms();
-//			System.out.println(writer.getTotalDocs());
-//			treff.getChiSquare(maxHits, 4004477);
+			//			System.out.println(writer.getTotalDocs());
+			//			treff.getChiSquare(maxHits, 4004477);
 			treff.getMI(maxHits, 4004477);
-			
-		
+
+
 			System.out.println("Fant " + hits.length);
 			return true;
 
@@ -123,7 +123,7 @@ public class SearchDBpedia {
 		}
 
 	}
-	
+
 	public static void main(String[] args){
 		//Field
 		String label = "label";
@@ -139,19 +139,26 @@ public class SearchDBpedia {
 		String indexSampleLong = "sampleLongIndex";
 
 		//query to search
-		
-		queryStr= JOptionPane.showInputDialog("Enter query:");
+		try {
+
+			queryStr= JOptionPane.showInputDialog("Enter query:");
 
 
-		
-		int maxHits = 100;
-		//		System.out.println("Label:");
-		//		searchFiles(label, indexLabel, queryStr, maxHits);
-		System.out.println("Long:");
-		searchFiles(longField, indexLong, queryStr, maxHits);
 
-		//		System.out.println("Long:");
-//				searchFiles(longField, indexLong, queryStr, maxHits);
+
+			int maxHits = 100;
+			//		System.out.println("Label:");
+			//		searchFiles(label, indexLabel, queryStr, maxHits);
+
+			System.out.println("Long:");
+			searchFiles(longField, indexLong, queryStr, maxHits);
+
+			//		System.out.println("Long:");
+			//		searchFiles(longField, indexLong, queryStr, maxHits);
+
+		} catch (Exception e) {
+			System.out.println("User canceled the search");
+		}
 
 	}
 
