@@ -144,17 +144,11 @@ public class SearchDBpedia {
 			queryStr= JOptionPane.showInputDialog("Enter query:");
 
 
-
-
 			int maxHits = 100;
-			//		System.out.println("Label:");
-			//		searchFiles(label, indexLabel, queryStr, maxHits);
 
 			System.out.println("Long:");
 			searchFiles(longField, indexLong, queryStr, maxHits);
 
-			//		System.out.println("Long:");
-			//		searchFiles(longField, indexLong, queryStr, maxHits);
 
 		} catch (Exception e) {
 			System.out.println("User canceled the search");
