@@ -1,6 +1,7 @@
 
 
-$('#searchBtn').on('click', function(){
+$('#searchBtn').click(function(){
+	$('#searchResult').empty();
 	var query = $('#query').val();
 	var arr = query.split(' ');
 	var q = "attr_tag:" + '"'+ arr[0]+ '" ' + "AND" + " attr_tag:" + '"'+ arr[1]+'"'; 
@@ -118,8 +119,15 @@ $('#searchBtn').on('click', function(){
 //		'dataType':'jsonp',
 //		'jsonp':'json.wrf'
 //		});
-	
-	
+
+}); 
+
+$('#query').keypress(function(e){
+	if(e.which == 13){
+		$('#searchBtn').click();
+	}
 });
+
+
 
 	
