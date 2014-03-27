@@ -122,9 +122,10 @@ $('#searchBtn').click(function(){
 
 }); 
 
-$('#query').keypress(function(e){
-	if(e.which == 13){
-		$('#searchBtn').click();
+$("#query").keypress(function(e){
+	if(e.keyCode == 13){
+	event.preventDefault();
+		$("#searchBtn").click();
 	}
 });
 
