@@ -18,7 +18,7 @@ $('#searchBtn').click(function(){
 		'rows':100
 	}
 
-	$.ajax({
+	/*$.ajax({
 		'url': 'http://129.241.111.168:8983/solr/SanFrancisco/select',
 		'data': obj,
 		'success': function(data) {
@@ -32,10 +32,10 @@ $('#searchBtn').click(function(){
 		},
 		'dataType':'jsonp',
 		'jsonp':'json.wrf'
-		});
+		});*/
 	
 	
-	$.ajax({
+	/*$.ajax({
 		'url': 'http://129.241.111.168:8983/solr/Mediaeval/select',
 		'data': obj,
 		'success': function(data) {
@@ -49,9 +49,9 @@ $('#searchBtn').click(function(){
 		},
 		'dataType':'jsonp',
 		'jsonp':'json.wrf'
-		});
+		});*/
 	
-	$.ajax({
+	/*$.ajax({
 		'url': 'http://129.241.111.168:8983/solr/London/select',
 		'data': obj,
 		'success': function(data) {
@@ -65,9 +65,9 @@ $('#searchBtn').click(function(){
 		},
 		'dataType':'jsonp',
 		'jsonp':'json.wrf'
-		});
+		});*/
 	
-	$.ajax({
+	/*$.ajax({
 		'url': 'http://129.241.111.168:8983/solr/POOLFutebal/select',
 		'data': obj,
 		'success': function(data) {
@@ -81,9 +81,9 @@ $('#searchBtn').click(function(){
 		},
 		'dataType':'jsonp',
 		'jsonp':'json.wrf'
-		});
+		});*/
 	
-	$.ajax({
+	/*$.ajax({
 		'url': 'http://129.241.111.168:8983/solr/Upcoming/select',
 		'data': obj,
 		'success': function(data) {
@@ -97,7 +97,7 @@ $('#searchBtn').click(function(){
 		},
 		'dataType':'jsonp',
 		'jsonp':'json.wrf'
-		});
+		});*/
 	
 	$.ajax({
 		'url': 'http://129.241.111.168:8983/solr/WorldGEOUpcoming/select',

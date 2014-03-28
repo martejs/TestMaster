@@ -98,7 +98,7 @@ public class SearchDBpedia {
 
 
 
-				System.out.println("Funnet: " + hits[i].score + " med resource: " + resource);
+//				System.out.println("Funnet: " + hits[i].score + " med resource: " + resource);
 
 
 
@@ -144,7 +144,7 @@ public class SearchDBpedia {
 			queryStr= JOptionPane.showInputDialog("Enter query:");
 
 
-			int maxHits = 100;
+			int maxHits = 10;
 
 			System.out.println("Long:");
 			searchFiles(longField, indexLong, queryStr, maxHits);

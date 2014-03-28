@@ -25,6 +25,8 @@ public class Hits {
 	private String first = "";
 	private float mInfo=0;
 	private List<String> ord = new ArrayList<String>();
+	private List<Term2> term2List = new ArrayList<Term2>();
+	Term2 term2;
 
 	
 	public void setTerms(String term, String resource){
@@ -50,30 +52,46 @@ public class Hits {
 	public HashMap<String, Integer> getTerms(){
 		Iterator i = valueIterator(terms);
 
-		for(terms.entrySet().iterator(); i.hasNext();){
-			Map.Entry entry = (Map.Entry) i.next();
-			String key = (String) entry.getKey();
-			Integer value = (Integer) entry.getValue();
+		// for(terms.entrySet().iterator(); i.hasNext();){
+		for (Entry<String, Integer> e:terms.entrySet()) {
+			// Map.Entry entry = (Map.Entry) i.next();
+			// String key = (String) entry.getKey();
+			// Integer value = (Integer) entry.getValue();
+			String key = e.getKey();
+			Integer value = e.getValue();
 			ord.add(key);
-			if(value.intValue()>1){
+			
+			term2 = new Term2(SearchDBpedia.queryStr, key, 4004477);
+			int size = this.terms.size();
+			term2.setTfIdf(getTfidf(value, size));
+			
+			
 				first = key;
 				if(!SearchDBpedia.queryStr.equals(key)){
-					getChiSquare(getFrequency(SearchDBpedia.queryStr), 4004477);
-					//getMI(getFrequency(SearchDBpedia.queryStr), 4004477);
+					term2.setChi(getChiSquare(getFrequency(SearchDBpedia.queryStr), 4004477));
+					term2.setMI(getMI(getFrequency(SearchDBpedia.queryStr), 4004477));
 				}
-			}
 			
-			int size = this.terms.size();
-			tfidf = getTfidf(value, size);
 			
-			if(value.intValue()>1){
-				System.out.println(key + " : " + value + " Tf/idf: " + this.tfidf  + " antall dok: " + getFrequency(key));
-			}
+			
+//			if(value.intValue()>1){
+//				System.out.println(key + " : " + value + " Tf/idf: " + this.tfidf  + " antall dok: " + getFrequency(key));
+//			}
+			term2List.add(term2);
 		}
 		for (int j = 0; j < ord.size(); j++) {
 			if(ord.get(j).equals(SearchDBpedia.queryStr)){ 
 				first = ord.get(j+1);
 			}	
+		}
+		for (int j = 1; j < term2List.size(); j++) {
+			System.out.println("Term2:" + term2List.get(j).getTerm2());
+			System.out.println("Chi: "+ term2List.get(j).getChi());
+			System.out.println("MI; " + term2List.get(j).getMI());
+			System.out.println("Tf-Idf: "+ term2List.get(j).getTfIdf());
+			System.out.println("-----------");
+			
+			
 		}
 		return this.terms;
 	}
@@ -146,13 +164,13 @@ public class Hits {
 
 	public float getChiSquare(int q, int all){
 		
-			System.out.println("Spørreterm: " + SearchDBpedia.queryStr + " Term: " + first);
+//			System.out.println("Spørreterm: " + SearchDBpedia.queryStr + " Term: " + first);
 				float nNa = q/(float)all;
 
 				float square =getFrequency(first)* (float) Math.pow(((1-nNa)),2);
-				System.out.println("q=" + q +" square=" + square);
+//				System.out.println("q=" + q +" square=" + square);
 				chiSquare = square/q;
-				System.out.println("spørreterm: " + q + " term2: " + getFrequency(first) + " blir chi-square: " + chiSquare);
+//				System.out.println("spørreterm: " + q + " term2: " + getFrequency(first) + " blir chi-square: " + chiSquare);
 
 
 
@@ -160,15 +178,12 @@ public class Hits {
 
 	}
 
-	public float getMI(int q, int all){
-		
-		
-
-		float nanb= q*getFrequency(first);
+	public float getMI(float q, int all){
+		float nanb = q*getFrequency(first);
 		float nab = tfidf;
 		mInfo = nab/nanb;
-		System.out.println("Spørreterm: " + SearchDBpedia.queryStr + "Søketerm: "+ first );
-		System.out.println("Spørreterm: " + q + " term2: " + getFrequency(first) + " Mutual Information: " + mInfo) ;
+//		System.out.println("Spørreterm: " + SearchDBpedia.queryStr + "Søketerm: "+ first );
+//		System.out.println("Spørreterm: " + q + " term2: " + getFrequency(first) + " Mutual Information: " + mInfo) ;
 		
 		return mInfo;
 		
