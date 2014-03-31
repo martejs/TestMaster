@@ -1,8 +1,8 @@
 
-
 $('#searchBtn').click(function(){
 	$('#searchResult').empty();
 	var query = $('#query').val();
+
 	var arr = query.split(' ');
 	if(isEmpty(arr[1])){
 		var q = "attr_tag:" + '"'+ arr[0]+ '" ';
@@ -11,12 +11,26 @@ $('#searchBtn').click(function(){
 		var q = "attr_tag:" + '"'+ arr[0]+ '" ' + "AND" + " attr_tag:" + '"'+ arr[1]+'"'; 
 	}
 	console.log(q);
-	
+
 	var obj ={
-		'wt':'json',
-		'q':q,
-		'rows':100
+			'wt':'json',
+			'q':q,
+			'rows':100
 	}
+
+
+	$.ajax({
+        url: "Servlet.java",
+        type: 'POST',
+        dataType: 'json',
+        data: JSON.stringify(query),
+        contentType: 'application/json',
+        mimeType: 'application/json',
+ 
+        success: function (data) {
+        	console.log(data);
+        },
+    });
 
 	/*$.ajax({
 		'url': 'http://129.241.111.168:8983/solr/SanFrancisco/select',
@@ -28,13 +42,13 @@ $('#searchBtn').click(function(){
 				$('#searchResult').append('<img src="' + URL + '">');
 				console.log(data.response.docs[i]);
 			}
-			
+
 		},
 		'dataType':'jsonp',
 		'jsonp':'json.wrf'
 		});*/
-	
-	
+
+
 	/*$.ajax({
 		'url': 'http://129.241.111.168:8983/solr/Mediaeval/select',
 		'data': obj,
@@ -45,12 +59,12 @@ $('#searchBtn').click(function(){
 				$('#searchResult').append('<img src="' + URL + '">');
 				console.log(data.response.docs[i]);
 			}
-			
+
 		},
 		'dataType':'jsonp',
 		'jsonp':'json.wrf'
 		});*/
-	
+
 	/*$.ajax({
 		'url': 'http://129.241.111.168:8983/solr/London/select',
 		'data': obj,
@@ -61,12 +75,12 @@ $('#searchBtn').click(function(){
 				$('#searchResult').append('<img src="' + URL + '">');
 				console.log(data.response.docs[i]);
 			}
-			
+
 		},
 		'dataType':'jsonp',
 		'jsonp':'json.wrf'
 		});*/
-	
+
 	/*$.ajax({
 		'url': 'http://129.241.111.168:8983/solr/POOLFutebal/select',
 		'data': obj,
@@ -77,12 +91,12 @@ $('#searchBtn').click(function(){
 				$('#searchResult').append('<img src="' + URL + '">');
 				console.log(data.response.docs[i]);
 			}
-			
+
 		},
 		'dataType':'jsonp',
 		'jsonp':'json.wrf'
 		});*/
-	
+
 	/*$.ajax({
 		'url': 'http://129.241.111.168:8983/solr/Upcoming/select',
 		'data': obj,
@@ -93,12 +107,12 @@ $('#searchBtn').click(function(){
 				$('#searchResult').append('<img src="' + URL + '">');
 				console.log(data.response.docs[i]);
 			}
-			
+
 		},
 		'dataType':'jsonp',
 		'jsonp':'json.wrf'
 		});*/
-	
+
 	$.ajax({
 		'url': 'http://129.241.111.168:8983/solr/WorldGEOUpcoming/select',
 		'data': obj,
@@ -109,33 +123,33 @@ $('#searchBtn').click(function(){
 				$('#searchResult').append('<img src="' + URL + '">');
 				console.log(data.response.docs[i]);
 			}
-			
+
 		},
 		'dataType':'jsonp',
 		'jsonp':'json.wrf'
-		});
-	
+	});
+
 //	$.ajax({
-//		'url': 'http://129.241.111.168:8983/solr/WorldTiles/select',
-//		'data': obj,
-//		'success': function(data) {
-//			console.log("7");
-//			for(var i=0;i<data.response.docs.length;i++){
-//				var URL = data.response.docs[i].url_s;
-//				$('#searchResult').append('<img src="' + URL + '">');
-//				console.log(data.response.docs[i].url_s);
-//			}
-//			
-//		},
-//		'dataType':'jsonp',
-//		'jsonp':'json.wrf'
-//		});
+//	'url': 'http://129.241.111.168:8983/solr/WorldTiles/select',
+//	'data': obj,
+//	'success': function(data) {
+//	console.log("7");
+//	for(var i=0;i<data.response.docs.length;i++){
+//	var URL = data.response.docs[i].url_s;
+//	$('#searchResult').append('<img src="' + URL + '">');
+//	console.log(data.response.docs[i].url_s);
+//	}
+
+//	},
+//	'dataType':'jsonp',
+//	'jsonp':'json.wrf'
+//	});
 
 }); 
 
 $("#query").keypress(function(e){
 	if(e.keyCode == 13){
-	event.preventDefault();
+		event.preventDefault();
 		$("#searchBtn").click();
 	}
 });
@@ -146,4 +160,4 @@ function isEmpty(s){
 
 
 
-	
+
