@@ -35,7 +35,7 @@ import org.apache.lucene.util.BytesRef;
 import org.apache.lucene.util.Version;
 
 
-public class SearchDBpedia {
+public class SearchDBpedia{
 
 
 	static String queryStr;
@@ -44,7 +44,16 @@ public class SearchDBpedia {
 	//		return queryStr;
 	//	}
 
+	public SearchDBpedia(String query){
+		queryStr = query;
+		String longField = "longAbstract";
+		String indexLong = "LongIndex";
+		int maxHits = 10;
 
+		System.out.println("Long:");
+		searchFiles(longField, indexLong, queryStr, maxHits);
+
+	}
 
 	public static boolean searchFiles(String field, String indexPath, String queryStr, int maxHits){
 
@@ -141,7 +150,7 @@ public class SearchDBpedia {
 		//query to search
 		try {
 
-			queryStr= JOptionPane.showInputDialog("Enter query:");
+//			queryStr= JOptionPane.showInputDialog("Enter query:");
 
 
 			int maxHits = 10;

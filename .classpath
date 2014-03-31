@@ -10,5 +10,11 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="/Users/mathilof/Documents/Master/lucene-4.5.1-jar/demo/lucene-demo-4.5.1.jar"/>
 	<classpathentry kind="lib" path="/Users/mathilof/Documents/Master/lucene-4.5.1-jar/queryparser/lucene-queryparser-4.5.1.jar"/>
+	<classpathentry kind="lib" path="/Users/mathilof/Documents/Master/javax.servlet-5.1.12.jar"/>
+	<classpathentry kind="lib" path="/Users/mathilof/Documents/Master/jackson-core-2.2.3.jar"/>
+	<classpathentry kind="lib" path="/Users/mathilof/Documents/Master/jackson-databind-2.2.3.jar"/>
+	<classpathentry kind="lib" path="/Users/mathilof/Documents/Master/jackson-annotations-2.2.3.jar"/>
+	<classpathentry kind="lib" path="/Users/mathilof/Documents/Master/rhino1_7R4/js-14.jar"/>
+	<classpathentry kind="lib" path="/Users/mathilof/Documents/Master/rhino1_7R4/js.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
