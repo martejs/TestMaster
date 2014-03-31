@@ -164,21 +164,17 @@ public class Hits {
 
 	public float getChiSquare(int q, int all){
 		
-<<<<<<< HEAD
+
 //			System.out.println("Spørreterm: " + SearchDBpedia.queryStr + " Term: " + first);
-=======
-			System.out.println("Sporreterm: " + SearchDBpedia.queryStr + " Term: " + first);
->>>>>>> FETCH_HEAD
+
 				float nNa = q/(float)all;
 
 				float square =getFrequency(first)* (float) Math.pow(((1-nNa)),2);
 //				System.out.println("q=" + q +" square=" + square);
 				chiSquare = square/q;
-<<<<<<< HEAD
+
 //				System.out.println("spørreterm: " + q + " term2: " + getFrequency(first) + " blir chi-square: " + chiSquare);
-=======
-				System.out.println("sporreterm: " + q + " term2: " + getFrequency(first) + " blir chi-square: " + chiSquare);
->>>>>>> FETCH_HEAD
+
 
 
 
@@ -190,13 +186,10 @@ public class Hits {
 		float nanb = q*getFrequency(first);
 		float nab = tfidf;
 		mInfo = nab/nanb;
-<<<<<<< HEAD
+
 //		System.out.println("Spørreterm: " + SearchDBpedia.queryStr + "Søketerm: "+ first );
 //		System.out.println("Spørreterm: " + q + " term2: " + getFrequency(first) + " Mutual Information: " + mInfo) ;
-=======
-		System.out.println("Sporreterm: " + SearchDBpedia.queryStr + "Soketerm: "+ first );
-		System.out.println("Sporreterm: " + q + " term2: " + getFrequency(first) + " Mutual Information: " + mInfo) ;
->>>>>>> FETCH_HEAD
+
 		
 		return mInfo;
 		
