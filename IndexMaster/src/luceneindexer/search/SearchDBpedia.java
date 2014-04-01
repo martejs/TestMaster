@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 
 import luceneindexer.Main;
 import luceneindexer.files.LuceneWriter;
+import luceneindexer.javascript.Servlet;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -33,6 +34,8 @@ import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.BytesRef;
 import org.apache.lucene.util.Version;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 public class SearchDBpedia{
@@ -146,9 +149,13 @@ public class SearchDBpedia{
 		String indexSF = "SanFranciscoIndex";
 		String indexSampleShort = "sampleShortIndex";
 		String indexSampleLong = "sampleLongIndex";
+		ObjectMapper mapper = new ObjectMapper();
+		Servlet servlet = new Servlet();
+		
 
 		//query to search
 		try {
+			
 
 //			queryStr= JOptionPane.showInputDialog("Enter query:");
 
