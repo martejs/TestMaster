@@ -164,6 +164,7 @@ public class Hits {
 
 	public float getChiSquare(int q, int all){
 		
+//			System.out.println("Sporreterm: " + SearchDBpedia.queryStr + " Term: " + first);
 
 
 				float nNa = q/(float)all;
@@ -186,9 +187,10 @@ public class Hits {
 		mInfo = nab/nanb;
 
 //		System.out.println("Spørreterm: " + SearchDBpedia.queryStr + "Søketerm: "+ first );
-//		System.out.println("Spørreterm: " + q + " term2: " + getFrequency(first) + " Mutual Information: " + mInfo) ;
 
 		
+//		System.out.println("Sporreterm: " + q + " term2: " + getFrequency(first) + " Mutual Information: " + mInfo) ;
+
 		return mInfo;
 		
 	}
