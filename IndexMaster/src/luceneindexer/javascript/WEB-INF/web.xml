@@ -12,7 +12,7 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   	<servlet-class>luceneindexer.javascript.Servlet</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>jsonservlet</servlet-name>
-  	<url-pattern>/jsonservlet</url-pattern>
+  	<servlet-name>Servlet</servlet-name>
+  	<url-pattern>/servlet</url-pattern>
   </servlet-mapping>
 </web-app>

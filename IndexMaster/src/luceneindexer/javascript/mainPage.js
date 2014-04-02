@@ -43,11 +43,17 @@ $('#searchBtn').click(function(){
 	'contentType': 'application/json',
 	'mimeType': 'application/json',
 //	'Access-Control-Allow-Credentials': "true",
-	"origin": "Servlet.java",
+	"origin": "mainPage.js",
 //	'permissions': "Servlet.java",
 	'success': function (data) {
 	console.log(data);
+	console.log("ALF!");
 	},
+	"error": function (jqXHR, textStatus, errorThrown) {
+		//console.log("jqXHR: " + jqXHR);
+		console.log("TextStatus: " + textStatus);
+		console.log("Error: " + errorThrown);
+	}
 	});
 
 	/*$.ajax({
