@@ -16,5 +16,11 @@
 	<classpathentry kind="lib" path="/Users/mathilof/Documents/Master/jackson-annotations-2.2.3.jar"/>
 	<classpathentry kind="lib" path="/Users/mathilof/Documents/Master/rhino1_7R4/js-14.jar"/>
 	<classpathentry kind="lib" path="/Users/mathilof/Documents/Master/rhino1_7R4/js.jar"/>
+	<classpathentry kind="lib" path="/Users/mathilof/Documents/Master/solr-solrj-1.3.0.jar"/>
+	<classpathentry kind="lib" path="/Users/mathilof/Documents/Master/solr-core-1.3.0.jar"/>
+	<classpathentry kind="lib" path="/Users/mathilof/Documents/Master/solr-common-1.3.0.jar"/>
+	<classpathentry kind="lib" path="/Users/mathilof/Documents/Master/commons-httpclient-3.1.jar"/>
+	<classpathentry kind="lib" path="/Users/mathilof/Documents/Master/apache-solr-solrj-3.3.0.jar"/>
+	<classpathentry kind="lib" path="/Users/mathilof/Documents/Master/solr-solrj-4.0.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
