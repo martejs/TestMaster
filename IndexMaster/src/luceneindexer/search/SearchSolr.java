@@ -22,42 +22,53 @@ import org.apache.solr.common.SolrDocumentList;
 
 
 public class SearchSolr {
-	public static void main(String [] args) throws SolrServerException, HTTPException, IOException {
+	public SearchSolr(SolrQuery query, SolrQuery term2) throws SolrServerException, HTTPException, IOException{
+		System.out.println("Spørringen er: " + query + " Term 2 er: " + term2);
+//	}
+//	public static void main(String [] args) throws SolrServerException, HTTPException, IOException {
 
 		//		String url = "http://129.241.111.168:8983/solr/#/";
 		ArrayList<String> list = new ArrayList<String>();
-		list.add("SanFrancisco");
-		list.add("Mediaeval");
-		list.add("London");
-		list.add("POOLFutebal");
-		list.add("Upcoming");
+//		list.add("SanFrancisco");
+//		list.add("Mediaeval");
+//		list.add("London");
+//		list.add("POOLFutebal");
+//		list.add("Upcoming");
 		list.add("WorldGEOUpcoming");
 		//list.add("WorldTiles");
 
 		HttpSolrServer server;
-		String input= JOptionPane.showInputDialog("s√∏keord");
+//		String input= JOptionPane.showInputDialog("søkeord");
 		
 		//String [] splitStrings = input.split(" ");
 		String qyr;
 		String qyr2;
 
-		qyr = "attr_tag:" + input;
+		qyr = "attr_tag:" + query;
+		qyr2 = "attr_tag:" + term2;
 		//+ splitStrings[0];
 		//qyr2 = "attr_tag:" + splitStrings[1];
 
 		for (int i = 0; i < list.size(); i++) {
 			server= new HttpSolrServer("http://129.241.111.168:8983/solr/"+list.get(i));
 
-			//SolrQuery query = new SolrQuery(qyr + " AND "+ qyr2);
-			SolrQuery query = new SolrQuery(qyr);
+			SolrQuery q = new SolrQuery(qyr + " AND "+ qyr2);
+//			q = new SolrQuery(qyr);
 			
-			QueryResponse qr = server.query(query); 
-			SolrDocumentList result = qr.getResults();
-			for (SolrDocument doc : result) {
-				Object id = doc.get("url_s");
-				ArrayList name = (ArrayList) doc.get("attr_tag");
-				System.out.println(id + " " + name);
-			}
+			QueryResponse qr;
+			try {
+				qr = server.query(q);
+				SolrDocumentList result = qr.getResults();
+				for (SolrDocument doc : result) {
+					Object id = doc.getFieldValue("url_s");
+					ArrayList name = (ArrayList) doc.getFieldValue("attr_tag");
+					System.out.println(id + " " + name);
+				}
+			} catch (SolrServerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+			
 
 
 		}

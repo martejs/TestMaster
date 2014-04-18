@@ -1,5 +1,6 @@
 package luceneindexer.search;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -10,6 +11,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeSet;
+
+import javax.xml.ws.http.HTTPException;
+
+import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.SolrServerException;
 
 
 public class Hits {
@@ -46,10 +52,13 @@ public class Hits {
 	 * Calls the method for calculating Chi square for each pair (query, term2)
 	 * Calls the method for calculating Mutual Information for each pair (query, term2)
 	 * @return the relevant terms, DBpedia
+	 * @throws IOException 
+	 * @throws SolrServerException 
+	 * @throws HTTPException 
 	 */
 	
 	
-	public HashMap<String, Integer> getTerms(){
+	public HashMap<String, Integer> getTerms() throws HTTPException, SolrServerException, IOException{
 		Iterator i = valueIterator(terms);
 
 		// for(terms.entrySet().iterator(); i.hasNext();){
@@ -84,7 +93,17 @@ public class Hits {
 				first = ord.get(j+1);
 			}	
 		}
+		
+		float chiTest = 0;
+		SolrQuery term2Name = new SolrQuery();
+		SolrQuery term1 = new SolrQuery();
 		for (int j = 1; j < term2List.size(); j++) {
+			if(chiTest < term2List.get(j).getChi()){
+				chiTest = term2List.get(j).getChi();
+				term2Name = new SolrQuery(term2List.get(j).getTerm2());
+				term1 = new SolrQuery(term2List.get(j).getTerm1());
+				System.out.println("Chi2: " + chiTest + " term2: " + term2Name);
+			}
 			System.out.println("Term2:" + term2List.get(j).getTerm2());
 			System.out.println("Chi: "+ term2List.get(j).getChi());
 			System.out.println("MI; " + term2List.get(j).getMI());
@@ -93,6 +112,7 @@ public class Hits {
 			
 			
 		}
+		SearchSolr searchSolr = new SearchSolr(term1, term2Name);
 		return this.terms;
 	}
 

@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import javax.swing.JOptionPane;
+import javax.xml.ws.http.HTTPException;
 
 import luceneindexer.Main;
 import luceneindexer.files.LuceneWriter;
@@ -34,6 +35,7 @@ import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.BytesRef;
 import org.apache.lucene.util.Version;
+import org.apache.solr.client.solrj.SolrServerException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -115,7 +117,15 @@ public class SearchDBpedia{
 
 
 			}
-			treff.getTerms();
+			try {
+				treff.getTerms();
+			} catch (HTTPException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SolrServerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			//			System.out.println(writer.getTotalDocs());
 			//			treff.getChiSquare(maxHits, 4004477);
 			treff.getMI(maxHits, 4004477);
@@ -157,10 +167,10 @@ public class SearchDBpedia{
 		try {
 			
 
-//			queryStr= JOptionPane.showInputDialog("Enter query:");
+			queryStr= JOptionPane.showInputDialog("Enter query:");
 
 
-			int maxHits = 10;
+			int maxHits = 100;
 
 			System.out.println("Long:");
 			searchFiles(longField, indexLong, queryStr, maxHits);
