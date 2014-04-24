@@ -42,16 +42,16 @@ public class SearchDBpedia{
 	//		return queryStr;
 	//	}
 
-//	public SearchDBpedia(String query){
-//		queryStr = query;
-//		String longField = "longAbstract";
-//		String indexLong = "LongIndex";
-//		int maxHits = 10;
-//
-//		System.out.println("Long:");
-//		searchFiles(longField, indexLong, queryStr, maxHits, valg);
-//
-//	}
+	public SearchDBpedia(String query, int valg){
+		queryStr = query;
+		String longField = "longAbstract";
+		String indexLong = "LongIndex";
+		int maxHits = 10;
+
+		System.out.println("Long:");
+		searchFiles(longField, indexLong, queryStr, maxHits, valg);
+
+	}
 
 	public static boolean searchFiles(String field, String indexPath, String queryStr, int maxHits, int valg){
 
