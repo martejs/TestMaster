@@ -33,6 +33,11 @@ public class Hits {
 	private List<Term2> term2List = new ArrayList<Term2>();
 	Term2 term2;
 
+	private int method;
+	
+	public Hits(int metode){
+		method = metode;
+	}
 	
 	public void setTerms(String term, String resource){
 		if(!this.terms.containsKey(term)){
@@ -93,25 +98,57 @@ public class Hits {
 			}	
 		}
 		
+		float tfTest = 0;
+		float miTest = 0;
 		float chiTest = 0;
-		SolrQuery term2Name = new SolrQuery();
+		
+		SolrQuery term2TF = new SolrQuery();
+		SolrQuery term2MI = new SolrQuery();
+		SolrQuery term2Chi = new SolrQuery();
 		SolrQuery term1 = new SolrQuery();
+		
 		for (int j = 1; j < term2List.size(); j++) {
+			if(tfTest < term2List.get(j).getTfIdf()){
+				tfTest = term2List.get(j).getTfIdf();
+				term2TF = new SolrQuery(term2List.get(j).getTerm2());
+				term1 = new SolrQuery(term2List.get(j).getTerm1());
+				System.out.println("TF2: " + tfTest + " term2: " + term2TF);
+			}
+			if(miTest < term2List.get(j).getMI()){
+				miTest = term2List.get(j).getMI();
+				term2MI = new SolrQuery(term2List.get(j).getTerm2());
+				term1 = new SolrQuery(term2List.get(j).getTerm1());
+				System.out.println("MI2: " + miTest + " term2: " + term2MI);
+			}
 			if(chiTest < term2List.get(j).getChi()){
 				chiTest = term2List.get(j).getChi();
-				term2Name = new SolrQuery(term2List.get(j).getTerm2());
+				term2Chi = new SolrQuery(term2List.get(j).getTerm2());
 				term1 = new SolrQuery(term2List.get(j).getTerm1());
-				System.out.println("Chi2: " + chiTest + " term2: " + term2Name);
+				System.out.println("Chi2: " + chiTest + " term2: " + term2Chi);
 			}
-			System.out.println("Term2:" + term2List.get(j).getTerm2());
-			System.out.println("Chi: "+ term2List.get(j).getChi());
-			System.out.println("MI; " + term2List.get(j).getMI());
-			System.out.println("Tf-Idf: "+ term2List.get(j).getTfIdf());
-			System.out.println("-----------");
-			
+//			System.out.println("Term2:" + term2List.get(j).getTerm2());
+//			System.out.println("Chi: "+ term2List.get(j).getChi());
+//			System.out.println("MI; " + term2List.get(j).getMI());
+//			System.out.println("Tf-Idf: "+ term2List.get(j).getTfIdf());
+//			System.out.println("-----------");
+//			
 			
 		}
-		SearchSolr searchSolr = new SearchSolr(term1, term2Name);
+		
+		switch (method){
+			case 1: method=1;
+				SearchSolr searchSolr = new SearchSolr(term1, term2TF);
+				System.out.println("Case 1");
+				break;
+			case 2: method=2;
+				SearchSolr searchSolr2 = new SearchSolr(term1, term2MI);
+				System.out.println("Case 2");
+				break;
+			case 3: method=3;
+				SearchSolr searchSolr3 = new SearchSolr(term1, term2Chi);
+				System.out.println("Case 3");
+				break;
+		}
 		return this.terms;
 	}
 

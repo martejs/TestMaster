@@ -4,12 +4,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.xml.ws.http.HTTPException;
 
 import luceneindexer.Main;
 import luceneindexer.files.LuceneWriter;
-import luceneindexer.javascript.Servlet;
+//import luceneindexer.javascript.Servlet;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -33,23 +36,24 @@ public class SearchDBpedia{
 
 
 	static String queryStr;
+	private int valg;
 
 	//	public String getQueryStr() {
 	//		return queryStr;
 	//	}
 
-	public SearchDBpedia(String query){
-		queryStr = query;
-		String longField = "longAbstract";
-		String indexLong = "LongIndex";
-		int maxHits = 10;
+//	public SearchDBpedia(String query){
+//		queryStr = query;
+//		String longField = "longAbstract";
+//		String indexLong = "LongIndex";
+//		int maxHits = 10;
+//
+//		System.out.println("Long:");
+//		searchFiles(longField, indexLong, queryStr, maxHits, valg);
+//
+//	}
 
-		System.out.println("Long:");
-		searchFiles(longField, indexLong, queryStr, maxHits);
-
-	}
-
-	public static boolean searchFiles(String field, String indexPath, String queryStr, int maxHits){
+	public static boolean searchFiles(String field, String indexPath, String queryStr, int maxHits, int valg){
 
 		IndexReader reader;
 
@@ -64,7 +68,7 @@ public class SearchDBpedia{
 
 
 
-			Hits treff = new Hits();
+			Hits treff = new Hits(valg);
 			LuceneWriter writer = Main.getLongWriter();
 
 			for(int i = 0; i < hits.length; i++){
@@ -149,20 +153,41 @@ public class SearchDBpedia{
 		String indexSampleShort = "sampleShortIndex";
 		String indexSampleLong = "sampleLongIndex";
 		ObjectMapper mapper = new ObjectMapper();
-		Servlet servlet = new Servlet();
+//		Servlet servlet = new Servlet();
 		
 
 		//query to search
 		try {
 			
+//			int radioButton1 = 1; 
+//			int radioButton2 = 2; 
+//			int radioButton3 = 3;
+//			int[] radioButtonArray = {radioButton1, radioButton2, radioButton3};
+//			JRadioButton[] rb = new JRadioButton[radioButtonArray];
+			JRadioButton method1 = new JRadioButton("1");
+			JRadioButton method2 = new JRadioButton("2");
+			JRadioButton method3 = new JRadioButton("3");
+			ButtonGroup bG = new ButtonGroup();
+			bG.add(method1);
+			bG.add(method2);
+			bG.add(method3);
+//			method1.setSelected(true);
+//			method2.setSelected(true);
+//			method3.setSelected(true);
 
+			JPanel panel = new JPanel();
+			panel.add(method1);
+			panel.add(method2);
+			panel.add(method3);
+			int valg = JOptionPane.showOptionDialog(null, panel, "Metodevalg", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+			System.out.println(valg);
 			queryStr= JOptionPane.showInputDialog("Enter query:");
 
 
 			int maxHits = 100;
 
 			System.out.println("Long:");
-			searchFiles(longField, indexLong, queryStr, maxHits);
+			searchFiles(longField, indexLong, queryStr, maxHits, valg);
 
 
 		} catch (Exception e) {
