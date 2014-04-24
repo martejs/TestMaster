@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import luceneindexer.search.SearchDBpedia;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 
 public class Servlet {
 
@@ -28,11 +29,17 @@ public class Servlet {
 		}
 
 		// 2. initiate jackson mapper
-		ObjectMapper mapper = new ObjectMapper();
+//		ObjectMapper mapper = new ObjectMapper();
+		ObjectWriter mapper = new ObjectMapper().writer().withDefaultPrettyPrinter();
 
 		// 3. Convert received JSON to Article
-		String string = mapper.readValue(json, String.class);
-		SearchDBpedia searchDB = new SearchDBpedia(string);
+//		String string = mapper.readValue(json, String.class);
+		String test = mapper.writeValueAsString(json);
+		SearchDBpedia searchDB = new SearchDBpedia(test);
+
+        String test1 = mapper.writeValueAsString(searchDB);
+
+//		SearchDBpedia searchDB = new SearchDBpedia(string);
 
 		// 4. Set response type to JSON
 		response.setContentType("application/json");            
