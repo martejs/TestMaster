@@ -1,21 +1,10 @@
 package luceneindexer.search;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.Iterator;
-
-import javax.swing.JOptionPane;
-import javax.swing.RowFilter.Entry;
 import javax.xml.ws.http.HTTPException;
-
-import org.apache.lucene.queryparser.surround.parser.QueryParser;
 import org.apache.solr.client.solrj.SolrQuery;
-import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.impl.BinaryResponseParser;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
-import org.apache.solr.client.solrj.impl.XMLResponseParser;
-import org.apache.solr.client.solrj.request.QueryRequest;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
@@ -23,7 +12,7 @@ import org.apache.solr.common.SolrDocumentList;
 
 public class SearchSolr {
 	public SearchSolr(SolrQuery query, SolrQuery term2) throws SolrServerException, HTTPException, IOException{
-		System.out.println("Sp¿rringen er: " + query + " Term 2 er: " + term2);
+		System.out.println("Spï¿½rringen er: " + query + " Term 2 er: " + term2);
 //	}
 //	public static void main(String [] args) throws SolrServerException, HTTPException, IOException {
 
@@ -38,7 +27,7 @@ public class SearchSolr {
 		//list.add("WorldTiles");
 
 		HttpSolrServer server;
-//		String input= JOptionPane.showInputDialog("s¿keord");
+//		String input= JOptionPane.showInputDialog("sï¿½keord");
 		
 		//String [] splitStrings = input.split(" ");
 		String qyr;
