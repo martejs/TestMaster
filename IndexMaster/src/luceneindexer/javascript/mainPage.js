@@ -1,5 +1,22 @@
 
+
 $('#searchBtn').click(function(){
+	
+	var method = 0;
+	
+	if($("#radio1").is(':checked')){
+		console.log(hallo);
+		method = $("#radio1").val();
+		
+	}else if($("#radio2").is(':checked')){
+		method = $("#radio2").val();
+	}
+	else if($("#radio3").is(':checked')){
+		method = $("#radio3").val();
+	}
+	
+	console.log(method);
+	
 	$('#searchResult').empty();
 	var query = $('#query').val();
 
@@ -39,6 +56,7 @@ $('#searchBtn').click(function(){
 	'url': "Servlet.java",
 	'type': 'POST',
 	'dataType':'jsonp',
+<<<<<<< HEAD
 	'jsonp':'json.wrf'
 	'data': JSON.stringify(query),
 	'contentType': 'application/json',
@@ -49,6 +67,18 @@ $('#searchBtn').click(function(){
 	'success': function (data) {
 		console.log(data);
 		console.log("ALF!");
+=======
+//	'jsonp':'json.wrf',
+	'data': 'query',
+	'contentType': 'application/json',
+	'mimeType': 'application/json',
+	'Access-Control-Allow-Credentials': "true",
+	"origin": "mainPage.js",
+	'permissions': "Servlet.java",
+	'success': function (data) {
+		console.log(data);
+		console.log("Hallo");
+>>>>>>> FETCH_HEAD
 	},
 	"error": function (jqXHR, textStatus, errorThrown) {
 		//console.log("jqXHR: " + jqXHR);
@@ -138,21 +168,21 @@ $('#searchBtn').click(function(){
 		'jsonp':'json.wrf'
 		});*/
 
-	$.ajax({
-	'url': 'http://129.241.111.168:8983/solr/WorldGEOUpcoming/select',
-	'data': obj,
-	'success': function(data) {
-	console.log("6");
-	for(var i=0;i<data.response.docs.length;i++){
-	var URL = data.response.docs[i].url_s;
-	$('#searchResult').append('<img src="' + URL + '">');
-	console.log(data.response.docs[i]);
-	}
-
-	},
-	'dataType':'jsonp',
-	'jsonp':'json.wrf'
-	});
+//	$.ajax({
+//	'url': 'http://129.241.111.168:8983/solr/WorldGEOUpcoming/select',
+//	'data': obj,
+//	'success': function(data) {
+//	console.log("6");
+//	for(var i=0;i<data.response.docs.length;i++){
+//	var URL = data.response.docs[i].url_s;
+//	$('#searchResult').append('<img src="' + URL + '">');
+//	console.log(data.response.docs[i]);
+//	}
+//
+//	},
+//	'dataType':'jsonp',
+//	'jsonp':'json.wrf'
+//	});
 
 //	$.ajax({
 //	'url': 'http://129.241.111.168:8983/solr/WorldTiles/select',
