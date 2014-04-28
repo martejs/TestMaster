@@ -135,7 +135,7 @@ public class Hits {
 			
 		}
 		
-		switch (method){
+		switch (3){
 			case 1: method=1;
 				SearchSolr searchSolr = new SearchSolr(term1, term2TF);
 				System.out.println("Case 1");

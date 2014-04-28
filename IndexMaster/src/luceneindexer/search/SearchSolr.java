@@ -42,6 +42,7 @@ public class SearchSolr {
 			server= new HttpSolrServer("http://129.241.111.168:8983/solr/"+list.get(i));
 
 			SolrQuery q = new SolrQuery(qyr + " AND "+ qyr2);
+			
 //			q = new SolrQuery(qyr);
 			
 			QueryResponse qr;

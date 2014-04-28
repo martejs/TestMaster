@@ -35,26 +35,27 @@ $('#searchBtn').click(function(){
 //	}
 
 	//ELLER DENNE...
-//	$.ajax({
-//	'url': "Servlet.java",
-//	'type': 'POST',
-//	'dataType': 'json',
-//	'data': JSON.stringify(query),
-//	'contentType': 'application/json',
-//	'mimeType': 'application/json',
-////	'Access-Control-Allow-Credentials': "true",
-//	"origin": "mainPage.js",
-////	'permissions': "Servlet.java",
-//	'success': function (data) {
-//	console.log(data);
-//	console.log("ALF!");
-//	},
-//	"error": function (jqXHR, textStatus, errorThrown) {
-//		//console.log("jqXHR: " + jqXHR);
-//		console.log("TextStatus: " + textStatus);
-//		console.log("Error: " + errorThrown);
-//	}
-//	});
+	$.ajax({
+	'url': "Servlet.java",
+	'type': 'POST',
+	'dataType':'jsonp',
+	'jsonp':'json.wrf'
+	'data': JSON.stringify(query),
+	'contentType': 'application/json',
+	'mimeType': 'application/json',
+//	'Access-Control-Allow-Credentials': "true",
+	"origin": "mainPage.js",
+//	'permissions': "Servlet.java",
+	'success': function (data) {
+		console.log(data);
+		console.log("ALF!");
+	},
+	"error": function (jqXHR, textStatus, errorThrown) {
+		//console.log("jqXHR: " + jqXHR);
+		console.log("TextStatus: " + textStatus);
+		console.log("Error: " + errorThrown);
+	}
+	});
 
 	/*$.ajax({
 		'url': 'http://129.241.111.168:8983/solr/SanFrancisco/select',
