@@ -3,8 +3,10 @@ package luceneindexer.javascript;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,49 +18,29 @@ import luceneindexer.search.SearchDBpedia;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class Servlet extends AbstractHandler{
+public class Servlet extends HttpServlet{
 
-	public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		
-		response.setHeader("Access-Control-Allow-Origin", "mainPage.js");
-		response.setContentType("text/html;charset=utf-8");
-		response.setStatus(HttpServletResponse.SC_OK);
-		baseRequest.setHandled(true);
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
-		String json = "";
-		if(br != null){
-			json = br.readLine();
-		}
+		String q = req.getParameter("q");
 
-		// 2. initiate jackson mapper
-		ObjectMapper mapper = new ObjectMapper();
-
-		// 3. Convert received JSON to Article
-		String string = mapper.readValue(json, String.class);
-		String test = mapper.writeValueAsString(json);
-		SearchDBpedia searchDB = new SearchDBpedia(test, 3);
-
-
-		// 4. Set response type to JSON
-		response.setContentType("application/json");            
-		response.getWriter().write(json);	//just returns what has been given.
+		SearchDBpedia searchDB = new SearchDBpedia(q, 3);
 
 
 	}
-	
-	public static void main(String[] args) throws Exception
-	{
-		Server server = new Server(8080);
-		server.setHandler(new Servlet());
 
-		server.start();
-		server.join();
+
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException{
+		String field = req.getParameter("field");
+		PrintWriter out = resp.getWriter();
+
+		out.println("<html>");
+		out.println("<body>");
+		out.println("You entered \"" + field + "\" into the text box.");
+		out.println("</body>");
+		out.println("</html>");
 	}
 
 
-
-	
 
 }
