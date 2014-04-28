@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" 
-xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
-http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-  <display-name>Java Servlet JSON</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-  </welcome-file-list>
-  
+<web-app>
+  <display-name>Example</display-name>
+
+  <!-- Declare the existence of a servlet. -->
   <servlet>
-  	<servlet-name>servlet</servlet-name>            
-  	<servlet-class>luceneindexer.javascript.Servlet</servlet-class>
+    <servlet-name>Servlet</servlet-name>
+    <servlet-class>Servlet</servlet-class>
   </servlet>
+
+  <!-- Map URLs to that servlet. -->
   <servlet-mapping>
-  	<servlet-name>Servlet</servlet-name>
-  	<url-pattern>/servlet</url-pattern>
+    <servlet-name>Servlet</servlet-name>
+    <url-pattern>/servlet</url-pattern>
   </servlet-mapping>
 </web-app>
