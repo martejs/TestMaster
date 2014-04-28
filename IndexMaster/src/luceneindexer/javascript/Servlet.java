@@ -1,30 +1,20 @@
 package luceneindexer.javascript;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+//import luceneindexer.search.SearchDBpedia;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.eclipse.jetty.server.Request;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.handler.AbstractHandler;
-
-import luceneindexer.search.SearchDBpedia;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Servlet extends HttpServlet{
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		String q = req.getParameter("q");
+		System.out.println("Dette er q"+q);
 
-		SearchDBpedia searchDB = new SearchDBpedia(q, 3);
+//		SearchDBpedia searchDB = new SearchDBpedia(q, 3);
 
 
 	}
