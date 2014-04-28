@@ -42,11 +42,9 @@ public class SearchDBpedia{
 	//		return queryStr;
 	//	}
 
-<<<<<<< HEAD
-	public SearchDBpedia(String query){
-=======
+
 	public SearchDBpedia(String query, int valg){
->>>>>>> FETCH_HEAD
+
 		queryStr = query;
 		String longField = "longAbstract";
 		String indexLong = "LongIndex";
