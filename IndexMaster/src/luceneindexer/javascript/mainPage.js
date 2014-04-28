@@ -1,5 +1,22 @@
 
+
 $('#searchBtn').click(function(){
+	
+	var method = 0;
+	
+	if($("#radio1").is(':checked')){
+		console.log(hallo);
+		method = $("#radio1").val();
+		
+	}else if($("#radio2").is(':checked')){
+		method = $("#radio2").val();
+	}
+	else if($("#radio3").is(':checked')){
+		method = $("#radio3").val();
+	}
+	
+	console.log(method);
+	
 	$('#searchResult').empty();
 	var query = $('#query').val();
 
@@ -48,7 +65,7 @@ $('#searchBtn').click(function(){
 	'permissions': "Servlet.java",
 	'success': function (data) {
 		console.log(data);
-		console.log("ALF!");
+		console.log("Hallo");
 	},
 	"error": function (jqXHR, textStatus, errorThrown) {
 		//console.log("jqXHR: " + jqXHR);
