@@ -106,19 +106,19 @@ public class Hits {
 		SolrQuery term1 = new SolrQuery();
 
 		for (int j = 1; j < term2List.size(); j++) {
-			if(tfTest < term2List.get(j).getTfIdf()&& term2List.get(j).getTerm1()!=term2List.get(j).getTerm2()){
+			if(tfTest < term2List.get(j).getTfIdf()&& !(term2List.get(j).getTerm1().equals(term2List.get(j).getTerm2()))){
 				tfTest = term2List.get(j).getTfIdf();
 				term2TF = new SolrQuery(term2List.get(j).getTerm2());
 				term1 = new SolrQuery(term2List.get(j).getTerm1());
 				System.out.println("TF2: " + tfTest + " term2: " + term2TF);
 			}
-			if(miTest < term2List.get(j).getMI()&& term2List.get(j).getTerm1()!=term2List.get(j).getTerm2()){
+			if(miTest < term2List.get(j).getMI()&& !(term2List.get(j).getTerm1().equals(term2List.get(j).getTerm2()))){
 				miTest = term2List.get(j).getMI();
 				term2MI = new SolrQuery(term2List.get(j).getTerm2());
 				term1 = new SolrQuery(term2List.get(j).getTerm1());
 				System.out.println("MI2: " + miTest + " term2: " + term2MI);
 			}
-			if(chiTest < term2List.get(j).getChi()&& term2List.get(j).getTerm1()!=term2List.get(j).getTerm2()){
+			if(chiTest < term2List.get(j).getChi()&& !(term2List.get(j).getTerm1().equals(term2List.get(j).getTerm2()))){
 				chiTest = term2List.get(j).getChi();
 				term2Chi = new SolrQuery(term2List.get(j).getTerm2());
 				term1 = new SolrQuery(term2List.get(j).getTerm1());
