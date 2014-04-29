@@ -45,12 +45,12 @@ public class SearchDBpedia{
 		searchFiles(longField, indexLong, queryStr, maxHits, valg);
 
 	}
-	
+
 	private static List<String> urls;
 
 	public static List<String> getUrls() {
 		return urls;
-		
+
 	}
 	public static boolean searchFiles(String field, String indexPath, String queryStr, int maxHits, int valg){
 
@@ -92,10 +92,9 @@ public class SearchDBpedia{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		
-			treff.getMI(maxHits, 4004477);
+
 			urls = treff.getUrls();
-			
+
 			System.out.println("Fant " + hits.length);
 			return true;
 
@@ -110,6 +109,6 @@ public class SearchDBpedia{
 		}
 
 	}
-	
+
 
 }
