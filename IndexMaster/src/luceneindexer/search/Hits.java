@@ -161,7 +161,7 @@ public class Hits {
 	public List<String> getUrls() {
 		List<String> urls = new ArrayList<String>();
 		
-		// GŒr gjennom results... 
+		// GŒr gjennom results...  
 		
 		
 		return urls;
