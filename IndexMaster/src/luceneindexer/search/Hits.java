@@ -1,6 +1,5 @@
 package luceneindexer.search;
 
-//import SolrDocument;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,16 +34,16 @@ public class Hits {
 	private float mInfo=0;
 	private List<String> ord = new ArrayList<String>();
 	private List<Term2> term2List = new ArrayList<Term2>();
-	
+
 	private SolrDocumentList[] results;
 	Term2 term2;
 
 	private int method;
-	
+
 	public Hits(int metode){
 		method = metode;
 	}
-	
+
 	public void setTerms(String term, String resource){
 		if(!this.terms.containsKey(term)){
 			this.occurrences = 1;
@@ -54,7 +53,7 @@ public class Hits {
 			terms.put(term, terms.get(term) + 1);
 		}
 	}
-	
+
 
 	/**
 	 * 
@@ -66,36 +65,29 @@ public class Hits {
 	 * @throws SolrServerException 
 	 * @throws HTTPException 
 	 */
-	
-	
+
+
 	public HashMap<String, Integer> getTerms() throws HTTPException, SolrServerException, IOException{
 		Iterator i = valueIterator(terms);
 
-		// for(terms.entrySet().iterator(); i.hasNext();){
 		for (Entry<String, Integer> e:terms.entrySet()) {
-			// Map.Entry entry = (Map.Entry) i.next();
-			// String key = (String) entry.getKey();
-			// Integer value = (Integer) entry.getValue();
 			String key = e.getKey();
 			Integer value = e.getValue();
 			ord.add(key);
-			
+
 			term2 = new Term2(SearchDBpedia.queryStr, key, 4004477);
 			int size = this.terms.size();
 			term2.setTfIdf(getTfidf(value, size));
-			
-			
-				first = key;
-				if(!SearchDBpedia.queryStr.equals(key)){
-					term2.setChi(getChiSquare(getFrequency(SearchDBpedia.queryStr), 4004477));
-					term2.setMI(getMI(getFrequency(SearchDBpedia.queryStr), 4004477));
-				}
-			
-			
-			
-//			if(value.intValue()>1){
-//				System.out.println(key + " : " + value + " Tf/idf: " + this.tfidf  + " antall dok: " + getFrequency(key));
-//			}
+
+
+			first = key;
+			if(!SearchDBpedia.queryStr.equals(key)){
+				term2.setChi(getChiSquare(getFrequency(SearchDBpedia.queryStr), 4004477));
+				term2.setMI(getMI(getFrequency(SearchDBpedia.queryStr), 4004477));
+			}
+
+
+
 			term2List.add(term2);
 		}
 		for (int j = 0; j < ord.size(); j++) {
@@ -103,75 +95,68 @@ public class Hits {
 				first = ord.get(j+1);
 			}	
 		}
-		
+
 		float tfTest = 0;
 		float miTest = 0;
 		float chiTest = 0;
-		
+
 		SolrQuery term2TF = new SolrQuery();
 		SolrQuery term2MI = new SolrQuery();
 		SolrQuery term2Chi = new SolrQuery();
 		SolrQuery term1 = new SolrQuery();
-		
+
 		for (int j = 1; j < term2List.size(); j++) {
-			if(tfTest < term2List.get(j).getTfIdf()){
+			if(tfTest < term2List.get(j).getTfIdf()&& term2List.get(j).getTerm1()!=term2List.get(j).getTerm2()){
 				tfTest = term2List.get(j).getTfIdf();
 				term2TF = new SolrQuery(term2List.get(j).getTerm2());
 				term1 = new SolrQuery(term2List.get(j).getTerm1());
 				System.out.println("TF2: " + tfTest + " term2: " + term2TF);
 			}
-			if(miTest < term2List.get(j).getMI()){
+			if(miTest < term2List.get(j).getMI()&& term2List.get(j).getTerm1()!=term2List.get(j).getTerm2()){
 				miTest = term2List.get(j).getMI();
 				term2MI = new SolrQuery(term2List.get(j).getTerm2());
 				term1 = new SolrQuery(term2List.get(j).getTerm1());
 				System.out.println("MI2: " + miTest + " term2: " + term2MI);
 			}
-			if(chiTest < term2List.get(j).getChi()){
+			if(chiTest < term2List.get(j).getChi()&& term2List.get(j).getTerm1()!=term2List.get(j).getTerm2()){
 				chiTest = term2List.get(j).getChi();
 				term2Chi = new SolrQuery(term2List.get(j).getTerm2());
 				term1 = new SolrQuery(term2List.get(j).getTerm1());
 				System.out.println("Chi2: " + chiTest + " term2: " + term2Chi);
 			}
-//			System.out.println("Term2:" + term2List.get(j).getTerm2());
-//			System.out.println("Chi: "+ term2List.get(j).getChi());
-//			System.out.println("MI; " + term2List.get(j).getMI());
-//			System.out.println("Tf-Idf: "+ term2List.get(j).getTfIdf());
-//			System.out.println("-----------");
-//			
-			
 		}
 		SearchSolr searchSolr = null;
 		switch (method){
-			case 1: method=1;
-				searchSolr = new SearchSolr(term1, term2TF);
-				results = searchSolr.getDocLists();
-				System.out.println("Case 1");
-				break;
-			case 2: method=2;
-				searchSolr = new SearchSolr(term1, term2MI);
-				results = searchSolr.getDocLists();
-				System.out.println("Case 2");
-				break;
-			case 3: method=3;
-				searchSolr = new SearchSolr(term1, term2Chi);
-				results = searchSolr.getDocLists();
-				System.out.println("Case 3");
-				break;
+		case 1: method=1;
+		searchSolr = new SearchSolr(term1, term2TF);
+		results = searchSolr.getDocLists();
+		System.out.println("Case 1");
+		break;
+		case 2: method=2;
+		searchSolr = new SearchSolr(term1, term2MI);
+		results = searchSolr.getDocLists();
+		System.out.println("Case 2");
+		break;
+		case 3: method=3;
+		searchSolr = new SearchSolr(term1, term2Chi);
+		results = searchSolr.getDocLists();
+		System.out.println("Case 3");
+		break;
 		}
 		return this.terms;
 	}
 
 	public List<String> getUrls() {
 		List<String> urls = new ArrayList<String>();
-		
+
 		// Fyller lista med url'er for bildene
 		for (int i = 0; i < results.length; i++) {
 			for (SolrDocument doc : results[i]) {
 				urls.add((String) doc.getFieldValue("url_s"));
 			}
-			
+
 		}
-		
+
 		return urls;
 	}
 	/**
@@ -231,31 +216,19 @@ public class Hits {
 			if(rl.contains(resource)){
 			}
 			else{
-				// documentFrequency.get(term);
-				// resourceList.add(resource);
 				rl.add(resource);
 				documentFrequency.put(term, rl);
-				//				System.out.println("2. Satt: " + term + " og ressurs: " + rl);
 			}
 		}
 	}
 
 	public float getChiSquare(int q, int all){
-		
-//			System.out.println("Sporreterm: " + SearchDBpedia.queryStr + " Term: " + first);
 
+		float nNa = q/(float)all;
+		float square =getFrequency(first)* (float) Math.pow(((1-nNa)),2);
+		chiSquare = square/q;
 
-				float nNa = q/(float)all;
-
-				float square =getFrequency(first)* (float) Math.pow(((1-nNa)),2);
-				chiSquare = square/q;
-
-//				System.out.println("spørreterm: " + q + " term2: " + getFrequency(first) + " blir chi-square: " + chiSquare);
-
-
-
-
-				return chiSquare;
+		return chiSquare;
 
 	}
 
@@ -264,16 +237,8 @@ public class Hits {
 		float nab = tfidf;
 		mInfo = nab/nanb;
 
-//		System.out.println("Spørreterm: " + SearchDBpedia.queryStr + "Søketerm: "+ first );
-
-		
-//		System.out.println("Sporreterm: " + q + " term2: " + getFrequency(first) + " Mutual Information: " + mInfo) ;
-
 		return mInfo;
-		
+
 	}
-
-
-
 
 }
