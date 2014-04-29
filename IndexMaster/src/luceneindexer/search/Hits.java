@@ -148,7 +148,6 @@ public class Hits {
 
 	public List<String> getUrls() {
 		List<String> urls = new ArrayList<String>();
-
 		// Fyller lista med url'er for bildene
 		for (int i = 0; i < results.length; i++) {
 			for (SolrDocument doc : results[i]) {
