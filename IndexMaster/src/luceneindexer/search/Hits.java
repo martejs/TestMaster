@@ -1,5 +1,7 @@
 package luceneindexer.search;
 
+//import SolrDocument;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -15,6 +17,7 @@ import javax.xml.ws.http.HTTPException;
 
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 
 
@@ -161,8 +164,13 @@ public class Hits {
 	public List<String> getUrls() {
 		List<String> urls = new ArrayList<String>();
 		
-		// GŒr gjennom results... 
-		
+		// Fyller lista med url'er for bildene
+		for (int i = 0; i < results.length; i++) {
+			for (SolrDocument doc : results[i]) {
+				urls.add((String) doc.getFieldValue("url_s"));
+			}
+			
+		}
 		
 		return urls;
 	}

@@ -57,14 +57,6 @@ public class SearchSolr {
 				qr = server.query(q);
 				result[i] = qr.getResults();
 
-				//MPServlet servlet = new MPServlet(result);
-
-
-//				for (SolrDocument doc : result) {
-//					Object id = doc.getFieldValue("url_s");
-//					ArrayList name = (ArrayList) doc.getFieldValue("attr_tag");
-//					System.out.println(id + " " + name);
-//				}
 			} catch (SolrServerException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
