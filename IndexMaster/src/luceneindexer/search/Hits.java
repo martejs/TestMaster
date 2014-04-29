@@ -15,6 +15,7 @@ import javax.xml.ws.http.HTTPException;
 
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.common.SolrDocumentList;
 
 
 public class Hits {
@@ -31,6 +32,8 @@ public class Hits {
 	private float mInfo=0;
 	private List<String> ord = new ArrayList<String>();
 	private List<Term2> term2List = new ArrayList<Term2>();
+	
+	private SolrDocumentList[] results;
 	Term2 term2;
 
 	private int method;
@@ -134,24 +137,35 @@ public class Hits {
 //			
 			
 		}
-		
-		switch (3){
+		SearchSolr searchSolr = null;
+		switch (method){
 			case 1: method=1;
-				SearchSolr searchSolr = new SearchSolr(term1, term2TF);
+				searchSolr = new SearchSolr(term1, term2TF);
+				results = searchSolr.getDocLists();
 				System.out.println("Case 1");
 				break;
 			case 2: method=2;
-				SearchSolr searchSolr2 = new SearchSolr(term1, term2MI);
+				searchSolr = new SearchSolr(term1, term2MI);
+				results = searchSolr.getDocLists();
 				System.out.println("Case 2");
 				break;
 			case 3: method=3;
-				SearchSolr searchSolr3 = new SearchSolr(term1, term2Chi);
+				searchSolr = new SearchSolr(term1, term2Chi);
+				results = searchSolr.getDocLists();
 				System.out.println("Case 3");
 				break;
 		}
 		return this.terms;
 	}
 
+	public List<String> getUrls() {
+		List<String> urls = new ArrayList<String>();
+		
+		// GŒr gjennom results... 
+		
+		
+		return urls;
+	}
 	/**
 	 * @param term
 	 * @return the frequency for the given term
