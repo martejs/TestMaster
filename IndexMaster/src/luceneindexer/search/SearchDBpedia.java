@@ -2,6 +2,7 @@ package luceneindexer.search;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 import javax.swing.ButtonGroup;
@@ -48,13 +49,19 @@ public class SearchDBpedia{
 		queryStr = query;
 		String longField = "longAbstract";
 		String indexLong = "LongIndex";
-		int maxHits = 10;
+		int maxHits = 100;
 
 		System.out.println("Long:");
 		searchFiles(longField, indexLong, queryStr, maxHits, valg);
 
 	}
+	
+	private static List<String> urls;
 
+	public static List<String> getUrls() {
+		return urls;
+		
+	}
 	public static boolean searchFiles(String field, String indexPath, String queryStr, int maxHits, int valg){
 
 		IndexReader reader;
@@ -124,8 +131,8 @@ public class SearchDBpedia{
 			//			System.out.println(writer.getTotalDocs());
 			//			treff.getChiSquare(maxHits, 4004477);
 			treff.getMI(maxHits, 4004477);
-
-
+			urls = treff.getUrls();
+			
 			System.out.println("Fant " + hits.length);
 			return true;
 
@@ -140,6 +147,8 @@ public class SearchDBpedia{
 		}
 
 	}
+	
+
 
 	public static void main(String[] args){
 		//Field
