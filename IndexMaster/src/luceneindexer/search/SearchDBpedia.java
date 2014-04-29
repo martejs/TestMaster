@@ -2,6 +2,7 @@ package luceneindexer.search;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -23,7 +24,10 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
+import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.common.SolrDocument;
+import org.apache.solr.common.SolrDocumentList;
 
 
 
@@ -32,8 +36,27 @@ public class SearchDBpedia{
 
 	static String queryStr;
 	private int valg;
+	private SolrDocumentList[] results;
+	private static List<String> urls;
+	
+	public SearchDBpedia(String query){
+		SearchSolr url = new SearchSolr();
+		SolrQuery q = new SolrQuery(query);
+		
+		results = url.getUrls(q);
+	
+		
+		 urls = new ArrayList<String>();
+		// Fyller lista med url'er for bildene
+		for (int i = 0; i < results.length; i++) {
+			for (SolrDocument doc : results[i]) {
+				urls.add((String) doc.getFieldValue("url_s"));
+			}
 
-
+		}
+		
+		
+	}
 
 	public SearchDBpedia(String query, int valg){
 
@@ -46,10 +69,10 @@ public class SearchDBpedia{
 
 	}
 
-	private static List<String> urls;
 
 	public static List<String> getUrls() {
 		return urls;
+		
 
 	}
 	public static boolean searchFiles(String field, String indexPath, String queryStr, int maxHits, int valg){
