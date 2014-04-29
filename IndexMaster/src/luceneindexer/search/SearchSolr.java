@@ -12,7 +12,7 @@ import org.apache.solr.common.SolrDocumentList;
 
 public class SearchSolr {
 	private SolrDocumentList result[]=null;
-	
+
 	public SolrDocumentList[] getDocLists() {
 		return result;
 	}
@@ -33,7 +33,7 @@ public class SearchSolr {
 
 		HttpSolrServer server;
 //		String input= JOptionPane.showInputDialog("s�keord");
-		
+
 		//String [] splitStrings = input.split(" ");
 		String qyr;
 		String qyr2;
@@ -49,26 +49,19 @@ public class SearchSolr {
 
 			SolrQuery q = new SolrQuery(qyr + " AND "+ qyr2).setRows(100);
 //			q.setQuery("num:[0 TO 20]").setSortField("num", ORDER.desc).setRows(100);
-			
+
 //			q = new SolrQuery(qyr);
-			
+
 			QueryResponse qr;
 			try {
 				qr = server.query(q);
 				result[i] = qr.getResults();
-				
-				//MPServlet servlet = new MPServlet(result);
-				
-//				for (SolrDocument doc : result) {
-//					Object id = doc.getFieldValue("url_s");
-//					ArrayList name = (ArrayList) doc.getFieldValue("attr_tag");
-//					System.out.println(id + " " + name);
-//				}
+
 			} catch (SolrServerException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 
-			
+
 
 
 		}
