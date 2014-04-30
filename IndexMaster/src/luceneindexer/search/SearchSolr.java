@@ -1,7 +1,6 @@
 package luceneindexer.search;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.xml.ws.http.HTTPException;
 
