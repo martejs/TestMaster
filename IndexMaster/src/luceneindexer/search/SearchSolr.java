@@ -37,7 +37,7 @@ public class SearchSolr {
 		result = new SolrDocumentList[list_size];
 		for (int i = 0; i < list_size; i++) {
 			server= new HttpSolrServer("http://129.241.111.168:8983/solr/"+list.get(i));
-			SolrQuery q = new SolrQuery(qyr).setRows(100);
+			SolrQuery q = new SolrQuery(qyr).setRows(50);
 			QueryResponse qr;
 			try {
 				qr = server.query(q);
@@ -68,11 +68,12 @@ public class SearchSolr {
 		System.out.println(qyr);
 		qyr2 = "attr_tag:" + term2;
 		qyr2 = qyr2.replace("q=", "");
+		System.out.println(qyr2);
 		int list_size = list.size();
 		result = new SolrDocumentList[list_size];
 		for (int i = 0; i < list_size; i++) {
 			server= new HttpSolrServer("http://129.241.111.168:8983/solr/"+list.get(i));
-			SolrQuery q = new SolrQuery(qyr + " AND "+ qyr2).setRows(100);
+			SolrQuery q = new SolrQuery(qyr + " AND "+ qyr2).setRows(50);
 			QueryResponse qr;
 			try {
 				qr = server.query(q);
