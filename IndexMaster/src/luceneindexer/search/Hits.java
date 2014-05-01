@@ -82,8 +82,8 @@ public class Hits {
 
 			first = key;
 			if(!SearchDBpedia.queryStr.equals(key)){
-				term2.setChi(getChiSquare(getFrequency(SearchDBpedia.queryStr), 4004477));
-				term2.setMI(getMI(getFrequency(SearchDBpedia.queryStr), 4004477));
+				term2.setChi(getChiSquare(getFrequency(SearchDBpedia.queryStr), size));
+				term2.setMI(getMI(getFrequency(SearchDBpedia.queryStr), size));
 			}
 
 
@@ -174,7 +174,6 @@ public class Hits {
 	 * @return the Tf/ifd for the given term
 	 */
 	public float getTfidf(int value, int size){
-
 		tf = (float) value / size;
 		idf = (float) (Math.log(size/value)); 
 		tfidf = (tf*idf);
@@ -222,10 +221,10 @@ public class Hits {
 	}
 
 	public float getChiSquare(int q, int all){
-
 		float nNa = q/(float)all;
 		float square =getFrequency(first)* (float) Math.pow(((1-nNa)),2);
 		chiSquare = square/q;
+		
 
 		return chiSquare;
 
