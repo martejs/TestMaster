@@ -1,7 +1,6 @@
 package luceneindexer.search;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.xml.ws.http.HTTPException;
 
@@ -23,10 +22,6 @@ public class SearchSolr {
 	}
 	
 	public SolrDocumentList[] getUrls(SolrQuery query){
-		
-		System.out.println("Query er: " + query);
-		System.out.println("::"+ query);
-		//	}
 		
 		ArrayList<String> list = new ArrayList<String>();
 		list.add("WorldGEOUpcoming");
@@ -56,9 +51,13 @@ public class SearchSolr {
 		}
 		return result;
 	}
+	
+	
 	public SearchSolr(SolrQuery query, SolrQuery term2) throws SolrServerException, HTTPException, IOException{
+
 		System.out.println("Query er: " + query + " Term 2 er: " + term2);
 		//	}
+
 
 		ArrayList<String> list = new ArrayList<String>();
 		list.add("WorldGEOUpcoming");
@@ -73,6 +72,7 @@ public class SearchSolr {
 		System.out.println(qyr);
 		qyr2 = "attr_tag:" + term2;
 		qyr2 = qyr2.replace("q=", "");
+		System.out.println(qyr2);
 		int list_size = list.size();
 		result = new SolrDocumentList[list_size];
 		for (int i = 0; i < list_size; i++) {
