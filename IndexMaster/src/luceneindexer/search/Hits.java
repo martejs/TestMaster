@@ -92,8 +92,12 @@ public class Hits {
 			term2.setTfIdf(tfidf);
 
 			returnedByTfIdf.put(key, tfidf);
-
+			if(term2.equals("dog")){
+				
+				System.out.println(term2.getTerm2());
+			}
 			term2List.add(term2);
+			
 
 			
 
@@ -228,8 +232,7 @@ public class Hits {
 			//			System.out.println("Key " + key);
 
 			System.out.println(first);
-			System.out.println("---"+ term2List.toString());
-			int index = term2List.indexOf(first.toString());
+			int index = term2List.indexOf(first);
 			System.out.println(index);
 			System.out.println("Er det her du klikker?");
 			term2tf.add(term2List.get(index));

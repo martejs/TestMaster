@@ -1,6 +1,6 @@
 package luceneindexer.search;
 
-public class Term2 {
+public class Term2 implements Comparable<Term2>{
 	
 	private String term1 ="";
 	private String term2 = "";
@@ -47,5 +47,20 @@ public class Term2 {
 		this.term1 = term1;
 	}
 	
+	
+	
+	public boolean equals(Object o){
+		if(o instanceof String){
+			String e = (String) o;
+			return e.equals(term2);
+		} 
+		return false;
+		
+	}
+
+	@Override
+	public int compareTo(Term2 o) {
+		return (int) (tfIdf - o.getTfIdf());
+	}
 
 }
