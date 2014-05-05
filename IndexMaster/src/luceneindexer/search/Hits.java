@@ -230,6 +230,11 @@ public class Hits {
 
 	}
 
+	/**
+	 * @param q: number of occurrences of the query term
+	 * @param all: number of terms returned from tf/idf  
+	 * @return Mutual information 
+	 */
 	public float getMI(float q, int all){
 		float nanb = q*getFrequency(first);
 		float nab = tfidf;
