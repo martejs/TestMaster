@@ -79,7 +79,6 @@ public class Hits {
 
 
 	public HashMap<String, Integer> getTerms() throws HTTPException, SolrServerException, IOException{
-		Iterator i = valueIterator(terms);
 
 		for (Entry<String, Integer> e:terms.entrySet()) {
 			String key = e.getKey();
@@ -92,18 +91,14 @@ public class Hits {
 			term2.setTfIdf(tfidf);
 
 			returnedByTfIdf.put(key, tfidf);
-			if(term2.equals("dog")){
-				
-				System.out.println(term2.getTerm2());
-			}
 			term2List.add(term2);
-			
 
-			
+
+
 
 		}
 
-		tfidfSorting();
+		List<Term2> candidates = getCandidates();
 
 
 
@@ -111,48 +106,44 @@ public class Hits {
 		float miTest = 0;
 		float chiTest = 0;
 
-		SolrQuery term2TF = new SolrQuery();
-		SolrQuery term2MI = new SolrQuery();
-		SolrQuery term2Chi = new SolrQuery();
+		SolrQuery term = new SolrQuery();
 		SolrQuery term1 = new SolrQuery();
 
-		for (int j = 1; j < term2List.size(); j++) {
-			if(tfTest < term2List.get(j).getTfIdf()&& !(term2List.get(j).getTerm1().equals(term2List.get(j).getTerm2()))){
-				tfTest = term2List.get(j).getTfIdf();
-				term2TF = new SolrQuery(term2List.get(j).getTerm2());
-				term1 = new SolrQuery(term2List.get(j).getTerm1());
-				System.out.println("TF2: " + tfTest + " term2: " + term2TF);
+		for (int j = 0; j < candidates.size(); j++) {
+			if(miTest < candidates.get(j).getMI() && !(candidates.get(j).getTerm1().equals(candidates.get(j).getTerm2()))){
+				miTest = candidates.get(j).getMI();
+				term = new SolrQuery(candidates.get(j).getTerm2());
+				term1 = new SolrQuery(candidates.get(j).getTerm1());
+				System.out.println("MI2: " + miTest + " term2: " + term);
 			}
-			if(miTest < term2tf.get(j).getMI()&& !(term2tf.get(j).getTerm1().equals(term2tf.get(j).getTerm2()))){
-				miTest = term2tf.get(j).getMI();
-				term2MI = new SolrQuery(term2tf.get(j).getTerm2());
-				term1 = new SolrQuery(term2tf.get(j).getTerm1());
-				System.out.println("MI2: " + miTest + " term2: " + term2MI);
-			}
-			if(chiTest < term2tf.get(j).getChi()&& !(term2tf.get(j).getTerm1().equals(term2tf.get(j).getTerm2()))){
-				chiTest = term2tf.get(j).getChi();
-				term2Chi = new SolrQuery(term2tf.get(j).getTerm2());
-				term1 = new SolrQuery(term2tf.get(j).getTerm1());
-				System.out.println("Chi2: " + chiTest + " term2: " + term2Chi);
+			if(chiTest < candidates.get(j).getChi() && !(candidates.get(j).getTerm1().equals(candidates.get(j).getTerm2()))){
+				chiTest = candidates.get(j).getChi();
+				term = new SolrQuery(candidates.get(j).getTerm2());
+				term1 = new SolrQuery(candidates.get(j).getTerm1());
+				System.out.println("Chi2: " + chiTest + " term2: " + term);
 			}
 		}
+		
 		SearchSolr searchSolr = null;
 		switch (method){
 		case 1: method=1;
-		searchSolr = new SearchSolr(term1, term2TF);
-		results = searchSolr.getDocLists();
-		System.out.println("Case 1");
-		break;
+			System.out.println("TF2: " + tfTest + " term2: " + term);
+			term = new SolrQuery(candidates.get(0).getTerm2());
+			term1 = new SolrQuery(candidates.get(0).getTerm1());
+			searchSolr = new SearchSolr(term1, term);
+			results = searchSolr.getDocLists();
+			System.out.println("Case 1");
+			break;
 		case 2: method=2;
-		searchSolr = new SearchSolr(term1, term2MI);
-		results = searchSolr.getDocLists();
-		System.out.println("Case 2");
-		break;
+			searchSolr = new SearchSolr(term1, term);
+			results = searchSolr.getDocLists();
+			System.out.println("Case 2");
+			break;
 		case 3: method=3;
-		searchSolr = new SearchSolr(term1, term2Chi);
-		results = searchSolr.getDocLists();
-		System.out.println("Case 3");
-		break;
+			searchSolr = new SearchSolr(term1, term);
+			results = searchSolr.getDocLists();
+			System.out.println("Case 3");
+			break;
 		}
 		return this.terms;
 	}
@@ -192,108 +183,33 @@ public class Hits {
 		return tfidf;
 	}
 
-	/**
-	 * Iterator method
-	 */
-	Iterator valueIterator(HashMap<String, Integer> terms2) {
-		Set set = new TreeSet(new Comparator<Map.Entry<String, Integer>>() {
 
 
-			@Override
-			public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2) {
-				return  o2.getValue().compareTo(o1.getValue()) > 0 ? 1 : -1;
-			}
+	public List<Term2> getCandidates(){
+		Collections.sort(term2List);
 
-		});
-		set.addAll(terms2.entrySet());
+		List <Term2> resultList = new ArrayList<Term2>(150);
 
-		return set.iterator();
-	}
-
-
-	public void tfidfSorting(){
-
-		returnedByTfIdf = (HashMap<String, Float>) sortByValue(returnedByTfIdf);
-
-
-		Iterator i = tfidfIterator(returnedByTfIdf);
 		int x = 0;
 
-		for (Entry<String, Float> e:returnedByTfIdf.entrySet()) {
-			x+= 1;
-			String key = e.getKey();
-			Float value = e.getValue();
-			
-			tfidf150.put(key, value);
+		for (Term2 to : term2List) {
+			String name = to.getTerm2();
 
-			word.add(key);
-			
-			first = key;
-			//			System.out.println("Key " + key);
-
-			System.out.println(first);
-			int index = term2List.indexOf(first);
-			System.out.println(index);
-			System.out.println("Er det her du klikker?");
-			term2tf.add(term2List.get(index));
-
-			
-			if(!SearchDBpedia.queryStr.equals(key)){
-				term2.setChi(getChiSquare(getFrequency(SearchDBpedia.queryStr), 150));
-				term2.setMI(getMI(getFrequency(SearchDBpedia.queryStr), 150));
+			if(!SearchDBpedia.queryStr.equals(name)){
+				x++;
+				to.setChi(getChiSquare(getFrequency(SearchDBpedia.queryStr), 150, name));
+				to.setMI(getMI(getFrequency(SearchDBpedia.queryStr), 150, name));
+				resultList.add(to);
 			}
-
-
 
 			if(x==150) break;
 		}
 
-		for (int j = 0; j < word.size(); j++) {
-			if(word.get(j).equals(SearchDBpedia.queryStr)){ 
-				first = word.get(j+1);
-			}	
-		}
-
-		System.out.println("liste "+ tfidf150);
-		System.out.println("enda en liste" + term2tf);
+		return resultList;
 
 	}
 
-
-	public static <K, V extends Comparable<? super V>> Map<K, V> sortByValue( Map<K, V> map ){
-		List<Map.Entry<K, V>> list =
-				new LinkedList<Map.Entry<K, V>>( map.entrySet() );
-		Collections.sort( list, new Comparator<Map.Entry<K, V>>()
-				{
-			public int compare( Map.Entry<K, V> o1, Map.Entry<K, V> o2 )
-			{
-				return (o2.getValue()).compareTo( o1.getValue() );
-			}
-				} );
-
-		Map<K, V> result = new LinkedHashMap<K, V>();
-		for (Map.Entry<K, V> entry : list)
-		{
-			result.put( entry.getKey(), entry.getValue() );
-		}
-		return result;
-	}
-
-	Iterator tfidfIterator(HashMap<String, Float> tfidfList) {
-		Set set = new TreeSet(new Comparator<Map.Entry<String, Float>>() {
-
-
-			@Override
-			public int compare(Entry<String, Float> o1, Entry<String, Float> o2) {
-				return  o2.getValue().compareTo(o1.getValue()) > 0 ? 1 : -1;
-			}
-
-		});
-		set.addAll(tfidfList.entrySet());
-
-		return set.iterator();
-	}
-
+	
 	/**
 	 * 
 	 * @param term
@@ -315,9 +231,9 @@ public class Hits {
 		}
 	}
 
-	public float getChiSquare(int q, int all){
+	public float getChiSquare(int q, int all, String word){
 		float nNa = q/(float)all;
-		float square =getFrequency(first)* (float) Math.pow(((1-nNa)),2);
+		float square =getFrequency(word)* (float) Math.pow(((1-nNa)),2);
 		chiSquare = square/q;
 
 
@@ -330,8 +246,8 @@ public class Hits {
 	 * @param all: number of terms returned from tf/idf  
 	 * @return Mutual information 
 	 */
-	public float getMI(float q, int all){
-		float nanb = q*getFrequency(first);
+	public float getMI(float q, int all, String word){
+		float nanb = q*getFrequency(word);
 		float nab = tfidf;
 		mInfo = nab/nanb;
 

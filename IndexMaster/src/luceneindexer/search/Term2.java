@@ -60,7 +60,15 @@ public class Term2 implements Comparable<Term2>{
 
 	@Override
 	public int compareTo(Term2 o) {
-		return (int) (tfIdf - o.getTfIdf());
+		float diff = tfIdf - o.getTfIdf();
+		if(diff > 0){
+			return -1;
+		}if(diff == 0){
+			return 0;
+		}
+		else {
+			return 1;
+		}
 	}
 
 }
