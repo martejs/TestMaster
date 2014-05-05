@@ -118,7 +118,6 @@ public class SearchDBpedia{
 
 			urls = treff.getUrls();
 
-			System.out.println("Fant " + hits.length);
 			return true;
 
 		} catch (IOException e) {
