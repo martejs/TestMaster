@@ -32,7 +32,7 @@ public class Hits {
 	private float chiSquare = 0;
 	private String first = "";
 	private float mInfo=0;
-	private List<String> ord = new ArrayList<String>();
+	private List<String> word = new ArrayList<String>();
 	private List<Term2> term2List = new ArrayList<Term2>();
 
 	private SolrDocumentList[] results;
@@ -73,7 +73,7 @@ public class Hits {
 		for (Entry<String, Integer> e:terms.entrySet()) {
 			String key = e.getKey();
 			Integer value = e.getValue();
-			ord.add(key);
+			word.add(key);
 
 			term2 = new Term2(SearchDBpedia.queryStr, key, 4004477);
 			int size = this.terms.size();
@@ -90,9 +90,9 @@ public class Hits {
 
 			term2List.add(term2);
 		}
-		for (int j = 0; j < ord.size(); j++) {
-			if(ord.get(j).equals(SearchDBpedia.queryStr)){ 
-				first = ord.get(j+1);
+		for (int j = 0; j < word.size(); j++) {
+			if(word.get(j).equals(SearchDBpedia.queryStr)){ 
+				first = word.get(j+1);
 			}	
 		}
 
