@@ -193,7 +193,6 @@ public class Hits {
 
 	}
 
-	
 	/**
 	 * 
 	 * @param term
@@ -239,4 +238,5 @@ public class Hits {
 
 	}
 
-}
+	
+}	
