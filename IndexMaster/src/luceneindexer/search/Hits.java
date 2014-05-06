@@ -4,17 +4,9 @@ package luceneindexer.search;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
 
 import javax.xml.ws.http.HTTPException;
 
@@ -23,28 +15,19 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 
-
-
-
-
-
 public class Hits {
 
 	private HashMap<String, Integer> terms = new HashMap<String, Integer>();
 	private HashMap<String, ArrayList<String>> documentFrequency = new HashMap<String, ArrayList<String>>();
 	private HashMap<String, Float> returnedByTfIdf = new HashMap<String, Float>();
-	private HashMap<String, Float> tfidf150 = new HashMap<String, Float>();
 	private ArrayList<String> resourceList;
 	private int occurrences = 0;
 	private float tf = 0;
 	private float idf = 0;
 	private float tfidf = 0; 
 	private float chiSquare = 0;
-	private String first = "";
 	private float mInfo=0;
-	private List<String> word = new ArrayList<String>();
 	private List<Term2> term2List = new ArrayList<Term2>();
-	private List<Term2> term2tf = new ArrayList<Term2>();
 
 	private SolrDocumentList[] results;
 	Term2 term2;
@@ -93,9 +76,6 @@ public class Hits {
 			returnedByTfIdf.put(key, tfidf);
 			term2List.add(term2);
 
-
-
-
 		}
 
 		List<Term2> candidates = getCandidates();
@@ -111,22 +91,26 @@ public class Hits {
 
 		for (int j = 0; j < candidates.size(); j++) {
 			if(miTest < candidates.get(j).getMI() && !(candidates.get(j).getTerm1().equals(candidates.get(j).getTerm2()))){
-				miTest = candidates.get(j).getMI();
-				term = new SolrQuery(candidates.get(j).getTerm2());
-				term1 = new SolrQuery(candidates.get(j).getTerm1());
-				System.out.println("MI2: " + miTest + " term2: " + term);
+				if(method == 2){
+					miTest = candidates.get(j).getMI();
+					term = new SolrQuery(candidates.get(j).getTerm2());
+					term1 = new SolrQuery(candidates.get(j).getTerm1());
+					System.out.println("MI2: " + miTest + " term2: " + term);					
+				}
 			}
 			if(chiTest < candidates.get(j).getChi() && !(candidates.get(j).getTerm1().equals(candidates.get(j).getTerm2()))){
-				chiTest = candidates.get(j).getChi();
-				term = new SolrQuery(candidates.get(j).getTerm2());
-				term1 = new SolrQuery(candidates.get(j).getTerm1());
-				System.out.println("Chi2: " + chiTest + " term2: " + term);
+				if(method == 3){
+					chiTest = candidates.get(j).getChi();
+					term = new SolrQuery(candidates.get(j).getTerm2());
+					term1 = new SolrQuery(candidates.get(j).getTerm1());
+					System.out.println("Chi2: " + chiTest + " term2: " + term);					
+				}
 			}
 		}
 		
 		SearchSolr searchSolr = null;
 		switch (method){
-		case 1: method=1;
+		case 1:
 			System.out.println("TF2: " + tfTest + " term2: " + term);
 			term = new SolrQuery(candidates.get(0).getTerm2());
 			term1 = new SolrQuery(candidates.get(0).getTerm1());
@@ -134,12 +118,12 @@ public class Hits {
 			results = searchSolr.getDocLists();
 			System.out.println("Case 1");
 			break;
-		case 2: method=2;
+		case 2:
 			searchSolr = new SearchSolr(term1, term);
 			results = searchSolr.getDocLists();
 			System.out.println("Case 2");
 			break;
-		case 3: method=3;
+		case 3:
 			searchSolr = new SearchSolr(term1, term);
 			results = searchSolr.getDocLists();
 			System.out.println("Case 3");

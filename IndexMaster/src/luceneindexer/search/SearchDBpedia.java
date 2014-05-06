@@ -35,7 +35,6 @@ public class SearchDBpedia{
 
 
 	static String queryStr;
-	private int valg;
 	private SolrDocumentList[] results;
 	private static List<String> urls;
 	

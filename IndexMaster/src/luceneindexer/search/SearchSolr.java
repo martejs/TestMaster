@@ -56,8 +56,6 @@ public class SearchSolr {
 	public SearchSolr(SolrQuery query, SolrQuery term2) throws SolrServerException, HTTPException, IOException{
 
 		System.out.println("Query er: " + query + " Term 2 er: " + term2);
-		//	}
-
 
 		ArrayList<String> list = new ArrayList<String>();
 		list.add("WorldGEOUpcoming");
