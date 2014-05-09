@@ -107,6 +107,7 @@ public class Hits {
 				}
 			}
 		}
+
 		SearchSolr searchSolr = null;
 		switch (method){
 		case 1:
@@ -237,5 +238,5 @@ public class Hits {
 
 	}
 
-	
-}	
+
+}
