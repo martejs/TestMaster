@@ -111,22 +111,22 @@ public class Hits {
 		SearchSolr searchSolr = null;
 		switch (method){
 		case 1:
-			System.out.println("TF2: " + tfTest + " term2: " + term);
+			System.out.println("Case 1");
+			System.out.println("TF2: " + candidates.get(0).getTerm2() + " term2: " + candidates.get(0).getTfIdf());
 			term = new SolrQuery(candidates.get(0).getTerm2());
 			term1 = new SolrQuery(candidates.get(0).getTerm1());
 			searchSolr = new SearchSolr(term1, term);
 			results = searchSolr.getDocLists();
-			System.out.println("Case 1");
 			break;
 		case 2:
+			System.out.println("Case 2");
 			searchSolr = new SearchSolr(term1, term);
 			results = searchSolr.getDocLists();
-			System.out.println("Case 2");
 			break;
 		case 3:
+			System.out.println("Case 3");
 			searchSolr = new SearchSolr(term1, term);
 			results = searchSolr.getDocLists();
-			System.out.println("Case 3");
 			break;
 		}
 		return this.terms;
