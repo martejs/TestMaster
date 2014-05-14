@@ -182,7 +182,7 @@ public class Hits {
 			if(!SearchDBpedia.queryStr.equals(name)){
 				x++;
 				to.setChi(getChiSquare(getFrequency(SearchDBpedia.queryStr), 150, name));
-				to.setMI(getMI(getFrequency(SearchDBpedia.queryStr), 150, name));
+				to.setMI(getMI(getFrequency(SearchDBpedia.queryStr), name));
 				resultList.add(to);
 			}
 
@@ -213,11 +213,14 @@ public class Hits {
 			}
 		}
 	}
+	
 	/**
-	 * @param q:
+	 * @param q: the number of occurrences of the query term
 	 * @param all: number of terms returned from TF-IDF
-	 * @param word: 
-	 * @return
+	 * @param word: the candidate for query expansion
+	 * nNa: the number of occurrences of q divided by the 150 best terms returned by Tf/IDF.   
+	 * square: the frequency of the second term * with .......
+	 * @return chiSquare
 	 */
 	public float getChiSquare(int q, int all, String word){
 		float nNa = q/(float)all;
@@ -231,13 +234,14 @@ public class Hits {
 
 	/**
 	 * @param q: number of occurrences of the query term
-	 * @param all: number of terms returned from TF-IDF
-	 * @param word: 
+	 * @param word: the candidate for query expansion
+	 * nanb: the number of documents that the query occurs in * the number of documents that the second term occur in
+	 * nab: the number of documents that the second term occur in
 	 * @return Mutual information 
 	 */
-	public float getMI(float q, int all, String word){
+	public float getMI(float q, String word){
 		float nanb = q*getFrequency(word);
-		float nab = tfidf;
+		float nab = returnedByTfIdf.size();
 		mInfo = nab/nanb;
 
 		return mInfo;
