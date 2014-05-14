@@ -213,7 +213,12 @@ public class Hits {
 			}
 		}
 	}
-
+	/**
+	 * @param q:
+	 * @param all: number of terms returned from TF-IDF
+	 * @param word: 
+	 * @return
+	 */
 	public float getChiSquare(int q, int all, String word){
 		float nNa = q/(float)all;
 		float square =getFrequency(word)* (float) Math.pow(((1-nNa)),2);
@@ -226,7 +231,8 @@ public class Hits {
 
 	/**
 	 * @param q: number of occurrences of the query term
-	 * @param all: number of terms returned from tf/idf  
+	 * @param all: number of terms returned from TF-IDF
+	 * @param word: 
 	 * @return Mutual information 
 	 */
 	public float getMI(float q, int all, String word){
