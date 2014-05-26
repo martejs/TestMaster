@@ -17,10 +17,13 @@ public class SearchSolr {
 	public SolrDocumentList[] getDocLists() {
 		return result;
 	}
+	
+	//An empty constructor for searching without query expansion.   
 	public SearchSolr(){
 		
 	}
 	
+	//Searching without query expansion
 	public SolrDocumentList[] getUrls(SolrQuery query){
 		
 		ArrayList<String> list = new ArrayList<String>();
@@ -36,6 +39,7 @@ public class SearchSolr {
 		int list_size = list.size();
 		result = new SolrDocumentList[list_size];
 		for (int i = 0; i < list_size; i++) {
+			//The dataset from Flickr is avaliable through this server
 			server= new HttpSolrServer("http://129.241.111.168:8983/solr/"+list.get(i));
 			SolrQuery q = new SolrQuery(qyr).setRows(50);
 			QueryResponse qr;
@@ -68,12 +72,15 @@ public class SearchSolr {
 		qyr = "attr_tag:" + query;
 		qyr = qyr.replace("q=", "");
 		System.out.println(qyr);
+		
 		qyr2 = "attr_tag:" + term2;
 		qyr2 = qyr2.replace("q=", "");
 		System.out.println(qyr2);
+		
 		int list_size = list.size();
 		result = new SolrDocumentList[list_size];
 		for (int i = 0; i < list_size; i++) {
+			//The dataset from Flickr is avaliable through this server
 			server= new HttpSolrServer("http://129.241.111.168:8983/solr/"+list.get(i));
 			SolrQuery q = new SolrQuery(qyr + " AND "+ qyr2).setRows(50);
 			QueryResponse qr;

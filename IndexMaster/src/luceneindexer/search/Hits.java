@@ -38,6 +38,7 @@ public class Hits {
 		method = metode;
 	}
 
+	//Method for finding the term frequence to each term. This is put in a map. 
 	public void setTerms(String term, String resource){
 		if(!this.terms.containsKey(term)){
 			this.occurrences = 1;
@@ -59,8 +60,6 @@ public class Hits {
 	 * @throws SolrServerException 
 	 * @throws HTTPException 
 	 */
-
-
 	public HashMap<String, Integer> getTerms() throws HTTPException, SolrServerException, IOException{
 
 		for (Entry<String, Integer> e:terms.entrySet()) {
@@ -80,35 +79,42 @@ public class Hits {
 
 		List<Term2> candidates = getCandidates();
 
-
-
-		float tfTest = 0;
 		float miTest = 0;
 		float chiTest = 0;
 
 		SolrQuery term = new SolrQuery();
 		SolrQuery term1 = new SolrQuery();
 
+		
+		
 		for (int j = 0; j < candidates.size(); j++) {
-			if(miTest < candidates.get(j).getMI() && !(candidates.get(j).getTerm1().equals(candidates.get(j).getTerm2()))){
-				if(method == 2){
+			//Finding the term with the highest Mutual information
+			if(method == 2){
+				if(miTest < candidates.get(j).getMI() && !(candidates.get(j).getTerm1().equals(candidates.get(j).getTerm2()))){
 					miTest = candidates.get(j).getMI();
 					term = new SolrQuery(candidates.get(j).getTerm2());
 					term1 = new SolrQuery(candidates.get(j).getTerm1());
 					System.out.println("MI2: " + miTest + " term2: " + term);					
 				}
 			}
-			if(chiTest < candidates.get(j).getChi() && !(candidates.get(j).getTerm1().equals(candidates.get(j).getTerm2()))){
-				if(method == 3){
+			
+			//Finding the term with the highest Chi-square
+			if(method == 3){
+				if(chiTest < candidates.get(j).getChi() && !(candidates.get(j).getTerm1().equals(candidates.get(j).getTerm2()))){
 					chiTest = candidates.get(j).getChi();
 					term = new SolrQuery(candidates.get(j).getTerm2());
 					term1 = new SolrQuery(candidates.get(j).getTerm1());
-					System.out.println("Chi2: " + chiTest + " term2: " + term);					
+					System.out.println("Chi2: " + chiTest + " term2: " + term);	
+				}else{
+					System.out.println("Chi2: " + candidates.get(j).getChi() + " term2: " + candidates.get(j).getTerm2());
 				}
+				
 			}
 		}
 
 		SearchSolr searchSolr = null;
+
+		//Switch for the different methods, and creates a SearchSolr object for querying Solr.
 		switch (method){
 		case 1:
 			System.out.println("Case 1");
@@ -116,16 +122,20 @@ public class Hits {
 			term = new SolrQuery(candidates.get(0).getTerm2());
 			term1 = new SolrQuery(candidates.get(0).getTerm1());
 			searchSolr = new SearchSolr(term1, term);
+
+			//The results from Solr
 			results = searchSolr.getDocLists();
 			break;
 		case 2:
 			System.out.println("Case 2");
 			searchSolr = new SearchSolr(term1, term);
+			//The results from Solr
 			results = searchSolr.getDocLists();
 			break;
 		case 3:
 			System.out.println("Case 3");
 			searchSolr = new SearchSolr(term1, term);
+			//The results from Solr
 			results = searchSolr.getDocLists();
 			break;
 		}
@@ -134,7 +144,7 @@ public class Hits {
 
 	public List<String> getUrls() {
 		List<String> urls = new ArrayList<String>();
-		// Fyller lista med url'er for bildene
+		// Fills the list with url's for the images
 		for (int i = 0; i < results.length; i++) {
 			for (SolrDocument doc : results[i]) {
 				urls.add((String) doc.getFieldValue("url_s"));
@@ -168,11 +178,11 @@ public class Hits {
 	}
 
 
-
+	//Creates the list for candidates for query expansion, only the 100 best
 	public List<Term2> getCandidates(){
 		Collections.sort(term2List);
 
-		List <Term2> resultList = new ArrayList<Term2>(150);
+		List <Term2> resultList = new ArrayList<Term2>(100);
 
 		int x = 0;
 
@@ -181,7 +191,7 @@ public class Hits {
 
 			if(!SearchDBpedia.queryStr.equals(name)){
 				x++;
-				to.setChi(getChiSquare(getFrequency(SearchDBpedia.queryStr), 150, name));
+				to.setChi(getChiSquare(getFrequency(SearchDBpedia.queryStr), 100, name));
 				to.setMI(getMI(getFrequency(SearchDBpedia.queryStr), name));
 				resultList.add(to);
 			}

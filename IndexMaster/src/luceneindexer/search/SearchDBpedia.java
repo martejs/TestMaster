@@ -38,6 +38,7 @@ public class SearchDBpedia{
 	private SolrDocumentList[] results;
 	private static List<String> urls;
 	
+	//Creates a SearchDBpedia object without query expansion
 	public SearchDBpedia(String query){
 		SearchSolr url = new SearchSolr();
 		SolrQuery q = new SolrQuery(query);
@@ -57,6 +58,7 @@ public class SearchDBpedia{
 		
 	}
 
+	//Creates a SearchDBpedia object with query expansion
 	public SearchDBpedia(String query, int valg){
 
 		queryStr = query;
@@ -71,9 +73,9 @@ public class SearchDBpedia{
 
 	public static List<String> getUrls() {
 		return urls;
-		
-
 	}
+	
+	//Method for searching in the index
 	public static boolean searchFiles(String field, String indexPath, String queryStr, int maxHits, int valg){
 
 		IndexReader reader;

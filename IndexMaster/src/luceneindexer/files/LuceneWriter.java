@@ -55,21 +55,16 @@ public class LuceneWriter {
 
 		try {
 
-			//Open the directory so lucene knows how to deal with it
+			//Open the directory so Lucene knows how to deal with it
 			Directory dir = FSDirectory.open(new File(pathToIndex));
 
-			//Chose the analyzer we are going to use to write documents to the index. We need to specify the version 
-			//of the Lucene index type we want to use
-			//            StandardAnalyzer analyzer = new StandardAnalyzer(Version.LUCENE_44);
-
-
-			//Create an index writer configuration. Same thing here with the index version
+			//Create an index writer configuration. 
 			IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_45, analyzer);
 
-			//we are always going to overwrite the index that is currently in the directory
+			//Overwrites the index that is currently in the directory
 			iwc.setOpenMode(OpenMode.CREATE);
 
-			//let's open that index and get a writer to hand back to the main code
+			//Open index and get a writer to hand back to the main code
 			indexWriter = new IndexWriter(dir, iwc);
 
 			return true;
@@ -79,6 +74,8 @@ public class LuceneWriter {
 		}
 
 	}
+	
+	//Code for indexing Title and Short abstract in DBpeida
 
 	//    public void addDBpedia(DBpedia dBpedia){
 	//    	FieldType fieldType = new FieldType();
@@ -121,6 +118,7 @@ public class LuceneWriter {
 	//        
 	//    }
 
+	//Code for indexing long abstract
 	public void addLongAbstract(LongAbstract longAbstract){
 		FieldType fieldType = new FieldType();
 		fieldType.setStoreTermVectors(true);
@@ -163,12 +161,9 @@ public class LuceneWriter {
 		}
 	}
 
-
+	//Removing stop word
 	public String removeStopWords(String sentence){
 
-
-
-		//    	final CharArraySet stopSet = new CharArraySet(Version.LUCENE_45, stopWords, false);
 		sentence= sentence.toLowerCase();
 		TokenStream ts = new StandardTokenizer(Version.LUCENE_45, new StringReader(sentence));
 
@@ -219,13 +214,7 @@ public class LuceneWriter {
 				"yes","yet","you","youd","you'll","your","youre","yours","yourself","yourselves","you've","zero");
 		ts = new StopFilter(Version.LUCENE_45, ts, StopFilter.makeStopSet(Version.LUCENE_45, stopWords));
 
-		//    	System.out.println(stopSet);
-
-
-		//    	Tokenizer tokenizer = new StandardTokenizer(Version.LUCENE_45, new StringReader(sentence));
-		//    	final StandardFilter standardFilter = new StandardFilter(Version.LUCENE_45, tokenizer);    
-		//    	final StopFilter stopFilter = new StopFilter(Version.LUCENE_45, standardFilter, );
-		//    	Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_45, stopSet);
+		
 		StringBuilder sb = new StringBuilder();
 
 		final CharTermAttribute charTermAttribute = ts.addAttribute(CharTermAttribute.class);   
@@ -252,23 +241,6 @@ public class LuceneWriter {
 		}
 		return sb.toString();
 
-
-		//	    	try {
-		//				stopFilter.reset();
-		//				
-		//				while(stopFilter.incrementToken()){				
-		//					if (sb.length() > 0) {
-		//	                    sb.append(" ");
-		//	                }
-		//					final String token = charTermAttribute.toString().toString();
-		//					sb.append(token);
-		//				}
-		//			} catch (IOException e) {
-		//				// TODO Auto-generated catch block
-		//				e.printStackTrace();
-		//			}
-
-		//    	return sb.toString();
 	}
 
 

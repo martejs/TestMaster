@@ -9,11 +9,12 @@ public class Term2 implements Comparable<Term2>{
 	private float chi;
 	private float tfIdf;
 
+
+	//Methods for keeping track of each candidate term
 	public Term2(String term1, String term2, int totDoc){
 		setTerm1(term1);
 		setTerm2(term2);
 		setTfIdf(totDoc);
-
 	}
 
 	public float getTfIdf() {
