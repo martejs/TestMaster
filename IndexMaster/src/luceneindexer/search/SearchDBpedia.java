@@ -47,7 +47,7 @@ public class SearchDBpedia{
 	
 		
 		 urls = new ArrayList<String>();
-		// Fyller lista med url'er for bildene
+		 //Urls for the images are put in the list
 		for (int i = 0; i < results.length; i++) {
 			for (SolrDocument doc : results[i]) {
 				urls.add((String) doc.getFieldValue("url_s"));

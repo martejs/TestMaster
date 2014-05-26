@@ -102,7 +102,7 @@ public class Main {
 				String line;
 
 				while((line = breader.readLine()) != null){
-
+					//Specify which sentences that should be indexed.
 					LongAbstract longAbstract = new LongAbstract();
 						if(line.contains("abstract")){
 							longAbstract.setResource(line.substring(1, (line.indexOf(">"))));

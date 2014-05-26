@@ -20,7 +20,7 @@ public class LongAbstract {
 		sw.setTotalDocs();
 		String longAb = new String();
 		
-		
+		//removes stopwords
 		longAb = sw.removeStopWords(longAbstract);
 		
 		this.long_abstract = longAb;

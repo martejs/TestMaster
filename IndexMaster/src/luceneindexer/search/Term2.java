@@ -49,7 +49,6 @@ public class Term2 implements Comparable<Term2>{
 	}
 
 
-
 	public boolean equals(Object o){
 		if(o instanceof String){
 			String e = (String) o;

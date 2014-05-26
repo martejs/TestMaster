@@ -56,7 +56,7 @@ public class SearchSolr {
 		return result;
 	}
 	
-	
+	//Search in Solr with the specified fields, and the query expansion
 	public SearchSolr(SolrQuery query, SolrQuery term2) throws SolrServerException, HTTPException, IOException{
 
 		System.out.println("Query er: " + query + " Term 2 er: " + term2);

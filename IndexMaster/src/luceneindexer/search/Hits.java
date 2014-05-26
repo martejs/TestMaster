@@ -228,14 +228,14 @@ public class Hits {
 	 * @param q: the number of occurrences of the query term
 	 * @param all: number of terms returned from TF-IDF
 	 * @param word: the candidate for query expansion
-	 * nNa: the number of occurrences of q divided by the 150 best terms returned by Tf/IDF.   
-	 * square: the frequency of the second term * with .......
+	 * nNa: the number of occurrences of q divided by the 100 best terms returned by Tf/IDF.   
+	 * square: the frequency of the second term multiplied with (1-nNa) squared 
 	 * @return chiSquare
 	 */
 	public float getChiSquare(int q, int all, String word){
 		float nNa = q/(float)all;
 		float square =getFrequency(word)* (float) Math.pow(((1-nNa)),2);
-		chiSquare = square/q;
+		chiSquare = square/q;  
 
 
 		return chiSquare;
