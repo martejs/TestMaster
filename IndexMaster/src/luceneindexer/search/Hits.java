@@ -246,7 +246,7 @@ public class Hits {
 	 * @param q: number of occurrences of the query term
 	 * @param word: the candidate for query expansion
 	 * nanb: the number of documents that the query occurs in * the number of documents that the second term occur in
-	 * nab: the number of documents that the second term occur in
+	 * nab: the number of documents that the query and the second term occur in
 	 * @return Mutual information 
 	 */
 	public float getMI(float q, String word){
